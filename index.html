@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hatty&#39;s Tools | Crypto &amp; Finance Calculators</title>
+<meta name="description" content="Clean, practical crypto and finance tools by HattyHats.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- AdSense Auto ads code -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6374033238930580"
+     crossorigin="anonymous"></script>
+
+<style>
+/* ============================================================
+   RESET & CSS VARIABLES  DARK MODE (default)
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --gold:        #f0a500;
+  --gold-light:  #fbbf24;
+  --gold-dim:    rgba(240,165,0,0.15);
+  --bg-deepest:  #050509;
+  --bg-deep:     #020617;
+  --bg-card:     #0b1120;
+  --bg-input:    #060d1a;
+  --border:      #1f2937;
+  --border-soft: #111827;
+  --text:        #f0f0f0;
+  --text-body:   #c9d1dc;
+  --text-muted:  #9ca3af;
+  --text-dim:    #6b7280;
+  --green:       #4ade80;
+  --red:         #fb923c;
+  --green-bg:    rgba(34,197,94,0.1);
+  --red-bg:      rgba(249,115,22,0.1);
+  --header-bg:   linear-gradient(180deg, #0a0f1e 0%, #050509 100%);
+  --hero-bg:     radial-gradient(ellipse at top, #192033 0%, #050509 65%);
+  --price-bar-bg: rgba(4, 9, 20, 0.97);
+  --result-divider: #1a2335;
+  --input-border: #273142;
+  --link-color:  #e5e7eb;
+}
+
+/* ============================================================
+   LIGHT MODE  overrides on body.light
+   ============================================================ */
+body.light {
+  --bg-deepest:  #f3f4f8;
+  --bg-deep:     #e8eaf0;
+  --bg-card:     #ffffff;
+  --bg-input:    #f0f2f7;
+  --border:      #d1d5db;
+  --border-soft: #e5e7eb;
+  --text:        #111827;
+  --text-body:   #374151;
+  --text-muted:  #4b5563;
+  --text-dim:    #9ca3af;
+  --header-bg:   linear-gradient(180deg, #1a2340 0%, #232b44 100%);
+  --hero-bg:     radial-gradient(ellipse at top, #dde3f0 0%, #f3f4f8 65%);
+  --price-bar-bg: rgba(20, 28, 50, 0.98);
+  --result-divider: #e5e7eb;
+  --input-border: #c9d1dc;
+  --link-color:  #1f2937;
+  /* Keep gold  it works on both */
+}
+
+body.light .tool-card {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+body.light .form-group input,
+body.light .form-group select {
+  color: #111827;
+  background: var(--bg-input);
+  border-color: var(--input-border);
+}
+body.light .form-group select option {
+  background: #f0f2f7;
+  color: #111827;
+}
+body.light .result-box {
+  color: #111827;
+}
+body.light .result-box em {
+  color: var(--text-dim);
+}
+body.light .result-summary {
+  color: #374151;
+}
+body.light .link-list a {
+  color: var(--link-color);
+}
+body.light .aside-block p {
+  color: var(--text-muted);
+}
+body.light footer {
+  background: #232b44;
+  color: #9ca3af;
+  border-top-color: #1f2937;
+}
+body.light footer a { color: var(--gold-light); }
+body.light .logo span { color: #fff; }
+
+/* Theme toggle button */
+#theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: #d1d5db;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+#theme-toggle:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  box-shadow: 0 0 10px rgba(240,165,0,0.3);
+}
+/* In light mode the toggle button needs to be visible on the dark header */
+body.light #theme-toggle {
+  border-color: rgba(255,255,255,0.25);
+  color: #e5e7eb;
+}
+body.light #theme-toggle:hover {
+  border-color: var(--gold-light);
+  color: var(--gold-light);
+}
+
+body {
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  background: radial-gradient(1200px 600px at 10% -10%, rgba(240,165,0,0.08), transparent 60%), var(--bg-deepest);
+  color: var(--text);
+  padding-bottom: 68px;
+  transition: background 0.25s, color 0.25s;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ============================================================
+   HEADER & NAV
+   ============================================================ */
+header {
+  background: var(--header-bg);
+  border-bottom: 2px solid var(--gold);
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  font-family: 'Fraunces', 'Space Grotesk', serif;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.logo span { color: #fff; }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+}
+
+/* Animated pill nav buttons */
+nav a {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #d1d5db;
+  background: rgba(255,255,255,0.03);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+nav a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(240,165,0,0.18), rgba(251,191,36,0.06));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+nav a:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+  background: rgba(240,165,0,0.08);
+}
+nav a:hover::after { opacity: 1; }
+nav a:active       { transform: translateY(0); }
+
+nav a.nav-special {
+  border-color: rgba(240,165,0,0.45);
+  background: rgba(240,165,0,0.07);
+  color: var(--gold-light);
+}
+nav a.nav-special:hover {
+  box-shadow: 0 0 18px rgba(240,165,0,0.55), 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  background: var(--hero-bg);
+  padding: 56px 24px 44px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; left: 50%; transform: translateX(-50%);
+  width: 520px; height: 280px;
+  background: radial-gradient(ellipse, rgba(240,165,0,0.09) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero h2 {
+  font-family: 'Fraunces', 'Space Grotesk', serif;
+  font-size: 2.15rem;
+  margin-bottom: 12px;
+  color: var(--gold);
+  letter-spacing: -0.4px;
+  position: relative;
+}
+.hero p {
+  max-width: 620px;
+  margin: 0 auto;
+  font-size: 1rem;
+  color: var(--text-body);
+  line-height: 1.75;
+  position: relative;
+}
+.hero-tag {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 0.8rem;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(240,165,0,0.5);
+  color: var(--gold-light);
+  background: rgba(240,165,0,0.07);
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+/* ============================================================
+   MAIN / LAYOUT
+   ============================================================ */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+.sec-title {
+  font-size: 1.4rem;
+  color: var(--gold);
+  margin-bottom: 22px;
+  border-left: 4px solid var(--gold);
+  padding-left: 12px;
+}
+
+/* ============================================================
+   TOOL GRID & CARDS
+   ============================================================ */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+.tool-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.25s;
+}
+.tool-card:hover {
+  border-color: rgba(240,165,0,0.3);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+}
+.tool-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.tool-card > p {
+  font-size: 0.87rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+/* ============================================================
+   FORM ELEMENTS
+   ============================================================ */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.form-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.form-group .label-note {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--input-border);
+  background: var(--bg-input);
+  color: var(--text);
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(240,165,0,0.15);
+}
+.form-group select option { background: var(--bg-input); }
+
+.calc-btn {
+  display: inline-block;
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, var(--gold) 0%, #d99200 100%);
+  color: #111827;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+}
+.calc-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 18px rgba(240,165,0,0.45);
+}
+.calc-btn:active  { transform: scale(0.97); }
+.calc-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Result display box */
+.result-box {
+  margin-top: 14px;
+  padding: 13px 14px;
+  border-radius: 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--result-divider);
+  font-size: 0.87rem;
+  color: var(--text);
+  min-height: 50px;
+  line-height: 1.7;
+  transition: background 0.25s;
+}
+.result-box em { color: var(--text-dim); }
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+  gap: 8px;
+}
+.result-label { color: var(--text-muted); font-size: 0.84rem; }
+.result-value  { font-weight: 600; text-align: right; }
+.result-divider {
+  border: none;
+  border-top: 1px solid var(--result-divider);
+  margin: 8px 0;
+}
+.clr-profit { color: var(--green); font-weight: 700; }
+.clr-loss   { color: var(--red);   font-weight: 700; }
+
+.result-summary {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: rgba(240,165,0,0.06);
+  border-radius: 8px;
+  font-size: 0.82rem;
+  color: var(--text-body);
+  line-height: 1.65;
+  border-left: 3px solid rgba(240,165,0,0.35);
+}
+.result-summary small { color: var(--text-dim); font-size: 0.75rem; }
+
+/* Loading spinner for async ops */
+.spinner {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 2px solid rgba(240,165,0,0.3);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.tool-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.76rem;
+  color: var(--text-dim);
+  margin-top: 14px;
+}
+.tool-status {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+.live { background: var(--green-bg); color: #bbf7d0; border: 1px solid #22c55e; }
+.soon { background: var(--red-bg);   color: #fed7aa; border: 1px solid #f97316; }
+
+/* ============================================================
+   ABOUT / ASIDE SECTION
+   ============================================================ */
+.aside {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 2fr 1.3fr;
+  gap: 28px;
+}
+.aside-block {
+  background: var(--bg-deep);
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+  padding: 20px;
+  transition: background 0.25s;
+}
+.aside-block h3 { font-size: 1.05rem; color: var(--gold); margin-bottom: 10px; }
+.aside-block p  { font-size: 0.87rem; color: var(--text-muted); line-height: 1.75; }
+
+.link-list { margin-top: 12px; }
+.link-list a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--link-color);
+  font-size: 0.85rem;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border-soft);
+  transition: color 0.2s;
+}
+.link-list a:last-child { border-bottom: none; }
+.link-list a:hover { color: var(--gold); }
+.link-list a span { font-size: 0.76rem; color: var(--text-dim); margin-left: auto; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  border-top: 1px solid var(--border-soft);
+  background: var(--bg-deep);
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  text-align: center;
+  padding: 18px 10px 28px;
+  transition: background 0.25s;
+}
+footer a { color: var(--gold); }
+
+/* ============================================================
+   LIVE PRICE BAR  continuously scrolling ticker (fixed bottom)
+   Coins: ADA, ALGO, BTC, ETH, SOL, POL, XRP, DOGE, BCH, XMR,
+          VOI, HOSKY, SNEK
+   Refreshes every 60 seconds; pauses on hover so you can read
+   ============================================================ */
+#price-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 200;
+  height: 40px;
+  background: var(--price-bar-bg);
+  border-top: 1px solid rgba(240,165,0,0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* "LIVE" label fixed on the left */
+#ticker-label {
+  flex-shrink: 0;
+  padding: 0 14px 0 16px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-right: 1px solid rgba(240,165,0,0.25);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 5px;
+}
+#ticker-label::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+/* Scrolling viewport */
+#ticker-viewport {
+  flex: 1;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* The track is 2- its content width  the second half is an
+   identical copy so the loop is perfectly seamless */
+#ticker-track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  will-change: transform;
+  animation: ticker-scroll 55s linear infinite;
+}
+#ticker-track:hover { animation-play-state: paused; }
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Individual price pill inside the track */
+.price-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 20px;
+  height: 40px;
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+.price-ticker {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+.price-val {
+  font-size: 0.8rem;
+  color: #e2e8f0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   RESPONSIVE / MOBILE
+   ============================================================ */
+@media (max-width: 720px) {
+  header { flex-direction: column; align-items: flex-start; }
+  .header-right { flex-direction: column; align-items: flex-start; }
+  nav { gap: 6px; }
+  nav a { font-size: 0.75rem; padding: 5px 11px; }
+  .hero h2 { font-size: 1.65rem; }
+  .aside  { grid-template-columns: 1fr; }
+  .tool-grid { grid-template-columns: 1fr; }
+  .price-ticker { font-size: 0.72rem; }
+  .price-val    { font-size: 0.76rem; }
+  .price-item   { padding: 0 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header>
+  <div class="logo">Hatty&#39;s <span>Tools</span></div>
+  <div class="header-right">
+    <nav>
+      <a href="https://earnwithhatty.com" target="_blank" rel="noopener">Main Site</a>
+      <a href="https://hattys-media.netlify.app/" target="_blank" rel="noopener">Hatty&#39;s Media</a>
+      <a href="https://hattys-news.netlify.app/" target="_blank" rel="noopener">Hatty&#39;s News</a>
+      <a href="https://privacy-gadgets-hub.netlify.app/" target="_blank" rel="noopener">Privacy Gadgets</a>
+      <a href="https://hattyhats.github.io/voi-maze/" target="_blank" rel="noopener" class="nav-special">Voi Maze</a>
+      <a href="https://hatty-universe.netlify.app/" target="_blank" rel="noopener" class="nav-special">Hatty Universe</a>
+    </nav>
+    <!-- Dark / Light mode toggle -->
+    <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+      <span id="theme-icon">Sun</span>
+      <span id="theme-label">Light Mode</span>
+    </button>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <h2>Practical Crypto &amp; Money Tools.</h2>
+  <p>
+    Clean calculators and simulators built for everyday decisions.
+    Plug in your numbers, see the reality, and move with clarity.
+  </p>
+  <div class="hero-tag">By HattyHats</div>
+</section>
+
+<!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+<main>
+  <section id="tools">
+    <h2 class="sec-title">Tools</h2>
+    <div class="tool-grid">
+
+      <!-- =====================================================
+           TOOL 1  CRYPTO PROFIT / LOSS CALCULATOR
+           ===================================================== -->
+      <div class="tool-card">
+        <h3>Crypto Profit / Loss Calculator</h3>
+        <p>
+          Enter your entry price, exit price, and position size to see your actual gain or loss,
+          fees included. Results are color-coded for instant clarity.
+        </p>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="pl-buy">Entry Price ($)</label>
+            <input id="pl-buy" type="number" step="any" min="0" placeholder="e.g. 0.25">
+          </div>
+          <div class="form-group">
+            <label for="pl-sell">Exit Price ($)</label>
+            <input id="pl-sell" type="number" step="any" min="0" placeholder="e.g. 0.35">
+          </div>
+          <div class="form-group">
+            <label for="pl-qty">Quantity (coins)</label>
+            <input id="pl-qty" type="number" step="any" min="0" placeholder="e.g. 1000">
+          </div>
+          <div class="form-group">
+            <label for="pl-fees">Total Fees ($) <span class="label-note">(optional)</span></label>
+            <input id="pl-fees" type="number" step="any" min="0" placeholder="e.g. 2.50">
+          </div>
+        </div>
+        <button class="calc-btn" id="pl-btn">Calculate</button>
+        <div class="result-box" id="pl-result"><em>Fill in the numbers and hit Calculate.</em></div>
+        <div class="tool-meta">
+          <span>Focus: Trade outcomes</span>
+          <span class="tool-status live">Live</span>
+        </div>
+      </div>
+
+      <!-- =====================================================
+           TOOL 2  DCA PLANNER  (with live historical prices)
+           ===================================================== -->
+      <div class="tool-card">
+        <h3>DCA Planner</h3>
+        <p>
+          Model dollar-cost averaging with real historical prices from CoinGecko
+          (for major coins) or a constant-price estimate. Enter your plan and see your
+          simulated average cost and total stack.
+        </p>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="dca-asset">Asset / Ticker</label>
+            <input id="dca-asset" type="text" placeholder="e.g. ADA, BTC, SOL">
+          </div>
+          <div class="form-group">
+            <label for="dca-price">Current Price ($) <span class="label-note">(fallback)</span></label>
+            <input id="dca-price" type="number" step="any" min="0" placeholder="e.g. 0.42">
+          </div>
+          <div class="form-group">
+            <label for="dca-amount">Amount per Interval ($)</label>
+            <input id="dca-amount" type="number" step="any" min="0" placeholder="e.g. 50">
+          </div>
+          <div class="form-group">
+            <label for="dca-interval">Interval</label>
+            <select id="dca-interval">
+              <option value="7">Weekly</option>
+              <option value="14">Bi-Weekly</option>
+              <option value="30" selected>Monthly</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="dca-periods">Number of Periods</label>
+            <input id="dca-periods" type="number" step="1" min="1" placeholder="e.g. 12">
+          </div>
+          <div class="form-group">
+            <label for="dca-start">Start Date</label>
+            <input id="dca-start" type="date">
+          </div>
+        </div>
+        <button class="calc-btn" id="dca-btn">Plan It</button>
+        <div class="result-box" id="dca-result"><em>Fill in details and hit Plan It.</em></div>
+        <div class="tool-meta">
+          <span>Focus: Long-term stacking</span>
+          <span class="tool-status live">Live</span>
+        </div>
+      </div>
+
+      <!-- =====================================================
+           TOOL 3  "CAN I MAKE IT?" SIMULATOR
+           ===================================================== -->
+      <div class="tool-card">
+        <h3>"Can I Make It?" Simulator</h3>
+        <p>
+          Pick a target price and find out exactly what your position would be worth and
+          whether you would hit a personal dollar goal. Instant reality check.
+        </p>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="cim-asset">Asset / Ticker</label>
+            <input id="cim-asset" type="text" placeholder="e.g. BTC">
+          </div>
+          <div class="form-group">
+            <label for="cim-current">Current Price ($)</label>
+            <input id="cim-current" type="number" step="any" min="0" placeholder="e.g. 60000">
+          </div>
+          <div class="form-group">
+            <label for="cim-target">Target Price ($)</label>
+            <input id="cim-target" type="number" step="any" min="0" placeholder="e.g. 100000">
+          </div>
+          <div class="form-group">
+            <label for="cim-invested">Amount Invested ($)</label>
+            <input id="cim-invested" type="number" step="any" min="0" placeholder="e.g. 500">
+          </div>
+          <div class="form-group">
+            <label for="cim-goal">Your $ Goal <span class="label-note">(optional)</span></label>
+            <input id="cim-goal" type="number" step="any" min="0" placeholder="e.g. 10000">
+          </div>
+        </div>
+        <button class="calc-btn" id="cim-btn">Simulate</button>
+        <div class="result-box" id="cim-result"><em>Enter your numbers and hit Simulate.</em></div>
+        <div class="tool-meta">
+          <span>Focus: Reality checks</span>
+          <span class="tool-status live">Live</span>
+        </div>
+      </div>
+
+    </div><!-- /tool-grid -->
+  </section>
+
+  <!-- =====================================================
+       ABOUT / CONNECT SECTION
+       ===================================================== -->
+  <section class="aside" id="about">
+    <div class="aside-block">
+      <h3>About Hatty&#39;s Tools</h3>
+      <p>
+        I'm HattyHats. I cover crypto, AI, privacy, and Web3 across YouTube and writing platforms.
+        Hatty&#39;s Tools is where I turn common "what if?" questions into practical calculators and
+        simulators you can use for free.
+      </p>
+      <p style="margin-top: 10px;">
+        As new videos and articles go live, I'll keep adding tools that help you test ideas and
+        get a clearer picture of your own numbers.
+      </p>
+    </div>
+    <div class="aside-block">
+      <h3>Connect</h3>
+      <p>More content and updates:</p>
+      <div class="link-list">
+        <a href="https://www.youtube.com/@hattyhats0" target="_blank" rel="noopener">
+          YouTube <span>deep dives &amp; walkthroughs</span>
+        </a>
+        <a href="https://x.com/hatty_hats" target="_blank" rel="noopener">
+          X / Twitter <span>daily threads &amp; charts</span>
+        </a>
+        <a href="https://hattyhats.github.io/voi-maze/" target="_blank" rel="noopener">
+          Voi Maze <span>NFT maze game</span>
+        </a>
+        <a href="https://hatty-universe.netlify.app/" target="_blank" rel="noopener">
+          Hatty Universe <span>explore the universe</span>
+        </a>
+        <a href="https://learn-with-hatty.printify.me/" target="_blank" rel="noopener">
+          Merch <span>support the work in style</span>
+        </a>
+        <a href="mailto:hattyhatss@yahoo.com">
+          Email <span>ideas, collabs, or feedback</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <p>&copy; 2026 Hatty&#39;s Tools - by HattyHats.</p>
+  <p style="margin-top: 6px;">
+    <a href="https://earnwithhatty.com" target="_blank" rel="noopener">Back to Main Site</a>
+  </p>
+</footer>
+
+<!-- ============================================================
+     LIVE PRICE BAR  scrolling ticker
+     Fixed bottom, does not scroll away.
+     API      : CoinGecko free public REST API (no key)
+     Endpoint : /api/v3/simple/price
+     Coins    : ADA, ALGO, BTC, ETH, SOL, POL, XRP, DOGE, BCH,
+                XMR, VOI, HOSKY, SNEK
+     Interval : 60 seconds
+     Content built & updated entirely by JS (see script below)
+     ============================================================ -->
+<div id="price-bar" aria-label="Live crypto prices">
+  <div id="ticker-label">LIVE</div>
+  <div id="ticker-viewport">
+    <div id="ticker-track"><!-- populated by JS --></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+
+/* ============================================================
+   UTILITY: format a dollar number with commas
+   ============================================================ */
+function fmtUSD(n, decimals) {
+  return '$' + n.toLocaleString('en-US', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  });
+}
+
+function parseNumber(input) {
+  var raw = String(input && input.value !== undefined ? input.value : input).replace(/,/g, '').trim();
+  if (raw === '') return NaN;
+  return Number(raw);
+}
+
+function parseInteger(input) {
+  var raw = String(input && input.value !== undefined ? input.value : input).replace(/,/g, '').trim();
+  if (raw === '') return NaN;
+  return parseInt(raw, 10);
+}
+
+function bindEnter(inputs, btn) {
+  inputs.forEach(function (el) {
+    if (!el) return;
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        btn.click();
+      }
+    });
+  });
+}
+
+/* ============================================================
+   THEME TOGGLE (Dark / Light)
+   Persists preference to localStorage so it survives refreshes.
+   Default: dark mode.
+   ============================================================ */
+(function () {
+  var body      = document.body;
+  var btn       = document.getElementById('theme-toggle');
+  var icon      = document.getElementById('theme-icon');
+  var label     = document.getElementById('theme-label');
+
+  // Read saved preference (default = dark)
+  var saved = localStorage.getItem('hh-theme');
+  if (saved === 'light') applyLight();
+
+  function applyLight() {
+    body.classList.add('light');
+    icon.textContent  = 'Moon';
+    label.textContent = 'Dark Mode';
+  }
+  function applyDark() {
+    body.classList.remove('light');
+    icon.textContent  = 'Sun';
+    label.textContent = 'Light Mode';
+  }
+
+  btn.addEventListener('click', function () {
+    if (body.classList.contains('light')) {
+      applyDark();
+      localStorage.setItem('hh-theme', 'dark');
+    } else {
+      applyLight();
+      localStorage.setItem('hh-theme', 'light');
+    }
+  });
+})();
+
+/* ============================================================
+   TOOL 1 - CRYPTO PROFIT / LOSS CALCULATOR
+   Inputs : entry price, exit price, quantity (coins), fees
+   Outputs: cost basis, proceeds, net P/L (colored), ROI %
+   ============================================================ */
+(function () {
+  var buyEl  = document.getElementById('pl-buy');
+  var sellEl = document.getElementById('pl-sell');
+  var qtyEl  = document.getElementById('pl-qty');
+  var feesEl = document.getElementById('pl-fees');
+  var btn    = document.getElementById('pl-btn');
+  var out    = document.getElementById('pl-result');
+  if (!btn || !out) return;
+  bindEnter([buyEl, sellEl, qtyEl, feesEl], btn);
+
+  btn.addEventListener('click', function () {
+    var buy  = parseNumber(buyEl);
+    var sell = parseNumber(sellEl);
+    var qty  = parseNumber(qtyEl);
+    var fees = parseNumber(feesEl);
+    if (isNaN(fees) || fees < 0) fees = 0;
+
+    if (isNaN(buy) || buy <= 0 || isNaN(sell) || sell <= 0 || isNaN(qty) || qty <= 0) {
+      out.innerHTML = '<span style="color:var(--red);">Please enter a valid entry price, exit price, and quantity.</span>';
+      return;
+    }
+
+    var cost     = buy * qty;
+    var proceeds = sell * qty;
+    var netPL    = proceeds - cost - fees;
+    var roi      = cost > 0 ? (netPL / cost) * 100 : 0;
+    var isProfit = netPL >= 0;
+    var cls      = isProfit ? 'clr-profit' : 'clr-loss';
+    var sign     = isProfit ? '+' : '-';
+
+    out.innerHTML =
+      '<div class="result-row">' +
+        '<span class="result-label">Cost basis</span>' +
+        '<span class="result-value">' + fmtUSD(cost, 2) + '</span>' +
+      '</div>' +
+      '<div class="result-row">' +
+        '<span class="result-label">Proceeds</span>' +
+        '<span class="result-value">' + fmtUSD(proceeds, 2) + '</span>' +
+      '</div>' +
+      (fees > 0 ?
+        '<div class="result-row">' +
+          '<span class="result-label">Fees deducted</span>' +
+          '<span class="result-value" style="color:var(--text-muted);">-' + fmtUSD(fees, 2) + '</span>' +
+        '</div>' : '') +
+      '<hr class="result-divider">' +
+      '<div class="result-row">' +
+        '<span class="result-label">' + (isProfit ? 'Profit' : 'Loss') + '</span>' +
+        '<span class="result-value ' + cls + '">' + sign + fmtUSD(Math.abs(netPL), 2) + '</span>' +
+      '</div>' +
+      '<div class="result-row">' +
+        '<span class="result-label">ROI</span>' +
+        '<span class="result-value ' + cls + '">' + sign + Math.abs(roi).toFixed(2) + '%</span>' +
+      '</div>' +
+      '<div class="result-summary">' +
+        'Net result = ' + (isProfit ? 'profit' : 'loss') + ' after fees based on your entry and exit prices.' +
+      '</div>';
+  });
+})();
+
+/* ============================================================
+   TOOL 2 -- DCA PLANNER WITH REAL HISTORICAL PRICES
+   Inputs : asset ticker, current price, amount, interval, periods, start date
+   Outputs: totals, avg cost, unrealized P/L, end date
+   ============================================================ */
+(function () {
+  // ---- Ticker to CoinGecko ID lookup ----
+  var TICKER_MAP = {
+    ADA:   'cardano',
+    BTC:   'bitcoin',
+    ETH:   'ethereum',
+    ALGO:  'algorand',
+    SOL:   'solana',
+    MATIC: 'matic-network',
+    POL:   'matic-network',
+    BNB:   'binancecoin',
+    DOT:   'polkadot',
+    AVAX:  'avalanche-2',
+    LINK:  'chainlink',
+    XRP:   'ripple',
+    DOGE:  'dogecoin',
+    LTC:   'litecoin',
+    UNI:   'uniswap',
+    ATOM:  'cosmos',
+    FIL:   'filecoin',
+    NEAR:  'near',
+    APT:   'aptos',
+    ARB:   'arbitrum',
+    OP:    'optimism',
+    INJ:   'injective-protocol'
+  };
+
+  var MAX_HISTORY_DAYS = 365; // CoinGecko free tier daily data cap
+
+  var assetEl    = document.getElementById('dca-asset');
+  var priceEl    = document.getElementById('dca-price');
+  var amountEl   = document.getElementById('dca-amount');
+  var intervalEl = document.getElementById('dca-interval');
+  var periodsEl  = document.getElementById('dca-periods');
+  var startEl    = document.getElementById('dca-start');
+  var btn        = document.getElementById('dca-btn');
+  var out        = document.getElementById('dca-result');
+  if (!btn || !out) return;
+  bindEnter([assetEl, priceEl, amountEl, intervalEl, periodsEl, startEl], btn);
+
+  // Pre-fill start date to today
+  startEl.value = new Date().toISOString().split('T')[0];
+
+  /* Render the final result after we have prices (array or null for fallback) */
+  function renderResult(opts) {
+    var asset         = opts.asset;
+    var amount        = opts.amount;
+    var periods       = opts.periods;
+    var days          = opts.days;
+    var intervalLabel = opts.intervalLabel;
+    var endDateStr    = opts.endDateStr;
+    var prices        = opts.prices;        // array of daily [timestamp, price] or null
+    var fallbackPrice = opts.fallbackPrice; // used if no historical data
+
+    var totalInvested, totalCoins, avgCost, usedHistorical, cappedNote;
+
+    if (prices && prices.length >= 2) {
+      // ---- HISTORICAL DCA SIMULATION ----
+      usedHistorical = true;
+      totalInvested = 0;
+      totalCoins = 0;
+      cappedNote = opts.capped;
+
+      // Build a date to price lookup from the history array
+      var priceLookup = {};
+      prices.forEach(function (p) {
+        var d = new Date(p[0]);
+        var key = d.toISOString().split('T')[0];
+        priceLookup[key] = p[1];
+      });
+
+      // All available dates sorted
+      var availDates = Object.keys(priceLookup).sort();
+
+      // Helper: find closest available price to a target date
+      function closestPrice(targetDateStr) {
+        if (priceLookup[targetDateStr]) return priceLookup[targetDateStr];
+        var best = null, bestDiff = Infinity;
+        availDates.forEach(function (d) {
+          var diff = Math.abs(new Date(d) - new Date(targetDateStr));
+          if (diff < bestDiff) { bestDiff = diff; best = priceLookup[d]; }
+        });
+        return best;
+      }
+
+      // Simulate each buy
+      var startDate = new Date(opts.startDate + 'T00:00:00');
+      var actualPeriods = Math.min(periods, opts.capped ? opts.cappedPeriods : periods);
+
+      for (var i = 0; i < actualPeriods; i++) {
+        var buyDate = new Date(startDate);
+        buyDate.setDate(buyDate.getDate() + days * i);
+        var buyDateStr = buyDate.toISOString().split('T')[0];
+        var p = closestPrice(buyDateStr);
+        if (p && p > 0) {
+          totalInvested += amount;
+          totalCoins    += amount / p;
+        }
+      }
+
+      avgCost = totalCoins > 0 ? totalInvested / totalCoins : 0;
+    } else {
+      // ---- CONSTANT PRICE FALLBACK ----
+      usedHistorical = false;
+      totalInvested  = amount * periods;
+      totalCoins     = totalInvested / fallbackPrice;
+      avgCost        = fallbackPrice;
+    }
+
+    // Current value at user-entered price (or fallbackPrice)
+    var currentVal = totalCoins * fallbackPrice;
+    var unrealized = currentVal - totalInvested;
+    var unrClass   = unrealized >= 0 ? 'clr-profit' : 'clr-loss';
+    var unrSign    = unrealized >= 0 ? '+' : '-';
+
+    var sourceNote = usedHistorical
+      ? 'Based on real historical prices from CoinGecko.' + (cappedNote ? ' (Plan capped at ' + MAX_HISTORY_DAYS + ' days of history.)' : '')
+      : 'No historical data found for <strong>' + asset + '</strong> - using your entered price as a constant estimate.';
+
+    out.innerHTML =
+      '<div class="result-row">' +
+        '<span class="result-label">Total invested</span>' +
+        '<span class="result-value clr-profit">' + fmtUSD(totalInvested, 2) + '</span>' +
+      '</div>' +
+      '<div class="result-row">' +
+        '<span class="result-label">Coins accumulated</span>' +
+        '<span class="result-value">' + totalCoins.toFixed(4) + ' ' + asset + '</span>' +
+      '</div>' +
+      '<div class="result-row">' +
+        '<span class="result-label">Avg buy price (' + (usedHistorical ? 'historical' : 'assumed') + ')</span>' +
+        '<span class="result-value">' + fmtUSD(avgCost, avgCost < 1 ? 4 : 2) + '</span>' +
+      '</div>' +
+      '<div class="result-row">' +
+        '<span class="result-label">Current value</span>' +
+        '<span class="result-value">' + fmtUSD(currentVal, 2) + '</span>' +
+      '</div>' +
+      '<div class="result-row">' +
+        '<span class="result-label">Unrealized P/L</span>' +
+        '<span class="result-value ' + unrClass + '">' + unrSign + fmtUSD(Math.abs(unrealized), 2) + '</span>' +
+      '</div>' +
+      (endDateStr ?
+        '<div class="result-row">' +
+          '<span class="result-label">Plan end date</span>' +
+          '<span class="result-value">' + endDateStr + '</span>' +
+        '</div>' : '') +
+      '<div class="result-summary">' +
+        'Investing <strong style="color:var(--gold-light);">' + fmtUSD(amount, 2) + '</strong> ' + intervalLabel +
+        ' for <strong style="color:var(--gold-light);">' + periods + ' periods</strong> = ' +
+        '<strong style="color:var(--gold-light);">' + fmtUSD(totalInvested, 2) + '</strong> total, ' +
+        '<strong style="color:var(--gold-light);">' + totalCoins.toFixed(4) + ' ' + asset + '</strong> at avg ' +
+        fmtUSD(avgCost, avgCost < 1 ? 4 : 2) + '/coin.' +
+        '<br><small>' + sourceNote + '</small>' +
+      '</div>';
+  }
+
+  btn.addEventListener('click', function () {
+    var asset    = (assetEl.value.trim().toUpperCase()) || 'ASSET';
+    var price    = parseNumber(priceEl);
+    var amount   = parseNumber(amountEl);
+    var days     = parseInteger(intervalEl);
+    var periods  = parseInteger(periodsEl);
+    var startVal = startEl.value;
+
+    var intervalLabel = { 7: 'weekly', 14: 'bi-weekly', 30: 'monthly' }[days] || 'per interval';
+
+    if (isNaN(amount) || amount <= 0 || isNaN(periods) || periods < 1) {
+      out.innerHTML = '<span style="color:var(--red);">Please enter investment amount and number of periods.</span>';
+      return;
+    }
+    if ((isNaN(price) || price <= 0)) {
+      out.innerHTML = '<span style="color:var(--red);">Please enter a current price (used as fallback if historical data is unavailable).</span>';
+      return;
+    }
+
+    // End date calculation
+    var endDateStr = '';
+    if (startVal) {
+      var endDate = new Date(startVal);
+      endDate.setDate(endDate.getDate() + days * Math.max(periods - 1, 0));
+      endDateStr = endDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    // Total days for this DCA plan
+    var totalPlanDays = days * periods;
+    var capped = totalPlanDays > MAX_HISTORY_DAYS;
+    var effectiveDays = Math.min(totalPlanDays, MAX_HISTORY_DAYS);
+    var cappedPeriods = Math.floor(effectiveDays / days);
+
+    var cgId = TICKER_MAP[asset];
+
+    var baseOpts = {
+      asset: asset,
+      amount: amount,
+      periods: periods,
+      days: days,
+      intervalLabel: intervalLabel,
+      endDateStr: endDateStr,
+      fallbackPrice: price,
+      startDate: startVal || new Date().toISOString().split('T')[0],
+      capped: capped,
+      cappedPeriods: cappedPeriods
+    };
+
+    if (cgId && startVal) {
+      // Fetch real historical data going back `effectiveDays` days from TODAY
+      var daysBack = Math.max(effectiveDays,
+        Math.ceil((Date.now() - new Date(startVal).getTime()) / 86400000) + days + 5
+      );
+      daysBack = Math.min(daysBack, MAX_HISTORY_DAYS);
+
+      // Show loading state
+      out.innerHTML = '<span class="spinner"></span> Fetching historical ' + asset + ' prices from CoinGecko...';
+      btn.disabled = true;
+
+      var url = 'https://api.coingecko.com/api/v3/coins/' + cgId +
+                '/market_chart?vs_currency=usd&days=' + daysBack + '&interval=daily';
+
+      fetch(url)
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          btn.disabled = false;
+          var priceArr = (data && data.prices) ? data.prices : null;
+          baseOpts.prices = priceArr;
+          renderResult(baseOpts);
+        })
+        .catch(function () {
+          btn.disabled = false;
+          baseOpts.prices = null;
+          renderResult(baseOpts);
+        });
+    } else {
+      // Unknown ticker or no start date -- constant-price fallback immediately
+      baseOpts.prices = null;
+      renderResult(baseOpts);
+    }
+  });
+})();
+
+/* ============================================================
+   TOOL 3 -- "CAN I MAKE IT?" SIMULATOR
+   Inputs : asset name, current price, target price, amount invested, personal goal
+   Outputs: coins, value at target, P/L, ROI %, multiplier, message
+   ============================================================ */
+(function () {
+  var assetEl    = document.getElementById('cim-asset');
+  var currentEl  = document.getElementById('cim-current');
+  var targetEl   = document.getElementById('cim-target');
+  var investedEl = document.getElementById('cim-invested');
+  var goalEl     = document.getElementById('cim-goal');
+  var btn        = document.getElementById('cim-btn');
+  var out        = document.getElementById('cim-result');
+  if (!btn || !out) return;
+  bindEnter([assetEl, currentEl, targetEl, investedEl, goalEl], btn);
+
+  btn.addEventListener('click', function () {
+    var asset    = (assetEl.value.trim().toUpperCase()) || 'ASSET';
+    var current  = parseNumber(currentEl);
+    var target   = parseNumber(targetEl);
+    var invested = parseNumber(investedEl);
+    var goal     = parseNumber(goalEl) || 0;
+
+    if (isNaN(current) || current <= 0 || isNaN(target) || target <= 0 || isNaN(invested) || invested <= 0) {
+      out.innerHTML = '<span style="color:var(--red);">Please enter current price, target price, and amount invested.</span>';
+      return;
+    }
+
+    var coins         = invested / current;
+    var valueAtTarget = coins * target;
+    var profitRaw     = valueAtTarget - invested;
+    var roi           = (profitRaw / invested) * 100;
+    var multiplier    = target / current;
+    var isProfit      = profitRaw >= 0;
+    var cls           = isProfit ? 'clr-profit' : 'clr-loss';
+    var sign          = isProfit ? '+' : '-';
+
+    var message = '';
+    if (goal > 0) {
+      if (valueAtTarget >= goal) {
+        message = 'Yes - you would hit your <strong style="color:var(--gold-light);">' + fmtUSD(goal, 0) + '</strong> goal with <strong style="color:var(--green);">' + fmtUSD(valueAtTarget - goal, 2) + '</strong> to spare!';
+      } else {
+        message = 'Not quite - you would be <strong style="color:var(--red);">' + fmtUSD(goal - valueAtTarget, 2) + '</strong> short of your ' + fmtUSD(goal, 0) + ' goal. DCA\'ing in more could bridge the gap.';
+      }
+    } else {
+      if      (multiplier >= 10) message = '10x+ scenario - life-changing if it plays out. Position sizing matters.';
+      else if (multiplier >= 5)  message = 'Massive move - a ' + multiplier.toFixed(2) + 'x gain. High conviction plays only.';
+      else if (multiplier >= 2)  message = 'Strong territory - a ' + multiplier.toFixed(2) + 'x. Patience and conviction could pay off.';
+      else if (roi >= 0)         message = 'Modest gain at ' + sign + roi.toFixed(1) + '%. Worth it depending on timeframe and conviction.';
+      else                       message = 'This scenario shows a loss at ' + sign + Math.abs(roi).toFixed(1) + '%. Always size your risk carefully.';
+    }
+
+    out.innerHTML =
+      '<div class="result-row">' +
+        '<span class="result-label">Coins at current price</span>' +
+        '<span class="result-value">' + coins.toFixed(6) + ' ' + asset + '</span>' +
+      '</div>' +
+      '<div class="result-row">' +
+        '<span class="result-label">Value at target</span>' +
+        '<span class="result-value ' + cls + '">' + fmtUSD(valueAtTarget, 2) + '</span>' +
+      '</div>' +
+      '<hr class="result-divider">' +
+      '<div class="result-row">' +
+        '<span class="result-label">Profit / Loss</span>' +
+        '<span class="result-value ' + cls + '">' + sign + fmtUSD(Math.abs(profitRaw), 2) + '</span>' +
+      '</div>' +
+      '<div class="result-row">' +
+        '<span class="result-label">ROI</span>' +
+        '<span class="result-value ' + cls + '">' + sign + Math.abs(roi).toFixed(2) + '%</span>' +
+      '</div>' +
+      '<div class="result-row">' +
+        '<span class="result-label">Multiplier</span>' +
+        '<span class="result-value">' + multiplier.toFixed(2) + 'x</span>' +
+      '</div>' +
+      '<div class="result-summary">' + message + '</div>';
+  });
+})();
+
+/* ============================================================
+   LIVE PRICE BAR  scrolling ticker
+   
+   API      : CoinGecko free public REST API (no key needed)
+   Endpoint : /api/v3/simple/price
+   Coins    : see COINS array below
+   Interval : 60 seconds
+   Technique: JS builds two identical copies of the price items
+              inside #ticker-track so the CSS translateX(-50%)
+              animation loops seamlessly. Hovering pauses the
+              scroll so prices can be read easily.
+   Fallback : Shows "" until first fetch; "N/A" on API error.
+              VOI / HOSKY / SNEK show N/A if not yet on CoinGecko.
+   ============================================================ */
+(function () {
+
+  //  Coin definitions 
+  // cgId     = CoinGecko asset ID
+  // ticker   = display label in the bar
+  // decimals = decimal places to show for the USD price
+  // To add more coins: drop an entry here, no HTML changes needed.
+  var COINS = [
+    { cgId: 'cardano',                  ticker: 'ADA',   decimals: 4 },
+    { cgId: 'algorand',                 ticker: 'ALGO',  decimals: 4 },
+    { cgId: 'bitcoin',                  ticker: 'BTC',   decimals: 0 },
+    { cgId: 'ethereum',                 ticker: 'ETH',   decimals: 2 },
+    { cgId: 'solana',                   ticker: 'SOL',   decimals: 2 },
+    { cgId: 'polygon-ecosystem-token',  ticker: 'POL',   decimals: 4 },
+    { cgId: 'ripple',                   ticker: 'XRP',   decimals: 4 },
+    { cgId: 'dogecoin',                 ticker: 'DOGE',  decimals: 5 },
+    { cgId: 'bitcoin-cash',             ticker: 'BCH',   decimals: 2 },
+    { cgId: 'monero',                   ticker: 'XMR',   decimals: 2 },
+    { cgId: 'voi-network',              ticker: 'VOI',   decimals: 4 },
+    { cgId: 'hosky-token',              ticker: 'HOSKY', decimals: 8 },
+    { cgId: 'snek',                     ticker: 'SNEK',  decimals: 6 }
+  ];
+
+  var track   = document.getElementById('ticker-track');
+  if (!track) return;
+  var ids     = COINS.map(function (c) { return c.cgId; }).join(',');
+  var API_URL = 'https://api.coingecko.com/api/v3/simple/price?ids=' + ids + '&vs_currencies=usd';
+
+  //  Build the ticker HTML (called once on load) 
+  // We render TWO identical sets of items so the CSS -50% loop
+  // is seamless  when the first copy scrolls off-screen, the
+  // second copy is already in view with identical content.
+  function buildTrack() {
+    var html = '';
+    // Build one full set of price items
+    function oneSet() {
+      return COINS.map(function (c) {
+        return '<div class="price-item">' +
+          '<span class="price-ticker">' + c.ticker + '</span>' +
+          '<span class="price-val pi-' + c.cgId.replace(/[^a-z0-9]/g, '-') + '">--</span>' +
+        '</div>';
+      }).join('');
+    }
+    // Duplicate for seamless loop
+    track.innerHTML = oneSet() + oneSet();
+  }
+
+  //  Update all instances of a coin's price in the track 
+  function updateCoin(cgId, text) {
+    var cls = 'pi-' + cgId.replace(/[^a-z0-9]/g, '-');
+    var els = document.querySelectorAll('.' + cls);
+    for (var i = 0; i < els.length; i++) { els[i].textContent = text; }
+  }
+
+  //  Fetch live prices from CoinGecko 
+  function fetchPrices() {
+    fetch(API_URL)
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        COINS.forEach(function (coin) {
+          var entry = data[coin.cgId];
+          var text = (entry && typeof entry.usd === 'number')
+            ? fmtUSD(entry.usd, coin.decimals)
+            : 'N/A';
+          updateCoin(coin.cgId, text);
+        });
+      })
+      .catch(function () {
+        COINS.forEach(function (coin) {
+          updateCoin(coin.cgId, 'N/A');
+        });
+      });
+  }
+
+  //  Init 
+  buildTrack();
+  fetchPrices();
+  setInterval(fetchPrices, 60000);
+})();
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
