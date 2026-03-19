@@ -6,15 +6,11 @@
 <title>Hatty&#39;s Tools | Crypto &amp; Finance Calculators</title>
 <meta name="description" content="Clean, practical crypto and finance tools by HattyHats.">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<!-- AdSense Auto ads code -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6374033238930580"
-     crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6374033238930580" crossorigin="anonymous"></script>
+<!-- LiveCoinWatch — one script load covers all widgets on the page -->
+<script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
 
 <style>
-/* ============================================================
-   RESET & CSS VARIABLES  DARK MODE (default)
-   ============================================================ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -37,15 +33,11 @@
   --red-bg:      rgba(249,115,22,0.1);
   --header-bg:   linear-gradient(180deg, #0a0f1e 0%, #050509 100%);
   --hero-bg:     radial-gradient(ellipse at top, #192033 0%, #050509 65%);
-  --price-bar-bg: rgba(4, 9, 20, 0.97);
   --result-divider: #1a2335;
   --input-border: #273142;
   --link-color:  #e5e7eb;
 }
 
-/* ============================================================
-   LIGHT MODE
-   ============================================================ */
 body.light {
   --bg-deepest:  #f3f4f8;
   --bg-deep:     #e8eaf0;
@@ -59,548 +51,423 @@ body.light {
   --text-dim:    #9ca3af;
   --header-bg:   linear-gradient(180deg, #1a2340 0%, #232b44 100%);
   --hero-bg:     radial-gradient(ellipse at top, #dde3f0 0%, #f3f4f8 65%);
-  --price-bar-bg: rgba(20, 28, 50, 0.98);
   --result-divider: #e5e7eb;
   --input-border: #c9d1dc;
   --link-color:  #1f2937;
 }
-
-body.light .tool-card { box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
 body.light .form-group input,
-body.light .form-group select { color: #111827; background: var(--bg-input); border-color: var(--input-border); }
-body.light .form-group select option { background: #f0f2f7; color: #111827; }
-body.light .result-box { color: #111827; }
-body.light .result-box em { color: var(--text-dim); }
-body.light .result-summary { color: #374151; }
-body.light .link-list a { color: var(--link-color); }
-body.light .aside-block p { color: var(--text-muted); }
-body.light footer { background: #232b44; color: #9ca3af; border-top-color: #1f2937; }
-body.light footer a { color: var(--gold-light); }
-body.light .logo span { color: #fff; }
+body.light .form-group select { color:#111827; background:var(--bg-input); border-color:var(--input-border); }
+body.light .form-group select option { background:#f0f2f7; color:#111827; }
+body.light .result-box { color:#111827; }
+body.light .result-box em { color:var(--text-dim); }
+body.light .result-summary { color:#374151; }
+body.light .link-list a { color:var(--link-color); }
+body.light .aside-block p { color:var(--text-muted); }
+body.light footer { background:#232b44; color:#9ca3af; border-top-color:#1f2937; }
+body.light footer a { color:var(--gold-light); }
+body.light .logo span { color:#fff; }
 
-/* Theme toggle */
 #theme-toggle {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 5px 12px;
-  cursor: pointer;
-  font-size: 0.82rem;
-  color: #d1d5db;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  white-space: nowrap;
+  background:none; border:1px solid var(--border); border-radius:999px; padding:5px 12px;
+  cursor:pointer; font-size:0.82rem; color:#d1d5db; transition:all 0.2s;
+  display:flex; align-items:center; gap:5px; white-space:nowrap;
 }
-#theme-toggle:hover { border-color: var(--gold); color: var(--gold); box-shadow: 0 0 10px rgba(240,165,0,0.3); }
-body.light #theme-toggle { border-color: rgba(255,255,255,0.25); color: #e5e7eb; }
-body.light #theme-toggle:hover { border-color: var(--gold-light); color: var(--gold-light); }
+#theme-toggle:hover { border-color:var(--gold); color:var(--gold); box-shadow:0 0 10px rgba(240,165,0,0.3); }
+body.light #theme-toggle { border-color:rgba(255,255,255,0.25); color:#e5e7eb; }
+body.light #theme-toggle:hover { border-color:var(--gold-light); color:var(--gold-light); }
 
 body {
-  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-  background: radial-gradient(1200px 600px at 10% -10%, rgba(240,165,0,0.08), transparent 60%), var(--bg-deepest);
-  color: var(--text);
-  padding-bottom: 68px;
-  transition: background 0.25s, color 0.25s;
+  font-family:'Space Grotesk',system-ui,-apple-system,sans-serif;
+  background:radial-gradient(1200px 600px at 10% -10%,rgba(240,165,0,0.08),transparent 60%),var(--bg-deepest);
+  color:var(--text);
+  padding-bottom:60px;
+  transition:background 0.25s,color 0.25s;
 }
-a { text-decoration: none; color: inherit; }
+a { text-decoration:none; color:inherit; }
 
 /* ============================================================
    SPLASH SCREEN
    ============================================================ */
 #splash {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: #020617;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-  overflow: hidden;
+  position:fixed; inset:0; z-index:9999; background:#020617;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:20px; overflow:hidden;
 }
-
-/* Background image */
 #splash-bg {
-  position: absolute;
-  inset: 0;
-  background: url('hattys-tool.png') center center / contain no-repeat;
-  opacity: 0;
-  filter: brightness(0.2) saturate(0.5);
-  transform: scale(1.08);
-  animation: splashBgIn 2.6s ease-out 0.2s forwards;
+  position:absolute; inset:0;
+  background:url('hattys-tool.png') center center / contain no-repeat;
+  opacity:0; filter:brightness(0.2) saturate(0.5); transform:scale(1.08);
+  animation:splashBgIn 2.6s ease-out 0.2s forwards;
 }
-@keyframes splashBgIn {
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* Vignette so text stays readable */
+@keyframes splashBgIn { to { opacity:1; transform:scale(1); } }
 #splash-vignette {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at center, transparent 25%, rgba(2,6,23,0.88) 72%),
-    linear-gradient(180deg, rgba(2,6,23,0.6) 0%, transparent 20%, transparent 78%, rgba(2,6,23,0.7) 100%);
-  pointer-events: none;
+  position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 25%,rgba(2,6,23,0.88) 72%),
+    linear-gradient(180deg,rgba(2,6,23,0.6) 0%,transparent 20%,transparent 78%,rgba(2,6,23,0.7) 100%);
 }
-
-/* Scanlines */
 #splash-scanlines {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px, transparent 3px,
-    rgba(0,0,0,0.045) 3px, rgba(0,0,0,0.045) 4px
-  );
+  position:absolute; inset:0; pointer-events:none;
+  background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,0.045) 3px,rgba(0,0,0,0.045) 4px);
 }
-
-/* All text content sits above layers */
-#splash-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-
-/* "Welcome To:" */
+#splash-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; }
 #splash-welcome {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(0.9rem, 2.8vw, 1.45rem);
-  font-weight: 600;
-  color: rgba(224, 231, 255, 0.72);
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: splashFadeUp 1.2s ease-out 1.5s forwards;
-  margin-bottom: 16px;
+  font-size:clamp(0.9rem,2.8vw,1.45rem); font-weight:600; color:rgba(224,231,255,0.72);
+  letter-spacing:0.38em; text-transform:uppercase;
+  opacity:0; transform:translateY(10px); animation:splashFadeUp 1.2s ease-out 1.5s forwards; margin-bottom:16px;
 }
-
-/* "Hatty's Tools" */
 #splash-title {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(3rem, 13vw, 8.5rem);
-  font-weight: 900;
-  line-height: 1;
-  color: #f0a500;
-  text-shadow: 0 0 40px rgba(240,165,0,0.45), 0 0 90px rgba(240,165,0,0.18);
-  opacity: 0;
-  animation: splashFadeUp 1.3s ease-out 2.4s forwards;
-  margin-bottom: 14px;
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 0.2em;
-  flex-wrap: wrap;
+  font-family:'Fraunces',serif; font-size:clamp(3rem,13vw,8.5rem); font-weight:900; line-height:1;
+  color:#f0a500; text-shadow:0 0 40px rgba(240,165,0,0.45),0 0 90px rgba(240,165,0,0.18);
+  opacity:0; animation:splashFadeUp 1.3s ease-out 2.4s forwards; margin-bottom:14px;
+  display:flex; align-items:baseline; justify-content:center; gap:0.2em; flex-wrap:wrap;
 }
-#splash-title .splash-plain { color: #ffffff; }
-
-/* "Created by HattyHats" */
+#splash-title .splash-plain { color:#ffffff; }
 #splash-byline {
-  font-size: clamp(0.82rem, 2.1vw, 1.1rem);
-  font-weight: 500;
-  color: rgba(200, 210, 230, 0.68);
-  letter-spacing: 0.1em;
-  opacity: 0;
-  animation: splashFadeUp 1.1s ease-out 3.3s forwards;
-  margin-bottom: 56px;
+  font-size:clamp(0.82rem,2.1vw,1.1rem); font-weight:500; color:rgba(200,210,230,0.68);
+  letter-spacing:0.1em; opacity:0; animation:splashFadeUp 1.1s ease-out 3.3s forwards; margin-bottom:56px;
 }
-#splash-byline .splash-glitch-word { color: #fbbf24; font-weight: 700; }
-
-/* Enter button */
+#splash-byline .splash-glitch-word { color:#fbbf24; font-weight:700; }
 #splash-enter {
-  opacity: 0;
-  animation: splashFadeUp 1s ease-out 4.1s forwards;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+  opacity:0; animation:splashFadeUp 1s ease-out 4.1s forwards; background:none; border:none; padding:0; cursor:pointer;
 }
 #splash-enter-inner {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 15px 50px;
-  border-radius: 999px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #111;
-  background: linear-gradient(135deg, #f0a500 0%, #d99200 100%);
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 0 20px rgba(240,165,0,0.55), 0 0 55px rgba(240,165,0,0.22), 0 0 100px rgba(240,165,0,0.1);
-  animation: splashBtnPulse 2.2s ease-in-out infinite 4.8s;
+  display:inline-flex; align-items:center; gap:10px; padding:15px 50px; border-radius:999px;
+  font-family:'Space Grotesk',sans-serif; font-size:1rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#111;
+  background:linear-gradient(135deg,#f0a500 0%,#d99200 100%);
+  transition:transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 0 20px rgba(240,165,0,0.55),0 0 55px rgba(240,165,0,0.22);
+  animation:splashBtnPulse 2.2s ease-in-out infinite 4.8s;
 }
-#splash-enter:hover #splash-enter-inner {
-  transform: scale(1.07);
-  box-shadow: 0 0 32px rgba(240,165,0,0.8), 0 0 75px rgba(240,165,0,0.45), 0 0 130px rgba(240,165,0,0.18);
-}
-#splash-enter:active #splash-enter-inner { transform: scale(0.97); }
-#splash-arrow { transition: transform 0.2s; }
-#splash-enter:hover #splash-arrow { transform: translateX(4px); }
-
+#splash-enter:hover #splash-enter-inner { transform:scale(1.07); box-shadow:0 0 32px rgba(240,165,0,0.8),0 0 75px rgba(240,165,0,0.45); }
+#splash-enter:active #splash-enter-inner { transform:scale(0.97); }
+#splash-arrow { transition:transform 0.2s; }
+#splash-enter:hover #splash-arrow { transform:translateX(4px); }
 @keyframes splashBtnPulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(240,165,0,0.55), 0 0 55px rgba(240,165,0,0.22); }
-  50%       { box-shadow: 0 0 36px rgba(240,165,0,0.9), 0 0 85px rgba(240,165,0,0.5), 0 0 140px rgba(240,165,0,0.22); }
+  0%,100%{ box-shadow:0 0 20px rgba(240,165,0,0.55),0 0 55px rgba(240,165,0,0.22); }
+  50%    { box-shadow:0 0 36px rgba(240,165,0,0.9),0 0 85px rgba(240,165,0,0.5); }
 }
-
-/* Shared fade-up keyframe */
-@keyframes splashFadeUp {
-  to { opacity: 1; transform: translateY(0); }
+@keyframes splashFadeUp { to { opacity:1; transform:translateY(0); } }
+.splash-glitch-word { position:relative; display:inline-block; }
+.splash-glitch-word::before,.splash-glitch-word::after {
+  content:attr(data-text); position:absolute; top:0; left:0; width:100%; overflow:hidden; pointer-events:none;
 }
-
-/* Glitch effect — shared by both glitch words */
-.splash-glitch-word {
-  position: relative;
-  display: inline-block;
-}
-.splash-glitch-word::before,
-.splash-glitch-word::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  overflow: hidden;
-  pointer-events: none;
-}
-.splash-glitch-word::before {
-  left: 2px;
-  color: #ff4ec7;
-  animation: splashGlitchTop 5s steps(1) infinite;
-}
-.splash-glitch-word::after {
-  left: -2px;
-  color: #00e5ff;
-  animation: splashGlitchBot 5s steps(1) infinite;
-}
-/* Title glitch word slightly offset */
-#splash-title .splash-glitch-word::before { animation-delay: 0.3s; }
-#splash-title .splash-glitch-word::after  { animation-delay: 0.3s; }
-/* Byline glitch word different offset so they don't fire together */
-#splash-byline .splash-glitch-word::before { animation-delay: 1.1s; }
-#splash-byline .splash-glitch-word::after  { animation-delay: 1.1s; }
-
+.splash-glitch-word::before { left:2px; color:#ff4ec7; animation:splashGlitchTop 5s steps(1) infinite; }
+.splash-glitch-word::after  { left:-2px; color:#00e5ff; animation:splashGlitchBot 5s steps(1) infinite; }
+#splash-title .splash-glitch-word::before { animation-delay:0.3s; }
+#splash-title .splash-glitch-word::after  { animation-delay:0.3s; }
+#splash-byline .splash-glitch-word::before { animation-delay:1.1s; }
+#splash-byline .splash-glitch-word::after  { animation-delay:1.1s; }
 @keyframes splashGlitchTop {
-  0%,  93%  { opacity: 0; transform: translate(0,0); }
-  94%        { opacity: 1; transform: translate(-3px,-2px); clip-path: inset(12% 0 58% 0); }
-  95%        { opacity: 1; transform: translate(3px, 1px);  clip-path: inset(38% 0 32% 0); }
-  96%        { opacity: 1; transform: translate(-2px, 0);   clip-path: inset(5%  0 72% 0); }
-  97%, 100%  { opacity: 0; transform: translate(0,0); }
+  0%,93%{opacity:0;transform:translate(0,0);}
+  94%{opacity:1;transform:translate(-3px,-2px);clip-path:inset(12% 0 58% 0);}
+  95%{opacity:1;transform:translate(3px,1px);clip-path:inset(38% 0 32% 0);}
+  96%{opacity:1;transform:translate(-2px,0);clip-path:inset(5% 0 72% 0);}
+  97%,100%{opacity:0;transform:translate(0,0);}
 }
 @keyframes splashGlitchBot {
-  0%,  93%  { opacity: 0; transform: translate(0,0); }
-  94%        { opacity: 1; transform: translate(3px, 2px);   clip-path: inset(58% 0 8%  0); }
-  95%        { opacity: 1; transform: translate(-3px,-1px);  clip-path: inset(72% 0 4%  0); }
-  96%        { opacity: 1; transform: translate(2px, 0);     clip-path: inset(50% 0 22% 0); }
-  97%, 100%  { opacity: 0; transform: translate(0,0); }
+  0%,93%{opacity:0;transform:translate(0,0);}
+  94%{opacity:1;transform:translate(3px,2px);clip-path:inset(58% 0 8% 0);}
+  95%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(72% 0 4% 0);}
+  96%{opacity:1;transform:translate(2px,0);clip-path:inset(50% 0 22% 0);}
+  97%,100%{opacity:0;transform:translate(0,0);}
 }
-
-/* Splash exit animation */
-#splash.splash-out {
-  animation: splashExit 0.65s ease-in forwards;
-}
-@keyframes splashExit {
-  to { opacity: 0; pointer-events: none; }
-}
-
-/* When splash is gone, remove it from layout */
-#splash.splash-gone {
-  display: none;
-}
+#splash.splash-out { animation:splashExit 0.65s ease-in forwards; }
+@keyframes splashExit { to { opacity:0; pointer-events:none; } }
+#splash.splash-gone { display:none; }
 
 /* ============================================================
    HEADER & NAV
    ============================================================ */
 header {
-  background: var(--header-bg);
-  border-bottom: 2px solid var(--gold);
-  padding: 14px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  background:var(--header-bg); border-bottom:2px solid var(--gold); padding:14px 24px;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+  position:sticky; top:0; z-index:100;
 }
-.logo {
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  font-family: 'Fraunces', 'Space Grotesk', serif;
-  color: var(--gold);
-  white-space: nowrap;
-}
-.logo span { color: #fff; }
-.header-right { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
-nav { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+.logo { font-size:1.25rem; font-weight:700; letter-spacing:0.6px; font-family:'Fraunces',serif; color:var(--gold); white-space:nowrap; }
+.logo span { color:#fff; }
+.header-right { display:flex; align-items:center; flex-wrap:wrap; gap:7px; }
+nav { display:flex; flex-wrap:wrap; gap:7px; align-items:center; }
 nav a {
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #d1d5db;
-  background: rgba(255,255,255,0.03);
-  white-space: nowrap;
-  position: relative;
-  overflow: hidden;
-  transition: color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s, background 0.2s;
+  display:inline-block; font-size:0.8rem; font-weight:600; padding:6px 14px; border-radius:999px;
+  border:1px solid rgba(255,255,255,0.12); color:#d1d5db; background:rgba(255,255,255,0.03);
+  white-space:nowrap; position:relative; overflow:hidden;
+  transition:color 0.2s,border-color 0.2s,transform 0.2s,box-shadow 0.2s,background 0.2s;
 }
-nav a::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  background: linear-gradient(135deg, rgba(240,165,0,0.18), rgba(251,191,36,0.06));
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-nav a:hover { color: var(--gold); border-color: var(--gold); transform: translateY(-1px); box-shadow: 0 8px 18px rgba(0,0,0,0.25); background: rgba(240,165,0,0.08); }
-nav a:hover::after { opacity: 1; }
-nav a:active { transform: translateY(0); }
-nav a.nav-special { border-color: rgba(240,165,0,0.45); background: rgba(240,165,0,0.07); color: var(--gold-light); }
-nav a.nav-special:hover { box-shadow: 0 0 18px rgba(240,165,0,0.55), 0 2px 8px rgba(0,0,0,0.3); }
+nav a::after { content:''; position:absolute; inset:0; border-radius:999px; background:linear-gradient(135deg,rgba(240,165,0,0.18),rgba(251,191,36,0.06)); opacity:0; transition:opacity 0.2s; }
+nav a:hover { color:var(--gold); border-color:var(--gold); transform:translateY(-1px); box-shadow:0 8px 18px rgba(0,0,0,0.25); background:rgba(240,165,0,0.08); }
+nav a:hover::after { opacity:1; }
+nav a:active { transform:translateY(0); }
+nav a.nav-special { border-color:rgba(240,165,0,0.45); background:rgba(240,165,0,0.07); color:var(--gold-light); }
+nav a.nav-special:hover { box-shadow:0 0 18px rgba(240,165,0,0.55),0 2px 8px rgba(0,0,0,0.3); }
 
 /* ============================================================
    HERO
    ============================================================ */
 .hero {
-  background: var(--hero-bg);
-  padding: 56px 24px 44px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.25s;
+  background:var(--hero-bg); padding:56px 24px 44px; text-align:center; position:relative; overflow:hidden; transition:background 0.25s;
 }
 .hero::before {
-  content: '';
-  position: absolute;
-  top: -40px; left: 50%; transform: translateX(-50%);
-  width: 520px; height: 280px;
-  background: radial-gradient(ellipse, rgba(240,165,0,0.09) 0%, transparent 70%);
-  pointer-events: none;
+  content:''; position:absolute; top:-40px; left:50%; transform:translateX(-50%);
+  width:520px; height:280px; background:radial-gradient(ellipse,rgba(240,165,0,0.09) 0%,transparent 70%); pointer-events:none;
 }
-.hero h2 { font-family: 'Fraunces', 'Space Grotesk', serif; font-size: 2.15rem; margin-bottom: 12px; color: var(--gold); letter-spacing: -0.4px; position: relative; }
-.hero p { max-width: 620px; margin: 0 auto; font-size: 1rem; color: var(--text-body); line-height: 1.75; position: relative; }
+.hero h2 { font-family:'Fraunces',serif; font-size:2.15rem; margin-bottom:12px; color:var(--gold); letter-spacing:-0.4px; position:relative; }
+.hero p { max-width:620px; margin:0 auto; font-size:1rem; color:var(--text-body); line-height:1.75; position:relative; }
 .hero-tag {
-  display: inline-block;
-  margin-top: 18px;
-  font-size: 0.8rem;
-  padding: 5px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(240,165,0,0.5);
-  color: var(--gold-light);
-  background: rgba(240,165,0,0.07);
-  letter-spacing: 0.5px;
-  position: relative;
+  display:inline-block; margin-top:18px; font-size:0.8rem; padding:5px 14px; border-radius:999px;
+  border:1px solid rgba(240,165,0,0.5); color:var(--gold-light); background:rgba(240,165,0,0.07); letter-spacing:0.5px; position:relative;
 }
 
 /* ============================================================
    MAIN / LAYOUT
    ============================================================ */
-main { max-width: 1100px; margin: 0 auto; padding: 32px 20px 60px; }
-.sec-title { font-size: 1.4rem; color: var(--gold); margin-bottom: 22px; border-left: 4px solid var(--gold); padding-left: 12px; }
+main { max-width:1100px; margin:0 auto; padding:32px 20px 60px; }
+.sec-title { font-size:1.4rem; color:var(--gold); margin-bottom:22px; border-left:4px solid var(--gold); padding-left:12px; }
 
 /* ============================================================
-   TOOL GRID & CARDS
+   TOOL GRID & 3D CARDS
    ============================================================ */
-.tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-.tool-card {
-  background: var(--bg-card);
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.25s;
+.tool-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:28px;
+  perspective:1400px;
 }
-.tool-card:hover { border-color: rgba(240,165,0,0.3); box-shadow: 0 4px 24px rgba(0,0,0,0.15); }
-.tool-card h3 { font-size: 1.05rem; margin-bottom: 8px; color: var(--text); }
-.tool-card > p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 14px; }
+.tool-card {
+  background:var(--bg-card);
+  border-radius:16px;
+  border:1px solid var(--border);
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  /* 3D pop effect */
+  transform:translateY(0) rotateX(1.5deg) rotateY(-1deg);
+  transform-style:preserve-3d;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.05) inset,
+    0 -1px 0 rgba(0,0,0,0.6) inset,
+    5px 10px 0 rgba(0,0,0,0.4),
+    10px 20px 40px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(240,165,0,0.07);
+  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.2s;
+}
+/* Shine strip across top edge */
+.tool-card::before {
+  content:''; position:absolute; top:0; left:14px; right:14px; height:1px; border-radius:999px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1) 40%,rgba(255,255,255,0.2) 60%,transparent);
+}
+.tool-card:hover {
+  border-color:rgba(240,165,0,0.4);
+  transform:translateY(-8px) rotateX(0deg) rotateY(0deg);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.07) inset,
+    0 -1px 0 rgba(0,0,0,0.6) inset,
+    7px 16px 0 rgba(0,0,0,0.3),
+    14px 32px 56px rgba(0,0,0,0.55),
+    0 0 50px rgba(240,165,0,0.14),
+    0 0 0 1px rgba(240,165,0,0.2);
+}
+body.light .tool-card {
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.95) inset,
+    0 -1px 0 rgba(0,0,0,0.07) inset,
+    5px 10px 0 rgba(0,0,0,0.09),
+    10px 20px 40px rgba(0,0,0,0.13);
+}
+body.light .tool-card:hover {
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.95) inset,
+    0 -1px 0 rgba(0,0,0,0.07) inset,
+    7px 16px 0 rgba(0,0,0,0.07),
+    14px 32px 56px rgba(0,0,0,0.15),
+    0 0 30px rgba(240,165,0,0.12);
+}
+.tool-card h3 { font-size:1.05rem; margin-bottom:8px; color:var(--text); }
+.tool-card > p { font-size:0.87rem; color:var(--text-muted); line-height:1.65; margin-bottom:14px; }
 
 /* ============================================================
    FORM ELEMENTS
    ============================================================ */
-.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 14px; }
-.form-group { display: flex; flex-direction: column; gap: 5px; }
-.form-group label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-.form-group .label-note { font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 0.72rem; color: var(--text-dim); }
+.form-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:14px; }
+.form-group { display:flex; flex-direction:column; gap:5px; }
+.form-group label { font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; }
+.form-group .label-note { font-weight:400; text-transform:none; letter-spacing:0; font-size:0.72rem; color:var(--text-dim); }
+
+/* Input wrapper for auto-fetch icon */
+.input-wrap { position:relative; display:flex; align-items:center; }
+.input-wrap input { flex:1; padding-right:28px !important; }
+.input-fetch-icon {
+  position:absolute; right:9px;
+  font-size:0.85rem; font-weight:700; color:var(--text-dim); pointer-events:none;
+  transition:color 0.2s, transform 0.2s;
+  line-height:1;
+}
+.input-wrap.fetching .input-fetch-icon { color:var(--gold); animation:spinIcon 0.75s linear infinite; }
+.input-wrap.fetched  .input-fetch-icon { color:var(--green); }
+@keyframes spinIcon { to { transform:rotate(360deg); } }
+
 .form-group input,
 .form-group select {
-  width: 100%;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid var(--input-border);
-  background: var(--bg-input);
-  color: var(--text);
-  font-size: 0.85rem;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--input-border);
+  background:var(--bg-input); color:var(--text); font-size:0.85rem; outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
 }
 .form-group input:focus,
-.form-group select:focus { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(240,165,0,0.15); }
-.form-group select option { background: var(--bg-input); }
+.form-group select:focus { border-color:var(--gold); box-shadow:0 0 0 2px rgba(240,165,0,0.15); }
+.form-group select option { background:var(--bg-input); }
+
 .calc-btn {
-  display: inline-block;
-  padding: 9px 20px;
-  border-radius: 999px;
-  border: none;
-  background: linear-gradient(135deg, var(--gold) 0%, #d99200 100%);
-  color: #111827;
-  font-size: 0.84rem;
-  font-weight: 700;
-  cursor: pointer;
-  align-self: flex-start;
-  transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+  display:inline-block; padding:9px 20px; border-radius:999px; border:none;
+  background:linear-gradient(135deg,var(--gold) 0%,#d99200 100%); color:#111827;
+  font-size:0.84rem; font-weight:700; cursor:pointer; align-self:flex-start;
+  transition:transform 0.18s,box-shadow 0.18s,opacity 0.18s;
 }
-.calc-btn:hover { transform: scale(1.05); box-shadow: 0 4px 18px rgba(240,165,0,0.45); }
-.calc-btn:active { transform: scale(0.97); }
-.calc-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+.calc-btn:hover { transform:scale(1.05); box-shadow:0 4px 18px rgba(240,165,0,0.45); }
+.calc-btn:active { transform:scale(0.97); }
+.calc-btn:disabled { opacity:0.55; cursor:not-allowed; transform:none; }
+
 .result-box {
-  margin-top: 14px;
-  padding: 13px 14px;
-  border-radius: 10px;
-  background: var(--bg-input);
-  border: 1px solid var(--result-divider);
-  font-size: 0.87rem;
-  color: var(--text);
-  min-height: 50px;
-  line-height: 1.7;
-  transition: background 0.25s;
+  margin-top:14px; padding:13px 14px; border-radius:10px; background:var(--bg-input);
+  border:1px solid var(--result-divider); font-size:0.87rem; color:var(--text); min-height:50px; line-height:1.7;
 }
-.result-box em { color: var(--text-dim); }
-.result-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; gap: 8px; }
-.result-label { color: var(--text-muted); font-size: 0.84rem; }
-.result-value { font-weight: 600; text-align: right; }
-.result-divider { border: none; border-top: 1px solid var(--result-divider); margin: 8px 0; }
-.clr-profit { color: var(--green); font-weight: 700; }
-.clr-loss   { color: var(--red);   font-weight: 700; }
+.result-box em { color:var(--text-dim); }
+.result-row { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px; gap:8px; }
+.result-label { color:var(--text-muted); font-size:0.84rem; }
+.result-value { font-weight:600; text-align:right; }
+.result-divider { border:none; border-top:1px solid var(--result-divider); margin:8px 0; }
+.clr-profit { color:var(--green); font-weight:700; }
+.clr-loss   { color:var(--red);   font-weight:700; }
 .result-summary {
-  margin-top: 10px;
-  padding: 10px 12px;
-  background: rgba(240,165,0,0.06);
-  border-radius: 8px;
-  font-size: 0.82rem;
-  color: var(--text-body);
-  line-height: 1.65;
-  border-left: 3px solid rgba(240,165,0,0.35);
+  margin-top:10px; padding:10px 12px; background:rgba(240,165,0,0.06); border-radius:8px;
+  font-size:0.82rem; color:var(--text-body); line-height:1.65; border-left:3px solid rgba(240,165,0,0.35);
 }
-.result-summary small { color: var(--text-dim); font-size: 0.75rem; }
-.spinner {
-  display: inline-block;
-  width: 14px; height: 14px;
-  border: 2px solid rgba(240,165,0,0.3);
-  border-top-color: var(--gold);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  vertical-align: middle;
-  margin-right: 6px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.tool-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: var(--text-dim); margin-top: 14px; }
-.tool-status { padding: 3px 9px; border-radius: 999px; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; }
-.live { background: var(--green-bg); color: #bbf7d0; border: 1px solid #22c55e; }
-.soon { background: var(--red-bg);   color: #fed7aa; border: 1px solid #f97316; }
+.result-summary small { color:var(--text-dim); font-size:0.75rem; }
+.spinner { display:inline-block; width:14px; height:14px; border:2px solid rgba(240,165,0,0.3); border-top-color:var(--gold); border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle; margin-right:6px; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.tool-meta { display:flex; justify-content:space-between; align-items:center; font-size:0.76rem; color:var(--text-dim); margin-top:14px; }
+.tool-status { padding:3px 9px; border-radius:999px; font-weight:600; text-transform:uppercase; font-size:0.7rem; }
+.live { background:var(--green-bg); color:#bbf7d0; border:1px solid #22c55e; }
+.soon { background:var(--red-bg);   color:#fed7aa; border:1px solid #f97316; }
 
 /* ============================================================
-   ABOUT / ASIDE SECTION
+   HATTY'S EYE SECTION
    ============================================================ */
-.aside { margin-top: 48px; display: grid; grid-template-columns: 2fr 1.3fr; gap: 28px; }
-.aside-block { background: var(--bg-deep); border-radius: 14px; border: 1px solid var(--border-soft); padding: 20px; transition: background 0.25s; }
-.aside-block h3 { font-size: 1.05rem; color: var(--gold); margin-bottom: 10px; }
-.aside-block p  { font-size: 0.87rem; color: var(--text-muted); line-height: 1.75; }
-.link-list { margin-top: 12px; }
-.link-list a { display: flex; align-items: center; gap: 8px; color: var(--link-color); font-size: 0.85rem; padding: 7px 0; border-bottom: 1px solid var(--border-soft); transition: color 0.2s; }
-.link-list a:last-child { border-bottom: none; }
-.link-list a:hover { color: var(--gold); }
-.link-list a span { font-size: 0.76rem; color: var(--text-dim); margin-left: auto; }
+#hattys-eye { margin-top:60px; }
+
+.eye-title {
+  font-family:'Fraunces',serif; font-size:1.7rem; color:var(--gold); margin-bottom:6px;
+  border-left:4px solid var(--gold); padding-left:12px;
+  display:flex; align-items:center; gap:0.15em; flex-wrap:wrap;
+}
+.eye-subtitle { font-size:0.87rem; color:var(--text-muted); padding-left:16px; margin-bottom:26px; }
+
+/* Glitch word in Eye title */
+.eye-glitch { position:relative; display:inline-block; color:var(--gold); }
+.eye-glitch::before,.eye-glitch::after {
+  content:attr(data-text); position:absolute; top:0; left:0; width:100%; overflow:hidden; pointer-events:none;
+}
+.eye-glitch::before { left:2px; color:#ff4ec7; animation:eyeGlitchTop 4.5s steps(1) infinite 0.7s; }
+.eye-glitch::after  { left:-2px; color:#00e5ff; animation:eyeGlitchBot 4.5s steps(1) infinite 0.7s; }
+@keyframes eyeGlitchTop {
+  0%,91%{opacity:0;transform:translate(0,0);}
+  92%{opacity:1;transform:translate(-3px,-2px);clip-path:inset(10% 0 60% 0);}
+  93%{opacity:1;transform:translate(3px,1px);clip-path:inset(40% 0 30% 0);}
+  94%{opacity:1;transform:translate(-2px,0);clip-path:inset(5% 0 70% 0);}
+  95%,100%{opacity:0;transform:translate(0,0);}
+}
+@keyframes eyeGlitchBot {
+  0%,91%{opacity:0;transform:translate(0,0);}
+  92%{opacity:1;transform:translate(3px,2px);clip-path:inset(60% 0 8% 0);}
+  93%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(70% 0 5% 0);}
+  94%{opacity:1;transform:translate(2px,0);clip-path:inset(48% 0 24% 0);}
+  95%,100%{opacity:0;transform:translate(0,0);}
+}
+
+/* Widget row */
+.eye-grid {
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  align-items:flex-start;
+}
+.eye-widget-wrap {
+  position:relative;
+  border-radius:12px;
+  padding:3px;
+  background:rgba(240,165,0,0.05);
+  border:1px solid rgba(240,165,0,0.18);
+  box-shadow:
+    0 0 22px rgba(240,165,0,0.15),
+    0 4px 20px rgba(0,0,0,0.4);
+  transition:border-color 0.25s,box-shadow 0.25s;
+  overflow:hidden;
+}
+.eye-widget-wrap:hover {
+  border-color:rgba(240,165,0,0.45);
+  box-shadow:
+    0 0 36px rgba(240,165,0,0.3),
+    0 8px 30px rgba(0,0,0,0.5);
+}
+
+/* ============================================================
+   ABOUT / ASIDE
+   ============================================================ */
+.aside { margin-top:48px; display:grid; grid-template-columns:2fr 1.3fr; gap:28px; }
+.aside-block { background:var(--bg-deep); border-radius:14px; border:1px solid var(--border-soft); padding:20px; transition:background 0.25s; }
+.aside-block h3 { font-size:1.05rem; color:var(--gold); margin-bottom:10px; }
+.aside-block p  { font-size:0.87rem; color:var(--text-muted); line-height:1.75; }
+.link-list { margin-top:12px; }
+.link-list a { display:flex; align-items:center; gap:8px; color:var(--link-color); font-size:0.85rem; padding:7px 0; border-bottom:1px solid var(--border-soft); transition:color 0.2s; }
+.link-list a:last-child { border-bottom:none; }
+.link-list a:hover { color:var(--gold); }
+.link-list a span { font-size:0.76rem; color:var(--text-dim); margin-left:auto; }
 
 /* ============================================================
    FOOTER
    ============================================================ */
-footer { border-top: 1px solid var(--border-soft); background: var(--bg-deep); color: var(--text-dim); font-size: 0.78rem; text-align: center; padding: 18px 10px 28px; transition: background 0.25s; }
-footer a { color: var(--gold); }
+footer { border-top:1px solid var(--border-soft); background:var(--bg-deep); color:var(--text-dim); font-size:0.78rem; text-align:center; padding:18px 10px 28px; transition:background 0.25s; }
+footer a { color:var(--gold); }
 
 /* ============================================================
-   LIVE PRICE BAR
+   LIVE COIN WATCH TICKER BAR (fixed bottom)
    ============================================================ */
 #price-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  z-index: 200;
-  height: 40px;
-  background: var(--price-bar-bg);
-  border-top: 1px solid rgba(240,165,0,0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+  position:fixed; bottom:0; left:0; right:0; z-index:500;
+  background:rgba(4,9,20,0.97);
+  border-top:1px solid rgba(240,165,0,0.3);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  display:flex; align-items:stretch; overflow:hidden;
+  height:52px;
 }
 #ticker-label {
-  flex-shrink: 0;
-  padding: 0 14px 0 16px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  border-right: 1px solid rgba(240,165,0,0.25);
-  height: 100%;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  gap: 5px;
+  flex-shrink:0; padding:0 14px 0 16px;
+  font-size:0.68rem; font-weight:700; color:var(--gold);
+  text-transform:uppercase; letter-spacing:1.5px;
+  border-right:1px solid rgba(240,165,0,0.25);
+  display:flex; align-items:center; white-space:nowrap; gap:5px;
 }
 #ticker-label::before {
-  content: '';
-  display: inline-block;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--gold);
-  animation: pulse-dot 1.8s ease-in-out infinite;
+  content:''; display:inline-block; width:6px; height:6px; border-radius:50%;
+  background:var(--gold); animation:pulse-dot 1.8s ease-in-out infinite;
 }
-@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
-#ticker-viewport { flex: 1; overflow: hidden; height: 100%; display: flex; align-items: center; }
-#ticker-track {
-  display: inline-flex;
-  align-items: center;
-  white-space: nowrap;
-  will-change: transform;
-  animation: ticker-scroll 55s linear infinite;
+@keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+#lcw-ticker-wrap {
+  flex:1; min-width:0; display:flex; align-items:center; overflow:hidden;
 }
-#ticker-track:hover { animation-play-state: paused; }
-@keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-.price-item { display: inline-flex; align-items: center; gap: 5px; padding: 0 20px; height: 40px; border-right: 1px solid rgba(255,255,255,0.05); }
-.price-ticker { font-size: 0.76rem; font-weight: 700; color: var(--gold); }
-.price-val { font-size: 0.8rem; color: #e2e8f0; font-variant-numeric: tabular-nums; }
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
-@media (max-width: 720px) {
-  header { flex-direction: column; align-items: flex-start; }
-  .header-right { flex-direction: column; align-items: flex-start; }
-  nav { gap: 6px; }
-  nav a { font-size: 0.75rem; padding: 5px 11px; }
-  .hero h2 { font-size: 1.65rem; }
-  .aside  { grid-template-columns: 1fr; }
-  .tool-grid { grid-template-columns: 1fr; }
-  .price-ticker { font-size: 0.72rem; }
-  .price-val    { font-size: 0.76rem; }
-  .price-item   { padding: 0 14px; }
+@media (max-width:720px) {
+  header { flex-direction:column; align-items:flex-start; }
+  .header-right { flex-direction:column; align-items:flex-start; }
+  nav { gap:6px; }
+  nav a { font-size:0.75rem; padding:5px 11px; }
+  .hero h2 { font-size:1.65rem; }
+  .aside  { grid-template-columns:1fr; }
+  .tool-grid { grid-template-columns:1fr; }
+  .tool-card { transform:none; } /* disable 3D tilt on mobile */
+  .eye-grid { flex-direction:column; }
 }
 </style>
 </head>
@@ -610,37 +477,23 @@ footer a { color: var(--gold); }
      SPLASH SCREEN
      ============================================================ -->
 <div id="splash" aria-label="Welcome splash screen">
-
-  <!-- Floating background image -->
   <div id="splash-bg"></div>
-  <!-- Darkening vignette -->
   <div id="splash-vignette"></div>
-  <!-- Subtle scanlines -->
   <div id="splash-scanlines"></div>
-
   <div id="splash-content">
-
     <div id="splash-welcome">Welcome To:</div>
-
     <div id="splash-title">
       <span class="splash-glitch-word" data-text="Hatty's">Hatty's</span>
       <span class="splash-plain">&nbsp;Tools</span>
     </div>
-
     <div id="splash-byline">
       Created by&nbsp;<span class="splash-glitch-word" data-text="HattyHats">HattyHats</span>
     </div>
-
     <button id="splash-enter" aria-label="Enter site">
-      <span id="splash-enter-inner">
-        Enter &nbsp;<span id="splash-arrow">→</span>
-      </span>
+      <span id="splash-enter-inner">Enter &nbsp;<span id="splash-arrow">→</span></span>
     </button>
-
   </div>
 </div>
-<!-- END SPLASH -->
-
 
 <!-- ============================================================
      HEADER
@@ -656,7 +509,7 @@ footer a { color: var(--gold); }
       <a href="https://hattyhats.github.io/voi-maze/" target="_blank" rel="noopener" class="nav-special">Voi Maze</a>
       <a href="https://hatty-universe.netlify.app/" target="_blank" rel="noopener" class="nav-special">Hatty Universe</a>
     </nav>
-    <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+    <button id="theme-toggle" aria-label="Toggle light/dark mode">
       <span id="theme-icon">Sun</span>
       <span id="theme-label">Light Mode</span>
     </button>
@@ -668,10 +521,7 @@ footer a { color: var(--gold); }
      ============================================================ -->
 <section class="hero">
   <h2>Practical Crypto &amp; Money Tools.</h2>
-  <p>
-    Clean calculators and simulators built for everyday decisions.
-    Plug in your numbers, see the reality, and move with clarity.
-  </p>
+  <p>Clean calculators and simulators built for everyday decisions. Plug in your numbers, see the reality, and move with clarity.</p>
   <div class="hero-tag">By HattyHats</div>
 </section>
 
@@ -683,13 +533,10 @@ footer a { color: var(--gold); }
     <h2 class="sec-title">Tools</h2>
     <div class="tool-grid">
 
-      <!-- TOOL 1: CRYPTO PROFIT / LOSS CALCULATOR -->
+      <!-- TOOL 1: PROFIT / LOSS CALCULATOR -->
       <div class="tool-card">
         <h3>Crypto Profit / Loss Calculator</h3>
-        <p>
-          Enter your entry price, exit price, and position size to see your actual gain or loss,
-          fees included. Results are color-coded for instant clarity.
-        </p>
+        <p>Enter your entry price, exit price, and position size to see your actual gain or loss, fees included. Results are color-coded for instant clarity.</p>
         <div class="form-grid">
           <div class="form-group">
             <label for="pl-buy">Entry Price ($)</label>
@@ -710,28 +557,24 @@ footer a { color: var(--gold); }
         </div>
         <button class="calc-btn" id="pl-btn">Calculate</button>
         <div class="result-box" id="pl-result"><em>Fill in the numbers and hit Calculate.</em></div>
-        <div class="tool-meta">
-          <span>Focus: Trade outcomes</span>
-          <span class="tool-status live">Live</span>
-        </div>
+        <div class="tool-meta"><span>Focus: Trade outcomes</span><span class="tool-status live">Live</span></div>
       </div>
 
-      <!-- TOOL 2: DCA PLANNER -->
+      <!-- TOOL 2: DCA PLANNER (auto price) -->
       <div class="tool-card">
         <h3>DCA Planner</h3>
-        <p>
-          Model dollar-cost averaging with real historical prices from CoinGecko
-          (for major coins) or a constant-price estimate. Enter your plan and see your
-          simulated average cost and total stack.
-        </p>
+        <p>Type a ticker — the current price <strong style="color:var(--gold-light);">auto-fills</strong> from CoinGecko. Model dollar-cost averaging with real historical prices and see your average cost and total stack.</p>
         <div class="form-grid">
           <div class="form-group">
             <label for="dca-asset">Asset / Ticker</label>
-            <input id="dca-asset" type="text" placeholder="e.g. ADA, BTC, SOL">
+            <div class="input-wrap" id="dca-asset-wrap">
+              <input id="dca-asset" type="text" placeholder="BTC, ADA, SOL…" autocomplete="off">
+              <span class="input-fetch-icon" id="dca-fetch-icon">⟳</span>
+            </div>
           </div>
           <div class="form-group">
-            <label for="dca-price">Current Price ($) <span class="label-note">(fallback)</span></label>
-            <input id="dca-price" type="number" step="any" min="0" placeholder="e.g. 0.42">
+            <label for="dca-price">Current Price ($) <span class="label-note">(auto-fills)</span></label>
+            <input id="dca-price" type="number" step="any" min="0" placeholder="Fetching…">
           </div>
           <div class="form-group">
             <label for="dca-amount">Amount per Interval ($)</label>
@@ -755,28 +598,25 @@ footer a { color: var(--gold); }
           </div>
         </div>
         <button class="calc-btn" id="dca-btn">Plan It</button>
-        <div class="result-box" id="dca-result"><em>Fill in details and hit Plan It.</em></div>
-        <div class="tool-meta">
-          <span>Focus: Long-term stacking</span>
-          <span class="tool-status live">Live</span>
-        </div>
+        <div class="result-box" id="dca-result"><em>Type a ticker — the price will auto-fill, then hit Plan It.</em></div>
+        <div class="tool-meta"><span>Focus: Long-term stacking</span><span class="tool-status live">Live</span></div>
       </div>
 
-      <!-- TOOL 3: "CAN I MAKE IT?" SIMULATOR -->
+      <!-- TOOL 3: "CAN I MAKE IT?" (auto price) -->
       <div class="tool-card">
         <h3>"Can I Make It?" Simulator</h3>
-        <p>
-          Pick a target price and find out exactly what your position would be worth and
-          whether you would hit a personal dollar goal. Instant reality check.
-        </p>
+        <p>Type a ticker — the current price <strong style="color:var(--gold-light);">auto-fills</strong>. Pick a target price and find out exactly what your position would be worth and whether you hit your goal.</p>
         <div class="form-grid">
           <div class="form-group">
             <label for="cim-asset">Asset / Ticker</label>
-            <input id="cim-asset" type="text" placeholder="e.g. BTC">
+            <div class="input-wrap" id="cim-asset-wrap">
+              <input id="cim-asset" type="text" placeholder="BTC, ADA, SOL…" autocomplete="off">
+              <span class="input-fetch-icon" id="cim-fetch-icon">⟳</span>
+            </div>
           </div>
           <div class="form-group">
-            <label for="cim-current">Current Price ($)</label>
-            <input id="cim-current" type="number" step="any" min="0" placeholder="e.g. 60000">
+            <label for="cim-current">Current Price ($) <span class="label-note">(auto-fills)</span></label>
+            <input id="cim-current" type="number" step="any" min="0" placeholder="Fetching…">
           </div>
           <div class="form-group">
             <label for="cim-target">Target Price ($)</label>
@@ -792,29 +632,58 @@ footer a { color: var(--gold); }
           </div>
         </div>
         <button class="calc-btn" id="cim-btn">Simulate</button>
-        <div class="result-box" id="cim-result"><em>Enter your numbers and hit Simulate.</em></div>
-        <div class="tool-meta">
-          <span>Focus: Reality checks</span>
-          <span class="tool-status live">Live</span>
-        </div>
+        <div class="result-box" id="cim-result"><em>Type a ticker — price auto-fills, then hit Simulate.</em></div>
+        <div class="tool-meta"><span>Focus: Reality checks</span><span class="tool-status live">Live</span></div>
       </div>
 
     </div><!-- /tool-grid -->
   </section>
 
-  <!-- ABOUT / CONNECT -->
+  <!-- ============================================================
+       HATTY'S EYE
+       ============================================================ -->
+  <section id="hattys-eye">
+    <h2 class="eye-title">
+      <span class="eye-glitch" data-text="Hatty's">Hatty's</span>&nbsp;Eye
+    </h2>
+    <p class="eye-subtitle">Tokens I'm watching — live prices at a glance. More coming soon.</p>
+    <div class="eye-grid">
+
+      <div class="eye-widget-wrap">
+        <div class="livecoinwatch-widget-6"
+          lcw-coin="ADA" lcw-base="USD" lcw-period="d"
+          lcw-color-tx="#ffffff" lcw-color-bg="#1f2434" lcw-border-w="1"></div>
+      </div>
+
+      <div class="eye-widget-wrap">
+        <div class="livecoinwatch-widget-6"
+          lcw-coin="SOL" lcw-base="USD" lcw-period="d"
+          lcw-color-tx="#ffffff" lcw-color-bg="#1f2434" lcw-border-w="1"></div>
+      </div>
+
+      <div class="eye-widget-wrap">
+        <div class="livecoinwatch-widget-6"
+          lcw-coin="ETH" lcw-base="USD" lcw-period="d"
+          lcw-color-tx="#ffffff" lcw-color-bg="#1f2434" lcw-border-w="1"></div>
+      </div>
+
+      <div class="eye-widget-wrap">
+        <div class="livecoinwatch-widget-6"
+          lcw-coin="BTC" lcw-base="USD" lcw-period="d"
+          lcw-color-tx="#ffffff" lcw-color-bg="#1f2434" lcw-border-w="1"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT / CONNECT
+       ============================================================ -->
   <section class="aside" id="about">
     <div class="aside-block">
       <h3>About Hatty&#39;s Tools</h3>
-      <p>
-        I'm HattyHats. I cover crypto, AI, privacy, and Web3 across YouTube and writing platforms.
-        Hatty&#39;s Tools is where I turn common "what if?" questions into practical calculators and
-        simulators you can use for free.
-      </p>
-      <p style="margin-top: 10px;">
-        As new videos and articles go live, I'll keep adding tools that help you test ideas and
-        get a clearer picture of your own numbers.
-      </p>
+      <p>I'm HattyHats. I cover crypto, AI, privacy, and Web3 across YouTube and writing platforms. Hatty&#39;s Tools is where I turn common "what if?" questions into practical calculators and simulators you can use for free.</p>
+      <p style="margin-top:10px;">As new videos and articles go live, I'll keep adding tools that help you test ideas and get a clearer picture of your own numbers.</p>
     </div>
     <div class="aside-block">
       <h3>Connect</h3>
@@ -831,19 +700,26 @@ footer a { color: var(--gold); }
   </section>
 </main>
 
-<!-- FOOTER -->
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
 <footer>
   <p>&copy; 2026 Hatty&#39;s Tools - by HattyHats.</p>
-  <p style="margin-top: 6px;">
-    <a href="https://earnwithhatty.com" target="_blank" rel="noopener">Back to Main Site</a>
-  </p>
+  <p style="margin-top:6px;"><a href="https://earnwithhatty.com" target="_blank" rel="noopener">Back to Main Site</a></p>
 </footer>
 
-<!-- LIVE PRICE BAR -->
+<!-- ============================================================
+     LIVE COIN WATCH TICKER BAR (fixed bottom)
+     ============================================================ -->
 <div id="price-bar" aria-label="Live crypto prices">
   <div id="ticker-label">LIVE</div>
-  <div id="ticker-viewport">
-    <div id="ticker-track"><!-- populated by JS --></div>
+  <div id="lcw-ticker-wrap">
+    <div class="livecoinwatch-widget-5"
+      lcw-base="USD"
+      lcw-color-tx="#ffffff"
+      lcw-marquee-1="coins"
+      lcw-marquee-2="none"
+      lcw-marquee-items="30"></div>
   </div>
 </div>
 
@@ -853,287 +729,205 @@ footer a { color: var(--gold); }
 <script>
 
 /* ============================================================
-   SPLASH SCREEN LOGIC
-   - Shows on every visit (no localStorage skip)
-   - Enter button fades out the splash, revealing the site
-   - Space/Enter key also dismisses it
+   SPLASH
    ============================================================ */
-(function () {
-  var splash = document.getElementById('splash');
-  var btn    = document.getElementById('splash-enter');
-  if (!splash || !btn) return;
-
-  function dismissSplash() {
-    splash.classList.add('splash-out');
-    setTimeout(function () {
-      splash.classList.add('splash-gone');
-    }, 660);
-  }
-
-  btn.addEventListener('click', dismissSplash);
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      dismissSplash();
-    }
-  });
+(function(){
+  var splash=document.getElementById('splash'), btn=document.getElementById('splash-enter');
+  if(!splash||!btn) return;
+  function dismiss(){ splash.classList.add('splash-out'); setTimeout(function(){ splash.classList.add('splash-gone'); },660); }
+  btn.addEventListener('click', dismiss);
+  document.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); dismiss(); } });
 })();
 
 /* ============================================================
    UTILITY
    ============================================================ */
-function fmtUSD(n, decimals) {
-  return '$' + n.toLocaleString('en-US', {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals
-  });
-}
-function parseNumber(input) {
-  var raw = String(input && input.value !== undefined ? input.value : input).replace(/,/g, '').trim();
-  if (raw === '') return NaN;
-  return Number(raw);
-}
-function parseInteger(input) {
-  var raw = String(input && input.value !== undefined ? input.value : input).replace(/,/g, '').trim();
-  if (raw === '') return NaN;
-  return parseInt(raw, 10);
-}
-function bindEnter(inputs, btn) {
-  inputs.forEach(function (el) {
-    if (!el) return;
-    el.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); btn.click(); }
-    });
+function fmtUSD(n,d){ return '$'+n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+function parseNumber(x){ var r=String(x&&x.value!==undefined?x.value:x).replace(/,/g,'').trim(); return r===''?NaN:Number(r); }
+function parseInteger(x){ var r=String(x&&x.value!==undefined?x.value:x).replace(/,/g,'').trim(); return r===''?NaN:parseInt(r,10); }
+function bindEnter(els,btn){ els.forEach(function(el){ if(!el) return; el.addEventListener('keydown',function(e){ if(e.key==='Enter'){e.preventDefault();btn.click();} }); }); }
+
+/* ============================================================
+   COINGECKO TICKER MAP
+   ============================================================ */
+var TICKER_MAP={
+  ADA:'cardano',BTC:'bitcoin',ETH:'ethereum',ALGO:'algorand',SOL:'solana',
+  MATIC:'matic-network',POL:'matic-network',BNB:'binancecoin',DOT:'polkadot',
+  AVAX:'avalanche-2',LINK:'chainlink',XRP:'ripple',DOGE:'dogecoin',LTC:'litecoin',
+  UNI:'uniswap',ATOM:'cosmos',FIL:'filecoin',NEAR:'near',APT:'aptos',
+  ARB:'arbitrum',OP:'optimism',INJ:'injective-protocol',TRX:'tron',
+  SHIB:'shiba-inu',PEPE:'pepe',BCH:'bitcoin-cash',XMR:'monero',
+  TON:'the-open-network',SUI:'sui',SEI:'sei-network',JUP:'jupiter-exchange-solana',
+  SNEK:'snek',HOSKY:'hosky-token',VOI:'voi-network'
+};
+
+/* ============================================================
+   AUTO PRICE FETCH  (shared helper)
+   Debounces 700ms after user stops typing.
+   Sets .fetching / .fetched classes on wrapEl.
+   ============================================================ */
+function setupAutoPriceFetch(tickerEl, priceEl, wrapEl, iconEl){
+  var timer=null, last='';
+  tickerEl.addEventListener('input', function(){
+    clearTimeout(timer);
+    var val=tickerEl.value.trim().toUpperCase();
+    if(!val){ wrapEl.classList.remove('fetching','fetched'); return; }
+    var cgId=TICKER_MAP[val];
+    if(!cgId){ wrapEl.classList.remove('fetching','fetched'); iconEl.textContent='⟳'; return; }
+    if(val===last) return;
+    timer=setTimeout(function(){
+      wrapEl.classList.add('fetching'); wrapEl.classList.remove('fetched');
+      iconEl.textContent='⟳'; priceEl.placeholder='Fetching…';
+      fetch('https://api.coingecko.com/api/v3/simple/price?ids='+cgId+'&vs_currencies=usd')
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(data){
+          var entry=data[cgId];
+          if(entry&&typeof entry.usd==='number'){
+            priceEl.value=entry.usd; last=val;
+            wrapEl.classList.remove('fetching'); wrapEl.classList.add('fetched');
+            iconEl.textContent='✓'; priceEl.placeholder='Auto-filled';
+          } else throw 0;
+        })
+        .catch(function(){
+          wrapEl.classList.remove('fetching','fetched');
+          iconEl.textContent='⟳'; priceEl.placeholder='Enter manually';
+        });
+    },700);
   });
 }
 
 /* ============================================================
    THEME TOGGLE
    ============================================================ */
-(function () {
-  var body  = document.body;
-  var btn   = document.getElementById('theme-toggle');
-  var icon  = document.getElementById('theme-icon');
-  var label = document.getElementById('theme-label');
-  var saved = localStorage.getItem('hh-theme');
-  if (saved === 'light') applyLight();
-  function applyLight() { body.classList.add('light'); icon.textContent = 'Moon'; label.textContent = 'Dark Mode'; }
-  function applyDark()  { body.classList.remove('light'); icon.textContent = 'Sun'; label.textContent = 'Light Mode'; }
-  btn.addEventListener('click', function () {
-    if (body.classList.contains('light')) { applyDark(); localStorage.setItem('hh-theme', 'dark'); }
-    else { applyLight(); localStorage.setItem('hh-theme', 'light'); }
-  });
+(function(){
+  var body=document.body, btn=document.getElementById('theme-toggle'),
+      icon=document.getElementById('theme-icon'), label=document.getElementById('theme-label');
+  if(localStorage.getItem('hh-theme')==='light') applyLight();
+  function applyLight(){ body.classList.add('light'); icon.textContent='Moon'; label.textContent='Dark Mode'; }
+  function applyDark() { body.classList.remove('light'); icon.textContent='Sun';  label.textContent='Light Mode'; }
+  btn.addEventListener('click',function(){ if(body.classList.contains('light')){ applyDark(); localStorage.setItem('hh-theme','dark'); } else { applyLight(); localStorage.setItem('hh-theme','light'); } });
 })();
 
 /* ============================================================
-   TOOL 1 - CRYPTO PROFIT / LOSS CALCULATOR
+   TOOL 1  PROFIT / LOSS CALCULATOR
    ============================================================ */
-(function () {
-  var buyEl  = document.getElementById('pl-buy');
-  var sellEl = document.getElementById('pl-sell');
-  var qtyEl  = document.getElementById('pl-qty');
-  var feesEl = document.getElementById('pl-fees');
-  var btn    = document.getElementById('pl-btn');
-  var out    = document.getElementById('pl-result');
-  if (!btn || !out) return;
-  bindEnter([buyEl, sellEl, qtyEl, feesEl], btn);
-  btn.addEventListener('click', function () {
-    var buy  = parseNumber(buyEl);
-    var sell = parseNumber(sellEl);
-    var qty  = parseNumber(qtyEl);
-    var fees = parseNumber(feesEl);
-    if (isNaN(fees) || fees < 0) fees = 0;
-    if (isNaN(buy) || buy <= 0 || isNaN(sell) || sell <= 0 || isNaN(qty) || qty <= 0) {
-      out.innerHTML = '<span style="color:var(--red);">Please enter a valid entry price, exit price, and quantity.</span>';
-      return;
+(function(){
+  var buyEl=document.getElementById('pl-buy'), sellEl=document.getElementById('pl-sell'),
+      qtyEl=document.getElementById('pl-qty'), feesEl=document.getElementById('pl-fees'),
+      btn=document.getElementById('pl-btn'), out=document.getElementById('pl-result');
+  if(!btn||!out) return;
+  bindEnter([buyEl,sellEl,qtyEl,feesEl],btn);
+  btn.addEventListener('click',function(){
+    var buy=parseNumber(buyEl),sell=parseNumber(sellEl),qty=parseNumber(qtyEl),fees=parseNumber(feesEl);
+    if(isNaN(fees)||fees<0) fees=0;
+    if(isNaN(buy)||buy<=0||isNaN(sell)||sell<=0||isNaN(qty)||qty<=0){
+      out.innerHTML='<span style="color:var(--red);">Please enter a valid entry price, exit price, and quantity.</span>'; return;
     }
-    var cost = buy * qty, proceeds = sell * qty, netPL = proceeds - cost - fees;
-    var roi = cost > 0 ? (netPL / cost) * 100 : 0;
-    var isProfit = netPL >= 0, cls = isProfit ? 'clr-profit' : 'clr-loss', sign = isProfit ? '+' : '-';
-    out.innerHTML =
-      '<div class="result-row"><span class="result-label">Cost basis</span><span class="result-value">' + fmtUSD(cost, 2) + '</span></div>' +
-      '<div class="result-row"><span class="result-label">Proceeds</span><span class="result-value">' + fmtUSD(proceeds, 2) + '</span></div>' +
-      (fees > 0 ? '<div class="result-row"><span class="result-label">Fees deducted</span><span class="result-value" style="color:var(--text-muted);">-' + fmtUSD(fees, 2) + '</span></div>' : '') +
-      '<hr class="result-divider">' +
-      '<div class="result-row"><span class="result-label">' + (isProfit ? 'Profit' : 'Loss') + '</span><span class="result-value ' + cls + '">' + sign + fmtUSD(Math.abs(netPL), 2) + '</span></div>' +
-      '<div class="result-row"><span class="result-label">ROI</span><span class="result-value ' + cls + '">' + sign + Math.abs(roi).toFixed(2) + '%</span></div>' +
-      '<div class="result-summary">Net result = ' + (isProfit ? 'profit' : 'loss') + ' after fees based on your entry and exit prices.</div>';
+    var cost=buy*qty,proceeds=sell*qty,netPL=proceeds-cost-fees;
+    var roi=cost>0?(netPL/cost)*100:0,isP=netPL>=0,cls=isP?'clr-profit':'clr-loss',sign=isP?'+':'-';
+    out.innerHTML=
+      '<div class="result-row"><span class="result-label">Cost basis</span><span class="result-value">'+fmtUSD(cost,2)+'</span></div>'+
+      '<div class="result-row"><span class="result-label">Proceeds</span><span class="result-value">'+fmtUSD(proceeds,2)+'</span></div>'+
+      (fees>0?'<div class="result-row"><span class="result-label">Fees deducted</span><span class="result-value" style="color:var(--text-muted);">-'+fmtUSD(fees,2)+'</span></div>':'')+
+      '<hr class="result-divider">'+
+      '<div class="result-row"><span class="result-label">'+(isP?'Profit':'Loss')+'</span><span class="result-value '+cls+'">'+sign+fmtUSD(Math.abs(netPL),2)+'</span></div>'+
+      '<div class="result-row"><span class="result-label">ROI</span><span class="result-value '+cls+'">'+sign+Math.abs(roi).toFixed(2)+'%</span></div>'+
+      '<div class="result-summary">Net result = '+(isP?'profit':'loss')+' after fees based on your entry and exit prices.</div>';
   });
 })();
 
 /* ============================================================
-   TOOL 2 - DCA PLANNER
+   TOOL 2  DCA PLANNER  (with auto price fetch)
    ============================================================ */
-(function () {
-  var TICKER_MAP = {
-    ADA:'cardano',BTC:'bitcoin',ETH:'ethereum',ALGO:'algorand',SOL:'solana',
-    MATIC:'matic-network',POL:'matic-network',BNB:'binancecoin',DOT:'polkadot',
-    AVAX:'avalanche-2',LINK:'chainlink',XRP:'ripple',DOGE:'dogecoin',LTC:'litecoin',
-    UNI:'uniswap',ATOM:'cosmos',FIL:'filecoin',NEAR:'near',APT:'aptos',
-    ARB:'arbitrum',OP:'optimism',INJ:'injective-protocol'
-  };
-  var MAX_HISTORY_DAYS = 365;
+(function(){
+  var MAX=365;
   var assetEl=document.getElementById('dca-asset'), priceEl=document.getElementById('dca-price'),
       amountEl=document.getElementById('dca-amount'), intervalEl=document.getElementById('dca-interval'),
       periodsEl=document.getElementById('dca-periods'), startEl=document.getElementById('dca-start'),
-      btn=document.getElementById('dca-btn'), out=document.getElementById('dca-result');
-  if (!btn || !out) return;
-  bindEnter([assetEl,priceEl,amountEl,intervalEl,periodsEl,startEl], btn);
-  startEl.value = new Date().toISOString().split('T')[0];
+      btn=document.getElementById('dca-btn'), out=document.getElementById('dca-result'),
+      wrapEl=document.getElementById('dca-asset-wrap'), iconEl=document.getElementById('dca-fetch-icon');
+  if(!btn||!out) return;
+  setupAutoPriceFetch(assetEl,priceEl,wrapEl,iconEl);
+  bindEnter([priceEl,amountEl,periodsEl,startEl],btn);
+  startEl.value=new Date().toISOString().split('T')[0];
 
-  function renderResult(opts) {
-    var totalInvested, totalCoins, avgCost, usedHistorical, cappedNote;
-    if (opts.prices && opts.prices.length >= 2) {
-      usedHistorical = true; totalInvested = 0; totalCoins = 0; cappedNote = opts.capped;
-      var priceLookup = {};
-      opts.prices.forEach(function(p){ var k=new Date(p[0]).toISOString().split('T')[0]; priceLookup[k]=p[1]; });
-      var availDates = Object.keys(priceLookup).sort();
-      function closestPrice(t) {
-        if (priceLookup[t]) return priceLookup[t];
-        var best=null,bestDiff=Infinity;
-        availDates.forEach(function(d){ var diff=Math.abs(new Date(d)-new Date(t)); if(diff<bestDiff){bestDiff=diff;best=priceLookup[d];} });
-        return best;
-      }
-      var startDate=new Date(opts.startDate+'T00:00:00'), actualPeriods=Math.min(opts.periods, opts.capped?opts.cappedPeriods:opts.periods);
-      for (var i=0;i<actualPeriods;i++) {
-        var bd=new Date(startDate); bd.setDate(bd.getDate()+opts.days*i);
-        var p=closestPrice(bd.toISOString().split('T')[0]);
-        if (p&&p>0){ totalInvested+=opts.amount; totalCoins+=opts.amount/p; }
-      }
-      avgCost = totalCoins>0 ? totalInvested/totalCoins : 0;
-    } else {
-      usedHistorical=false; totalInvested=opts.amount*opts.periods; totalCoins=totalInvested/opts.fallbackPrice; avgCost=opts.fallbackPrice;
-    }
-    var currentVal=totalCoins*opts.fallbackPrice, unrealized=currentVal-totalInvested;
-    var unrClass=unrealized>=0?'clr-profit':'clr-loss', unrSign=unrealized>=0?'+':'-';
-    var sourceNote = usedHistorical
-      ? 'Based on real historical prices from CoinGecko.'+(cappedNote?' (Plan capped at '+MAX_HISTORY_DAYS+' days of history.)':'')
-      : 'No historical data found for <strong>'+opts.asset+'</strong> - using your entered price as a constant estimate.';
-    out.innerHTML =
-      '<div class="result-row"><span class="result-label">Total invested</span><span class="result-value clr-profit">'+fmtUSD(totalInvested,2)+'</span></div>'+
-      '<div class="result-row"><span class="result-label">Coins accumulated</span><span class="result-value">'+totalCoins.toFixed(4)+' '+opts.asset+'</span></div>'+
-      '<div class="result-row"><span class="result-label">Avg buy price ('+(usedHistorical?'historical':'assumed')+')</span><span class="result-value">'+fmtUSD(avgCost,avgCost<1?4:2)+'</span></div>'+
-      '<div class="result-row"><span class="result-label">Current value</span><span class="result-value">'+fmtUSD(currentVal,2)+'</span></div>'+
-      '<div class="result-row"><span class="result-label">Unrealized P/L</span><span class="result-value '+unrClass+'">'+unrSign+fmtUSD(Math.abs(unrealized),2)+'</span></div>'+
-      (opts.endDateStr?'<div class="result-row"><span class="result-label">Plan end date</span><span class="result-value">'+opts.endDateStr+'</span></div>':'')+
-      '<div class="result-summary">Investing <strong style="color:var(--gold-light);">'+fmtUSD(opts.amount,2)+'</strong> '+opts.intervalLabel+' for <strong style="color:var(--gold-light);">'+opts.periods+' periods</strong> = <strong style="color:var(--gold-light);">'+fmtUSD(totalInvested,2)+'</strong> total, <strong style="color:var(--gold-light);">'+totalCoins.toFixed(4)+' '+opts.asset+'</strong> at avg '+fmtUSD(avgCost,avgCost<1?4:2)+'/coin.<br><small>'+sourceNote+'</small></div>';
+  function renderResult(o){
+    var ti,tc,avg,useHist,capped;
+    if(o.prices&&o.prices.length>=2){
+      useHist=true; ti=0; tc=0; capped=o.capped;
+      var pl={};
+      o.prices.forEach(function(p){ pl[new Date(p[0]).toISOString().split('T')[0]]=p[1]; });
+      var ad=Object.keys(pl).sort();
+      function cp(t){ if(pl[t]) return pl[t]; var b=null,bd=Infinity; ad.forEach(function(d){ var df=Math.abs(new Date(d)-new Date(t)); if(df<bd){bd=df;b=pl[d];} }); return b; }
+      var sd=new Date(o.startDate+'T00:00:00'), ap=Math.min(o.periods,o.capped?o.cappedPeriods:o.periods);
+      for(var i=0;i<ap;i++){ var bd2=new Date(sd); bd2.setDate(bd2.getDate()+o.days*i); var p=cp(bd2.toISOString().split('T')[0]); if(p&&p>0){ti+=o.amount;tc+=o.amount/p;} }
+      avg=tc>0?ti/tc:0;
+    } else { useHist=false; ti=o.amount*o.periods; tc=ti/o.fallbackPrice; avg=o.fallbackPrice; }
+    var cv=tc*o.fallbackPrice, unr=cv-ti, uc=unr>=0?'clr-profit':'clr-loss', us=unr>=0?'+':'-';
+    var note=useHist?'Based on real historical prices from CoinGecko.'+(capped?' (Plan capped at '+MAX+' days of history.)':''):'No historical data found for <strong>'+o.asset+'</strong> — using your entered price as a constant estimate.';
+    out.innerHTML=
+      '<div class="result-row"><span class="result-label">Total invested</span><span class="result-value clr-profit">'+fmtUSD(ti,2)+'</span></div>'+
+      '<div class="result-row"><span class="result-label">Coins accumulated</span><span class="result-value">'+tc.toFixed(4)+' '+o.asset+'</span></div>'+
+      '<div class="result-row"><span class="result-label">Avg buy price ('+(useHist?'historical':'assumed')+')</span><span class="result-value">'+fmtUSD(avg,avg<1?4:2)+'</span></div>'+
+      '<div class="result-row"><span class="result-label">Current value</span><span class="result-value">'+fmtUSD(cv,2)+'</span></div>'+
+      '<div class="result-row"><span class="result-label">Unrealized P/L</span><span class="result-value '+uc+'">'+us+fmtUSD(Math.abs(unr),2)+'</span></div>'+
+      (o.endDateStr?'<div class="result-row"><span class="result-label">Plan end date</span><span class="result-value">'+o.endDateStr+'</span></div>':'')+
+      '<div class="result-summary">Investing <strong style="color:var(--gold-light);">'+fmtUSD(o.amount,2)+'</strong> '+o.intervalLabel+' for <strong style="color:var(--gold-light);">'+o.periods+' periods</strong> = <strong style="color:var(--gold-light);">'+fmtUSD(ti,2)+'</strong> total, <strong style="color:var(--gold-light);">'+tc.toFixed(4)+' '+o.asset+'</strong> at avg '+fmtUSD(avg,avg<1?4:2)+'/coin.<br><small>'+note+'</small></div>';
   }
 
-  btn.addEventListener('click', function () {
+  btn.addEventListener('click',function(){
     var asset=assetEl.value.trim().toUpperCase()||'ASSET', price=parseNumber(priceEl),
         amount=parseNumber(amountEl), days=parseInteger(intervalEl),
         periods=parseInteger(periodsEl), startVal=startEl.value;
-    var intervalLabel={7:'weekly',14:'bi-weekly',30:'monthly'}[days]||'per interval';
-    if (isNaN(amount)||amount<=0||isNaN(periods)||periods<1){ out.innerHTML='<span style="color:var(--red);">Please enter investment amount and number of periods.</span>'; return; }
-    if (isNaN(price)||price<=0){ out.innerHTML='<span style="color:var(--red);">Please enter a current price.</span>'; return; }
-    var endDateStr='';
-    if (startVal){ var ed=new Date(startVal); ed.setDate(ed.getDate()+days*Math.max(periods-1,0)); endDateStr=ed.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
-    var totalPlanDays=days*periods, capped=totalPlanDays>MAX_HISTORY_DAYS;
-    var effectiveDays=Math.min(totalPlanDays,MAX_HISTORY_DAYS), cappedPeriods=Math.floor(effectiveDays/days);
+    var iLabel={7:'weekly',14:'bi-weekly',30:'monthly'}[days]||'per interval';
+    if(isNaN(amount)||amount<=0||isNaN(periods)||periods<1){ out.innerHTML='<span style="color:var(--red);">Please enter investment amount and number of periods.</span>'; return; }
+    if(isNaN(price)||price<=0){ out.innerHTML='<span style="color:var(--red);">Please enter a current price — or type a recognized ticker to auto-fill it.</span>'; return; }
+    var eds=''; if(startVal){ var ed=new Date(startVal); ed.setDate(ed.getDate()+days*Math.max(periods-1,0)); eds=ed.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
+    var tpd=days*periods, capped=tpd>MAX, eff=Math.min(tpd,MAX), cp2=Math.floor(eff/days);
     var cgId=TICKER_MAP[asset];
-    var baseOpts={asset,amount,periods,days,intervalLabel,endDateStr,fallbackPrice:price,startDate:startVal||new Date().toISOString().split('T')[0],capped,cappedPeriods};
-    if (cgId && startVal) {
-      var daysBack=Math.min(Math.max(effectiveDays,Math.ceil((Date.now()-new Date(startVal).getTime())/86400000)+days+5),MAX_HISTORY_DAYS);
-      out.innerHTML='<span class="spinner"></span> Fetching historical '+asset+' prices from CoinGecko...';
-      btn.disabled=true;
-      fetch('https://api.coingecko.com/api/v3/coins/'+cgId+'/market_chart?vs_currency=usd&days='+daysBack+'&interval=daily')
-        .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-        .then(function(data){ btn.disabled=false; baseOpts.prices=(data&&data.prices)?data.prices:null; renderResult(baseOpts); })
-        .catch(function(){ btn.disabled=false; baseOpts.prices=null; renderResult(baseOpts); });
-    } else { baseOpts.prices=null; renderResult(baseOpts); }
+    var base={asset,amount,periods,days,intervalLabel:iLabel,endDateStr:eds,fallbackPrice:price,startDate:startVal||new Date().toISOString().split('T')[0],capped,cappedPeriods:cp2};
+    if(cgId&&startVal){
+      var db=Math.min(Math.max(eff,Math.ceil((Date.now()-new Date(startVal).getTime())/86400000)+days+5),MAX);
+      out.innerHTML='<span class="spinner"></span> Fetching historical '+asset+' prices…'; btn.disabled=true;
+      fetch('https://api.coingecko.com/api/v3/coins/'+cgId+'/market_chart?vs_currency=usd&days='+db+'&interval=daily')
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(d){ btn.disabled=false; base.prices=(d&&d.prices)?d.prices:null; renderResult(base); })
+        .catch(function(){ btn.disabled=false; base.prices=null; renderResult(base); });
+    } else { base.prices=null; renderResult(base); }
   });
 })();
 
 /* ============================================================
-   TOOL 3 - "CAN I MAKE IT?" SIMULATOR
+   TOOL 3  "CAN I MAKE IT?" SIMULATOR  (with auto price fetch)
    ============================================================ */
-(function () {
+(function(){
   var assetEl=document.getElementById('cim-asset'), currentEl=document.getElementById('cim-current'),
       targetEl=document.getElementById('cim-target'), investedEl=document.getElementById('cim-invested'),
-      goalEl=document.getElementById('cim-goal'), btn=document.getElementById('cim-btn'), out=document.getElementById('cim-result');
-  if (!btn||!out) return;
-  bindEnter([assetEl,currentEl,targetEl,investedEl,goalEl],btn);
-  btn.addEventListener('click', function () {
+      goalEl=document.getElementById('cim-goal'), btn=document.getElementById('cim-btn'), out=document.getElementById('cim-result'),
+      wrapEl=document.getElementById('cim-asset-wrap'), iconEl=document.getElementById('cim-fetch-icon');
+  if(!btn||!out) return;
+  setupAutoPriceFetch(assetEl,currentEl,wrapEl,iconEl);
+  bindEnter([currentEl,targetEl,investedEl,goalEl],btn);
+  btn.addEventListener('click',function(){
     var asset=assetEl.value.trim().toUpperCase()||'ASSET', current=parseNumber(currentEl),
         target=parseNumber(targetEl), invested=parseNumber(investedEl), goal=parseNumber(goalEl)||0;
-    if (isNaN(current)||current<=0||isNaN(target)||target<=0||isNaN(invested)||invested<=0){
+    if(isNaN(current)||current<=0||isNaN(target)||target<=0||isNaN(invested)||invested<=0){
       out.innerHTML='<span style="color:var(--red);">Please enter current price, target price, and amount invested.</span>'; return;
     }
-    var coins=invested/current, valueAtTarget=coins*target, profitRaw=valueAtTarget-invested;
-    var roi=(profitRaw/invested)*100, multiplier=target/current;
-    var isProfit=profitRaw>=0, cls=isProfit?'clr-profit':'clr-loss', sign=isProfit?'+':'-';
-    var message='';
-    if (goal>0) {
-      message=valueAtTarget>=goal
-        ?'Yes - you would hit your <strong style="color:var(--gold-light);">'+fmtUSD(goal,0)+'</strong> goal with <strong style="color:var(--green);">'+fmtUSD(valueAtTarget-goal,2)+'</strong> to spare!'
-        :'Not quite - you would be <strong style="color:var(--red);">'+fmtUSD(goal-valueAtTarget,2)+'</strong> short of your '+fmtUSD(goal,0)+' goal. DCA\'ing in more could bridge the gap.';
-    } else {
-      if      (multiplier>=10) message='10x+ scenario - life-changing if it plays out. Position sizing matters.';
-      else if (multiplier>=5)  message='Massive move - a '+multiplier.toFixed(2)+'x gain. High conviction plays only.';
-      else if (multiplier>=2)  message='Strong territory - a '+multiplier.toFixed(2)+'x. Patience and conviction could pay off.';
-      else if (roi>=0)         message='Modest gain at '+sign+roi.toFixed(1)+'%. Worth it depending on timeframe and conviction.';
-      else                     message='This scenario shows a loss at '+sign+Math.abs(roi).toFixed(1)+'%. Always size your risk carefully.';
-    }
+    var coins=invested/current, vat=coins*target, prof=vat-invested;
+    var roi=(prof/invested)*100, mult=target/current, isP=prof>=0, cls=isP?'clr-profit':'clr-loss', sign=isP?'+':'-';
+    var msg='';
+    if(goal>0){ msg=vat>=goal?'Yes — you would hit your <strong style="color:var(--gold-light);">'+fmtUSD(goal,0)+'</strong> goal with <strong style="color:var(--green);">'+fmtUSD(vat-goal,2)+'</strong> to spare!':'Not quite — you would be <strong style="color:var(--red);">'+fmtUSD(goal-vat,2)+'</strong> short of your '+fmtUSD(goal,0)+' goal. DCA\'ing in more could bridge the gap.'; }
+    else{ if(mult>=10) msg='10x+ scenario — life-changing if it plays out. Position sizing matters.'; else if(mult>=5) msg='Massive move — a '+mult.toFixed(2)+'x gain. High conviction plays only.'; else if(mult>=2) msg='Strong territory — a '+mult.toFixed(2)+'x. Patience and conviction could pay off.'; else if(roi>=0) msg='Modest gain at '+sign+roi.toFixed(1)+'%. Worth it depending on timeframe and conviction.'; else msg='This scenario shows a loss at '+sign+Math.abs(roi).toFixed(1)+'%. Always size your risk carefully.'; }
     out.innerHTML=
       '<div class="result-row"><span class="result-label">Coins at current price</span><span class="result-value">'+coins.toFixed(6)+' '+asset+'</span></div>'+
-      '<div class="result-row"><span class="result-label">Value at target</span><span class="result-value '+cls+'">'+fmtUSD(valueAtTarget,2)+'</span></div>'+
+      '<div class="result-row"><span class="result-label">Value at target</span><span class="result-value '+cls+'">'+fmtUSD(vat,2)+'</span></div>'+
       '<hr class="result-divider">'+
-      '<div class="result-row"><span class="result-label">Profit / Loss</span><span class="result-value '+cls+'">'+sign+fmtUSD(Math.abs(profitRaw),2)+'</span></div>'+
+      '<div class="result-row"><span class="result-label">Profit / Loss</span><span class="result-value '+cls+'">'+sign+fmtUSD(Math.abs(prof),2)+'</span></div>'+
       '<div class="result-row"><span class="result-label">ROI</span><span class="result-value '+cls+'">'+sign+Math.abs(roi).toFixed(2)+'%</span></div>'+
-      '<div class="result-row"><span class="result-label">Multiplier</span><span class="result-value">'+multiplier.toFixed(2)+'x</span></div>'+
-      '<div class="result-summary">'+message+'</div>';
+      '<div class="result-row"><span class="result-label">Multiplier</span><span class="result-value">'+mult.toFixed(2)+'x</span></div>'+
+      '<div class="result-summary">'+msg+'</div>';
   });
-})();
-
-/* ============================================================
-   LIVE PRICE BAR
-   ============================================================ */
-(function () {
-  var COINS = [
-    {cgId:'cardano',               ticker:'ADA',   decimals:4},
-    {cgId:'algorand',              ticker:'ALGO',  decimals:4},
-    {cgId:'bitcoin',               ticker:'BTC',   decimals:0},
-    {cgId:'ethereum',              ticker:'ETH',   decimals:2},
-    {cgId:'solana',                ticker:'SOL',   decimals:2},
-    {cgId:'polygon-ecosystem-token',ticker:'POL',  decimals:4},
-    {cgId:'ripple',                ticker:'XRP',   decimals:4},
-    {cgId:'dogecoin',              ticker:'DOGE',  decimals:5},
-    {cgId:'bitcoin-cash',          ticker:'BCH',   decimals:2},
-    {cgId:'monero',                ticker:'XMR',   decimals:2},
-    {cgId:'voi-network',           ticker:'VOI',   decimals:4},
-    {cgId:'hosky-token',           ticker:'HOSKY', decimals:8},
-    {cgId:'snek',                  ticker:'SNEK',  decimals:6}
-  ];
-  var track=document.getElementById('ticker-track');
-  if (!track) return;
-  var ids=COINS.map(function(c){return c.cgId;}).join(',');
-  var API_URL='https://api.coingecko.com/api/v3/simple/price?ids='+ids+'&vs_currencies=usd';
-  function buildTrack() {
-    function oneSet() {
-      return COINS.map(function(c){
-        return '<div class="price-item"><span class="price-ticker">'+c.ticker+'</span><span class="price-val pi-'+c.cgId.replace(/[^a-z0-9]/g,'-')+'">--</span></div>';
-      }).join('');
-    }
-    track.innerHTML=oneSet()+oneSet();
-  }
-  function updateCoin(cgId,text) {
-    var cls='pi-'+cgId.replace(/[^a-z0-9]/g,'-');
-    var els=document.querySelectorAll('.'+cls);
-    for (var i=0;i<els.length;i++) els[i].textContent=text;
-  }
-  function fetchPrices() {
-    fetch(API_URL)
-      .then(function(res){ if(!res.ok) throw new Error('HTTP '+res.status); return res.json(); })
-      .then(function(data){
-        COINS.forEach(function(coin){
-          var entry=data[coin.cgId];
-          updateCoin(coin.cgId,(entry&&typeof entry.usd==='number')?fmtUSD(entry.usd,coin.decimals):'N/A');
-        });
-      })
-      .catch(function(){ COINS.forEach(function(coin){ updateCoin(coin.cgId,'N/A'); }); });
-  }
-  buildTrack(); fetchPrices(); setInterval(fetchPrices,60000);
 })();
 
 </script>
