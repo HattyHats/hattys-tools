@@ -11,4 +11,6 @@ Type a ticker — the current price auto-fills. Pick a target price and find out
 
 I will be adding more as time goes on. Check out my other website to see what else I am building
 
+www.earnwithhatty.com
+
 01001000 01100001 01110100 01110100 01111001 01001000 01100001 01110100 01110011 00100000 01001111 01110101 01110100
