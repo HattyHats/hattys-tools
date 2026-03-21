@@ -88,21 +88,31 @@ body {
 a { text-decoration:none; color:inherit; }
 
 /* ============================================================
-   SPLASH SCREEN
+   SPLASH SCREEN  — pure CSS, no JS required
+   Timeline: show 5.5s → fade out over 1s → gone at 6.5s
+   pointer-events off after 5.5s so site is immediately usable
    ============================================================ */
 #splash {
   position:fixed; inset:0; z-index:99999; background:#020617;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   text-align:center; padding:20px; overflow:hidden;
-  cursor:pointer;
+  /* Auto-dismiss: hold 5.5s then fade out in 1s */
+  animation: splashAutoDismiss 1s ease-in 5.5s forwards;
+  pointer-events:none; /* never block the page underneath */
 }
+@keyframes splashAutoDismiss {
+  0%   { opacity:1; }
+  100% { opacity:0; visibility:hidden; }
+}
+
 #splash-bg {
   position:absolute; inset:0;
   background:url('hattys-tool.png') center center / contain no-repeat;
-  opacity:0; filter:brightness(0.2) saturate(0.5); transform:scale(1.08);
-  animation:splashBgIn 2.6s ease-out 0.2s forwards;
+  filter:brightness(0.2) saturate(0.5);
+  animation:splashBgIn 2s ease-out forwards;
 }
-@keyframes splashBgIn { to { opacity:1; transform:scale(1); } }
+@keyframes splashBgIn { from{opacity:0;transform:scale(1.08);} to{opacity:1;transform:scale(1);} }
+
 #splash-vignette {
   position:absolute; inset:0; pointer-events:none;
   background:radial-gradient(ellipse at center,transparent 25%,rgba(2,6,23,0.88) 72%),
@@ -110,74 +120,59 @@ a { text-decoration:none; color:inherit; }
 }
 #splash-scanlines {
   position:absolute; inset:0; pointer-events:none;
-  background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,0.045) 3px,rgba(0,0,0,0.045) 4px);
+  background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,0.04) 3px,rgba(0,0,0,0.04) 4px);
 }
-#splash-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; }
+#splash-content {
+  position:relative; z-index:2; display:flex; flex-direction:column; align-items:center;
+}
+
+/* Each line fades up in sequence */
 #splash-welcome {
-  font-size:clamp(0.9rem,2.8vw,1.45rem); font-weight:600; color:rgba(224,231,255,0.72);
-  letter-spacing:0.38em; text-transform:uppercase;
-  opacity:0; transform:translateY(10px); animation:splashFadeUp 1.2s ease-out 1.5s forwards; margin-bottom:16px;
+  font-size:clamp(0.9rem,2.8vw,1.4rem); font-weight:600; color:rgba(224,231,255,0.72);
+  letter-spacing:0.38em; text-transform:uppercase; margin-bottom:16px;
+  opacity:0; animation:splashFadeUp 0.9s ease-out 0.6s forwards;
 }
 #splash-title {
   font-family:'Fraunces',serif; font-size:clamp(3rem,13vw,8.5rem); font-weight:900; line-height:1;
   color:#f0a500; text-shadow:0 0 40px rgba(240,165,0,0.45),0 0 90px rgba(240,165,0,0.18);
-  opacity:0; animation:splashFadeUp 1.3s ease-out 2.4s forwards; margin-bottom:14px;
-  display:flex; align-items:baseline; justify-content:center; gap:0.2em; flex-wrap:wrap;
+  margin-bottom:14px; display:flex; align-items:baseline; justify-content:center; gap:0.2em; flex-wrap:wrap;
+  opacity:0; animation:splashFadeUp 1s ease-out 1.3s forwards;
 }
 #splash-title .splash-plain { color:#ffffff; }
 #splash-byline {
   font-size:clamp(0.82rem,2.1vw,1.1rem); font-weight:500; color:rgba(200,210,230,0.68);
-  letter-spacing:0.1em; opacity:0; animation:splashFadeUp 1.1s ease-out 3.3s forwards; margin-bottom:56px;
+  letter-spacing:0.1em; margin-bottom:40px;
+  opacity:0; animation:splashFadeUp 0.9s ease-out 2s forwards;
 }
 #splash-byline .splash-glitch-word { color:#fbbf24; font-weight:700; }
-#splash-enter {
-  opacity:0; animation:splashFadeUp 1s ease-out 4.1s forwards; background:none; border:none; padding:0; cursor:pointer;
-  position:relative; z-index:10000;
+
+/* "Tap anywhere" hint fades in last */
+#splash-hint {
+  font-size:0.8rem; letter-spacing:0.18em; text-transform:uppercase;
+  color:rgba(240,165,0,0.7); font-weight:600;
+  opacity:0; animation:splashFadeUp 0.8s ease-out 2.8s forwards, splashPulse 1.8s ease-in-out 3.2s infinite;
 }
-#splash-enter-inner {
-  display:inline-flex; align-items:center; gap:10px; padding:15px 50px; border-radius:999px;
-  font-family:'Space Grotesk',sans-serif; font-size:1rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#111;
-  background:linear-gradient(135deg,#f0a500 0%,#d99200 100%);
-  transition:transform 0.2s,box-shadow 0.2s;
-  box-shadow:0 0 20px rgba(240,165,0,0.55),0 0 55px rgba(240,165,0,0.22);
-  animation:splashBtnPulse 2.2s ease-in-out infinite 4.8s;
-}
-#splash-enter:hover #splash-enter-inner { transform:scale(1.07); box-shadow:0 0 32px rgba(240,165,0,0.8),0 0 75px rgba(240,165,0,0.45); }
-#splash-enter:active #splash-enter-inner { transform:scale(0.97); }
-#splash-arrow { transition:transform 0.2s; }
-#splash-enter:hover #splash-arrow { transform:translateX(4px); }
-@keyframes splashBtnPulse {
-  0%,100%{ box-shadow:0 0 20px rgba(240,165,0,0.55),0 0 55px rgba(240,165,0,0.22); }
-  50%    { box-shadow:0 0 36px rgba(240,165,0,0.9),0 0 85px rgba(240,165,0,0.5); }
-}
-@keyframes splashFadeUp { to { opacity:1; transform:translateY(0); } }
+@keyframes splashPulse { 0%,100%{opacity:0.7;} 50%{opacity:0.25;} }
+
+@keyframes splashFadeUp { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
+
+/* Glitch on splash words */
 .splash-glitch-word { position:relative; display:inline-block; }
 .splash-glitch-word::before,.splash-glitch-word::after {
   content:attr(data-text); position:absolute; top:0; left:0; width:100%; overflow:hidden; pointer-events:none;
 }
-.splash-glitch-word::before { left:2px; color:#ff4ec7; animation:splashGlitchTop 5s steps(1) infinite; }
-.splash-glitch-word::after  { left:-2px; color:#00e5ff; animation:splashGlitchBot 5s steps(1) infinite; }
-#splash-title .splash-glitch-word::before { animation-delay:0.3s; }
-#splash-title .splash-glitch-word::after  { animation-delay:0.3s; }
-#splash-byline .splash-glitch-word::before { animation-delay:1.1s; }
-#splash-byline .splash-glitch-word::after  { animation-delay:1.1s; }
+.splash-glitch-word::before { left:2px; color:#ff4ec7; animation:splashGlitchTop 4s steps(1) infinite 0.5s; }
+.splash-glitch-word::after  { left:-2px; color:#00e5ff; animation:splashGlitchBot 4s steps(1) infinite 0.5s; }
 @keyframes splashGlitchTop {
-  0%,93%{opacity:0;transform:translate(0,0);}
-  94%{opacity:1;transform:translate(-3px,-2px);clip-path:inset(12% 0 58% 0);}
-  95%{opacity:1;transform:translate(3px,1px);clip-path:inset(38% 0 32% 0);}
-  96%{opacity:1;transform:translate(-2px,0);clip-path:inset(5% 0 72% 0);}
-  97%,100%{opacity:0;transform:translate(0,0);}
+  0%,90%{opacity:0;} 91%{opacity:1;transform:translate(-3px,-2px);clip-path:inset(12% 0 58% 0);}
+  92%{opacity:1;transform:translate(3px,1px);clip-path:inset(38% 0 32% 0);}
+  93%{opacity:0;}  100%{opacity:0;}
 }
 @keyframes splashGlitchBot {
-  0%,93%{opacity:0;transform:translate(0,0);}
-  94%{opacity:1;transform:translate(3px,2px);clip-path:inset(58% 0 8% 0);}
-  95%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(72% 0 4% 0);}
-  96%{opacity:1;transform:translate(2px,0);clip-path:inset(50% 0 22% 0);}
-  97%,100%{opacity:0;transform:translate(0,0);}
+  0%,90%{opacity:0;} 91%{opacity:1;transform:translate(3px,2px);clip-path:inset(58% 0 8% 0);}
+  92%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(72% 0 4% 0);}
+  93%{opacity:0;} 100%{opacity:0;}
 }
-#splash.splash-out { animation:splashExit 0.65s ease-in forwards; }
-@keyframes splashExit { to { opacity:0; pointer-events:none; } }
-#splash.splash-gone { display:none; }
 
 /* ============================================================
    HEADER & NAV
@@ -562,7 +557,7 @@ footer a { color:var(--gold); }
 <body>
 
 <!-- ============================================================
-     SPLASH SCREEN
+     SPLASH SCREEN  — auto-dismisses after ~6 seconds, no button needed
      ============================================================ -->
 <div id="splash" aria-label="Welcome splash screen">
   <div id="splash-bg"></div>
@@ -577,9 +572,7 @@ footer a { color:var(--gold); }
     <div id="splash-byline">
       Created by&nbsp;<span class="splash-glitch-word" data-text="HattyHats">HattyHats</span>
     </div>
-    <button id="splash-enter" aria-label="Enter site">
-      <span id="splash-enter-inner">Enter &nbsp;<span id="splash-arrow">→</span></span>
-    </button>
+    <div id="splash-hint">✦ &nbsp; Loading &nbsp; ✦</div>
   </div>
 </div>
 
@@ -839,49 +832,10 @@ footer a { color:var(--gold); }
 /* ============================================================
    SPLASH
    ============================================================ */
-(function(){
-  var splash = document.getElementById('splash');
-  var btn    = document.getElementById('splash-enter');
-  if (!splash) return;
-
-  var dismissed = false;
-
-  function dismiss() {
-    if (dismissed) return;
-    dismissed = true;
-    // Fade out with inline style — no class dependency
-    splash.style.transition = 'opacity 0.6s ease';
-    splash.style.opacity    = '0';
-    splash.style.pointerEvents = 'none';
-    setTimeout(function() {
-      splash.style.display = 'none';
-    }, 650);
-  }
-
-  // Enter button click
-  if (btn) {
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      dismiss();
-    });
-    // Also wire touch for mobile
-    btn.addEventListener('touchend', function(e) {
-      e.preventDefault();
-      dismiss();
-    });
-  }
-
-  // Click anywhere on the splash (outside button area still works)
-  splash.addEventListener('click', dismiss);
-
-  // Any key press
-  document.addEventListener('keydown', function(e) {
-    dismiss();
-  });
-
-  // Safety net — auto-dismiss after 12 seconds no matter what
-  setTimeout(dismiss, 12000);
-})();
+/* ============================================================
+   SPLASH — pure CSS auto-dismiss, no JS needed
+   ============================================================ */
+// Nothing to do here — splash dismisses itself via CSS animation
 
 /* ============================================================
    UTILITY
