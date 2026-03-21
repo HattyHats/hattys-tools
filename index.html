@@ -101,7 +101,8 @@ body.light .nav-dd-menu a:hover{background:rgba(240,165,0,0.08);color:var(--gold
 .hero-glitch::after{left:-2px;color:#00e5ff;animation:hgb 3.8s steps(1) infinite 1.2s;}
 @keyframes hgt{0%,88%{opacity:0;}89%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(8% 0 62% 0);}90%{opacity:1;transform:translate(3px,1px);clip-path:inset(42% 0 28% 0);}91%,100%{opacity:0;}}
 @keyframes hgb{0%,88%{opacity:0;}89%{opacity:1;transform:translate(3px,2px);clip-path:inset(62% 0 6% 0);}90%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(74% 0 3% 0);}91%,100%{opacity:0;}}
-.hero-token-text{font-size:0.88rem;color:var(--text-muted);font-weight:600;letter-spacing:0.3px;}
+.hero-token-text{display:inline-flex;align-items:center;gap:6px;padding:7px 20px;border-radius:999px;font-size:0.85rem;font-weight:700;color:#111;background:linear-gradient(135deg,var(--gold) 0%,#d99200 100%);box-shadow:0 0 16px rgba(240,165,0,0.4);transition:transform 0.18s,box-shadow 0.18s;text-decoration:none;}
+.hero-token-text:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 0 28px rgba(240,165,0,0.65);}
 .hero-token-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:7px 20px;border-radius:999px;font-size:0.85rem;font-weight:700;color:#111;background:linear-gradient(135deg,var(--gold) 0%,#d99200 100%);box-shadow:0 0 16px rgba(240,165,0,0.4);transition:transform 0.18s,box-shadow 0.18s;position:relative;}
 .hero-token-link:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 0 28px rgba(240,165,0,0.65);}
 
@@ -259,7 +260,7 @@ body.light footer a{color:var(--gold-light);}
 <main>
   <div class="hero-bridge">
     <p class="hero-sub">Check live prices and plan for your <span class="hero-glitch" data-text="FUTURE">FUTURE</span></p>
-    <p class="hero-token-text">&#127890; Token-Tokens</p>
+    <a href="https://hattyhats.github.io/token-tokens/" target="_blank" rel="noopener" class="hero-token-text">&#127890; Token-Tokens</a>
   </div>
 
   <section id="tools">
