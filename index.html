@@ -91,9 +91,10 @@ a { text-decoration:none; color:inherit; }
    SPLASH SCREEN
    ============================================================ */
 #splash {
-  position:fixed; inset:0; z-index:9999; background:#020617;
+  position:fixed; inset:0; z-index:99999; background:#020617;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   text-align:center; padding:20px; overflow:hidden;
+  cursor:pointer;
 }
 #splash-bg {
   position:absolute; inset:0;
@@ -131,6 +132,7 @@ a { text-decoration:none; color:inherit; }
 #splash-byline .splash-glitch-word { color:#fbbf24; font-weight:700; }
 #splash-enter {
   opacity:0; animation:splashFadeUp 1s ease-out 4.1s forwards; background:none; border:none; padding:0; cursor:pointer;
+  position:relative; z-index:10000;
 }
 #splash-enter-inner {
   display:inline-flex; align-items:center; gap:10px; padding:15px 50px; border-radius:999px;
@@ -838,11 +840,47 @@ footer a { color:var(--gold); }
    SPLASH
    ============================================================ */
 (function(){
-  var splash=document.getElementById('splash'), btn=document.getElementById('splash-enter');
-  if(!splash||!btn) return;
-  function dismiss(){ splash.classList.add('splash-out'); setTimeout(function(){ splash.classList.add('splash-gone'); },660); }
-  btn.addEventListener('click', dismiss);
-  document.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); dismiss(); } });
+  var splash = document.getElementById('splash');
+  var btn    = document.getElementById('splash-enter');
+  if (!splash) return;
+
+  var dismissed = false;
+
+  function dismiss() {
+    if (dismissed) return;
+    dismissed = true;
+    // Fade out with inline style — no class dependency
+    splash.style.transition = 'opacity 0.6s ease';
+    splash.style.opacity    = '0';
+    splash.style.pointerEvents = 'none';
+    setTimeout(function() {
+      splash.style.display = 'none';
+    }, 650);
+  }
+
+  // Enter button click
+  if (btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      dismiss();
+    });
+    // Also wire touch for mobile
+    btn.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      dismiss();
+    });
+  }
+
+  // Click anywhere on the splash (outside button area still works)
+  splash.addEventListener('click', dismiss);
+
+  // Any key press
+  document.addEventListener('keydown', function(e) {
+    dismiss();
+  });
+
+  // Safety net — auto-dismiss after 12 seconds no matter what
+  setTimeout(dismiss, 12000);
 })();
 
 /* ============================================================
