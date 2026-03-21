@@ -3,787 +3,324 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hatty&#39;s Tools | Crypto &amp; Finance Calculators</title>
+<title>Hatty's Tools | Crypto &amp; Finance Calculators</title>
 <meta name="description" content="Clean, practical crypto and finance tools by HattyHats.">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6374033238930580" crossorigin="anonymous"></script>
-<!-- LiveCoinWatch — one script load covers all widgets on the page -->
 <script defer src="https://www.livecoinwatch.com/static/lcw-widget.js"></script>
-
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#f0a500;--gold-light:#fbbf24;
+  --bg-deepest:#050509;--bg-deep:#020617;--bg-card:#0b1120;--bg-input:#060d1a;
+  --border:#1f2937;--border-soft:#111827;
+  --text:#f0f0f0;--text-body:#c9d1dc;--text-muted:#9ca3af;--text-dim:#6b7280;
+  --green:#4ade80;--red:#fb923c;
+  --green-bg:rgba(34,197,94,0.1);--red-bg:rgba(249,115,22,0.1);
+  --header-bg:linear-gradient(180deg,#0a0f1e 0%,#050509 100%);
+  --hero-bg:radial-gradient(ellipse at top,#192033 0%,#050509 65%);
+  --result-divider:#1a2335;--input-border:#273142;--link-color:#e5e7eb;
+}
+body.light{
+  --bg-deepest:#f3f4f8;--bg-deep:#e8eaf0;--bg-card:#ffffff;--bg-input:#f0f2f7;
+  --border:#d1d5db;--border-soft:#e5e7eb;
+  --text:#111827;--text-body:#374151;--text-muted:#4b5563;--text-dim:#9ca3af;
+  --header-bg:linear-gradient(180deg,#1a2340 0%,#232b44 100%);
+  --hero-bg:radial-gradient(ellipse at top,#dde3f0 0%,#f3f4f8 65%);
+  --result-divider:#e5e7eb;--input-border:#c9d1dc;--link-color:#1f2937;
+}
+body{font-family:'Space Grotesk',system-ui,sans-serif;background:radial-gradient(1200px 600px at 10% -10%,rgba(240,165,0,0.08),transparent 60%),var(--bg-deepest);color:var(--text);padding-bottom:60px;transition:background 0.25s,color 0.25s;}
+a{text-decoration:none;color:inherit;}
 
-:root {
-  --gold:        #f0a500;
-  --gold-light:  #fbbf24;
-  --gold-dim:    rgba(240,165,0,0.15);
-  --bg-deepest:  #050509;
-  --bg-deep:     #020617;
-  --bg-card:     #0b1120;
-  --bg-input:    #060d1a;
-  --border:      #1f2937;
-  --border-soft: #111827;
-  --text:        #f0f0f0;
-  --text-body:   #c9d1dc;
-  --text-muted:  #9ca3af;
-  --text-dim:    #6b7280;
-  --green:       #4ade80;
-  --red:         #fb923c;
-  --green-bg:    rgba(34,197,94,0.1);
-  --red-bg:      rgba(249,115,22,0.1);
-  --header-bg:   linear-gradient(180deg, #0a0f1e 0%, #050509 100%);
-  --hero-bg:     radial-gradient(ellipse at top, #192033 0%, #050509 65%);
-  --result-divider: #1a2335;
-  --input-border: #273142;
-  --link-color:  #e5e7eb;
-}
+/* SPLASH */
+#splash{position:fixed;inset:0;z-index:99999;background:#020617;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;overflow:hidden;pointer-events:none;animation:splashDismiss 1s ease-in 5.5s forwards;}
+@keyframes splashDismiss{to{opacity:0;visibility:hidden;}}
+#splash-bg{position:absolute;inset:0;background:url('hattys-tool.png') center/contain no-repeat;filter:brightness(0.2) saturate(0.5);animation:splashBgIn 2s ease-out forwards;}
+@keyframes splashBgIn{from{opacity:0;transform:scale(1.08);}to{opacity:1;transform:scale(1);}}
+#splash-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 25%,rgba(2,6,23,0.88) 72%),linear-gradient(180deg,rgba(2,6,23,0.6) 0%,transparent 20%,transparent 78%,rgba(2,6,23,0.7) 100%);}
+#splash-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;}
+#splash-welcome{font-size:clamp(0.9rem,2.8vw,1.4rem);font-weight:600;color:rgba(224,231,255,0.72);letter-spacing:0.38em;text-transform:uppercase;margin-bottom:16px;opacity:0;animation:fadeUp 0.9s ease-out 0.6s forwards;}
+#splash-title{font-family:'Fraunces',serif;font-size:clamp(3rem,13vw,8.5rem);font-weight:900;line-height:1;color:#f0a500;text-shadow:0 0 40px rgba(240,165,0,0.45);margin-bottom:14px;display:flex;align-items:baseline;justify-content:center;gap:0.2em;flex-wrap:wrap;opacity:0;animation:fadeUp 1s ease-out 1.3s forwards;}
+#splash-title .sp{color:#fff;}
+#splash-byline{font-size:clamp(0.82rem,2.1vw,1.1rem);font-weight:500;color:rgba(200,210,230,0.68);letter-spacing:0.1em;margin-bottom:30px;opacity:0;animation:fadeUp 0.9s ease-out 2s forwards;}
+#splash-byline .sg{color:#fbbf24;font-weight:700;}
+#splash-hint{font-size:0.78rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(240,165,0,0.7);font-weight:600;opacity:0;animation:fadeUp 0.8s ease-out 2.8s forwards,pulse 1.8s ease-in-out 3.2s infinite;}
+@keyframes pulse{0%,100%{opacity:0.7;}50%{opacity:0.25;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.sg{position:relative;display:inline-block;}
+.sg::before,.sg::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;overflow:hidden;pointer-events:none;}
+.sg::before{left:2px;color:#ff4ec7;animation:gt 4s steps(1) infinite 0.5s;}
+.sg::after{left:-2px;color:#00e5ff;animation:gb 4s steps(1) infinite 0.5s;}
+@keyframes gt{0%,90%{opacity:0;}91%{opacity:1;transform:translate(-3px,-2px);clip-path:inset(12% 0 58% 0);}92%{opacity:1;transform:translate(3px,1px);clip-path:inset(38% 0 32% 0);}93%,100%{opacity:0;}}
+@keyframes gb{0%,90%{opacity:0;}91%{opacity:1;transform:translate(3px,2px);clip-path:inset(58% 0 8% 0);}92%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(72% 0 4% 0);}93%,100%{opacity:0;}}
 
-body.light {
-  --bg-deepest:  #f3f4f8;
-  --bg-deep:     #e8eaf0;
-  --bg-card:     #ffffff;
-  --bg-input:    #f0f2f7;
-  --border:      #d1d5db;
-  --border-soft: #e5e7eb;
-  --text:        #111827;
-  --text-body:   #374151;
-  --text-muted:  #4b5563;
-  --text-dim:    #9ca3af;
-  --header-bg:   linear-gradient(180deg, #1a2340 0%, #232b44 100%);
-  --hero-bg:     radial-gradient(ellipse at top, #dde3f0 0%, #f3f4f8 65%);
-  --result-divider: #e5e7eb;
-  --input-border: #c9d1dc;
-  --link-color:  #1f2937;
-}
-body.light .form-group input,
-body.light .form-group select { color:#111827; background:var(--bg-input); border-color:var(--input-border); }
-body.light .form-group select option { background:#f0f2f7; color:#111827; }
-body.light .result-box { color:#111827; }
-body.light .result-box em { color:var(--text-dim); }
-body.light .result-summary { color:#374151; }
-body.light .link-list a { color:var(--link-color); }
-body.light .aside-block p { color:var(--text-muted); }
-body.light footer { background:#232b44; color:#9ca3af; border-top-color:#1f2937; }
-body.light footer a { color:var(--gold-light); }
-body.light .logo span { color:#fff; }
+/* HEADER */
+header{background:var(--header-bg);border-bottom:2px solid var(--gold);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:1000;overflow:visible;}
+.logo{font-size:1.25rem;font-weight:700;font-family:'Fraunces',serif;color:var(--gold);}
+.logo span{color:#fff;}
+.header-right{display:flex;align-items:center;gap:10px;}
 
-/* Theme toggle — icon only */
-#theme-toggle {
-  background:none; border:1px solid rgba(255,255,255,0.18); border-radius:999px;
-  width:36px; height:36px; cursor:pointer; font-size:1.1rem; color:#d1d5db;
-  transition:all 0.2s; display:flex; align-items:center; justify-content:center;
-  flex-shrink:0; padding:0; line-height:1;
-}
-#theme-toggle:hover { border-color:var(--gold); color:var(--gold); box-shadow:0 0 12px rgba(240,165,0,0.4); transform:rotate(20deg); }
-body.light #theme-toggle { border-color:rgba(255,255,255,0.3); color:#fde68a; }
-body.light #theme-toggle:hover { border-color:var(--gold-light); color:var(--gold-light); }
+/* DROPDOWN */
+.nav-dropdown{position:relative;}
+.nav-dd-btn{display:inline-flex;align-items:center;gap:6px;font-size:0.82rem;font-weight:700;padding:7px 16px;border-radius:999px;border:1px solid rgba(240,165,0,0.45);color:var(--gold-light);background:rgba(240,165,0,0.07);cursor:pointer;white-space:nowrap;font-family:inherit;transition:all 0.2s;}
+.nav-dd-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(240,165,0,0.13);box-shadow:0 0 18px rgba(240,165,0,0.35);}
+.nav-dd-btn .chev{font-size:0.65rem;display:inline-block;transition:transform 0.2s;}
+.nav-dropdown.open .chev{transform:rotate(180deg);}
+.nav-dd-menu{display:none;position:absolute;top:calc(100% + 8px);right:0;min-width:210px;background:#0d1525;border:1px solid rgba(240,165,0,0.35);border-radius:12px;padding:6px;box-shadow:0 16px 48px rgba(0,0,0,0.7);z-index:9999;}
+.nav-dropdown.open .nav-dd-menu{display:block;}
+body.light .nav-dd-menu{background:#fff;border-color:rgba(240,165,0,0.3);box-shadow:0 12px 40px rgba(0,0,0,0.15);}
+.nav-dd-menu a{display:block;padding:9px 13px;border-radius:8px;font-size:0.82rem;font-weight:600;color:#c9d1dc;white-space:nowrap;}
+.nav-dd-menu a:hover{background:rgba(240,165,0,0.12);color:var(--gold);}
+body.light .nav-dd-menu a{color:#374151;}
+body.light .nav-dd-menu a:hover{background:rgba(240,165,0,0.08);color:var(--gold);}
+.nav-dd-menu .div{height:1px;background:rgba(240,165,0,0.15);margin:4px 6px;}
 
-body {
-  font-family:'Space Grotesk',system-ui,-apple-system,sans-serif;
-  background:radial-gradient(1200px 600px at 10% -10%,rgba(240,165,0,0.08),transparent 60%),var(--bg-deepest);
-  color:var(--text);
-  padding-bottom:60px;
-  transition:background 0.25s,color 0.25s;
-}
-a { text-decoration:none; color:inherit; }
+/* THEME BTN */
+#theme-toggle{background:none;border:1px solid rgba(255,255,255,0.2);border-radius:999px;width:36px;height:36px;cursor:pointer;font-size:1.1rem;color:#d1d5db;display:flex;align-items:center;justify-content:center;padding:0;transition:all 0.2s;}
+#theme-toggle:hover{border-color:var(--gold);box-shadow:0 0 12px rgba(240,165,0,0.4);transform:rotate(20deg);}
 
-/* ============================================================
-   SPLASH SCREEN  — pure CSS, no JS required
-   Timeline: show 5.5s → fade out over 1s → gone at 6.5s
-   pointer-events off after 5.5s so site is immediately usable
-   ============================================================ */
-#splash {
-  position:fixed; inset:0; z-index:99999; background:#020617;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-align:center; padding:20px; overflow:hidden;
-  /* Auto-dismiss: hold 5.5s then fade out in 1s */
-  animation: splashAutoDismiss 1s ease-in 5.5s forwards;
-  pointer-events:none; /* never block the page underneath */
-}
-@keyframes splashAutoDismiss {
-  0%   { opacity:1; }
-  100% { opacity:0; visibility:hidden; }
-}
+/* HERO */
+.hero{background:var(--hero-bg);padding:56px 24px 44px;text-align:center;position:relative;overflow:hidden;transition:background 0.25s;}
+.hero::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:520px;height:280px;background:radial-gradient(ellipse,rgba(240,165,0,0.09) 0%,transparent 70%);pointer-events:none;}
+.hero h2{font-family:'Fraunces',serif;font-size:2.15rem;margin-bottom:12px;color:var(--gold);letter-spacing:-0.4px;position:relative;}
+.hero p{max-width:620px;margin:0 auto;font-size:1rem;color:var(--text-body);line-height:1.75;position:relative;}
+.hero-tag{display:inline-block;margin-top:18px;font-size:0.8rem;padding:5px 14px;border-radius:999px;border:1px solid rgba(240,165,0,0.5);color:var(--gold-light);background:rgba(240,165,0,0.07);letter-spacing:0.5px;position:relative;}
+.hero-sub{margin-top:18px;font-size:1rem;color:var(--text-body);font-weight:500;display:flex;align-items:center;justify-content:center;gap:0.35em;flex-wrap:wrap;position:relative;}
+.hero-glitch{position:relative;display:inline-block;color:var(--gold);font-weight:800;font-family:'Fraunces',serif;text-shadow:0 0 16px rgba(240,165,0,0.4);}
+.hero-glitch::before,.hero-glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;overflow:hidden;pointer-events:none;}
+.hero-glitch::before{left:2px;color:#ff4ec7;animation:hgt 3.8s steps(1) infinite 1.2s;}
+.hero-glitch::after{left:-2px;color:#00e5ff;animation:hgb 3.8s steps(1) infinite 1.2s;}
+@keyframes hgt{0%,88%{opacity:0;}89%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(8% 0 62% 0);}90%{opacity:1;transform:translate(3px,1px);clip-path:inset(42% 0 28% 0);}91%,100%{opacity:0;}}
+@keyframes hgb{0%,88%{opacity:0;}89%{opacity:1;transform:translate(3px,2px);clip-path:inset(62% 0 6% 0);}90%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(74% 0 3% 0);}91%,100%{opacity:0;}}
+.hero-token-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:7px 20px;border-radius:999px;font-size:0.85rem;font-weight:700;color:#111;background:linear-gradient(135deg,var(--gold) 0%,#d99200 100%);box-shadow:0 0 16px rgba(240,165,0,0.4);transition:transform 0.18s,box-shadow 0.18s;position:relative;}
+.hero-token-link:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 0 28px rgba(240,165,0,0.65);}
 
-#splash-bg {
-  position:absolute; inset:0;
-  background:url('hattys-tool.png') center center / contain no-repeat;
-  filter:brightness(0.2) saturate(0.5);
-  animation:splashBgIn 2s ease-out forwards;
-}
-@keyframes splashBgIn { from{opacity:0;transform:scale(1.08);} to{opacity:1;transform:scale(1);} }
+/* MAIN */
+main{max-width:1100px;margin:0 auto;padding:32px 20px 60px;}
+.sec-title{font-size:1.4rem;color:var(--gold);margin-bottom:22px;border-left:4px solid var(--gold);padding-left:12px;}
 
-#splash-vignette {
-  position:absolute; inset:0; pointer-events:none;
-  background:radial-gradient(ellipse at center,transparent 25%,rgba(2,6,23,0.88) 72%),
-    linear-gradient(180deg,rgba(2,6,23,0.6) 0%,transparent 20%,transparent 78%,rgba(2,6,23,0.7) 100%);
-}
-#splash-scanlines {
-  position:absolute; inset:0; pointer-events:none;
-  background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,0.04) 3px,rgba(0,0,0,0.04) 4px);
-}
-#splash-content {
-  position:relative; z-index:2; display:flex; flex-direction:column; align-items:center;
-}
+/* 3D CARDS */
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;perspective:1400px;}
+.tool-card{background:var(--bg-card);border-radius:16px;border:1px solid var(--border);padding:22px;display:flex;flex-direction:column;position:relative;transform:translateY(0) rotateX(1.5deg) rotateY(-1deg);transform-style:preserve-3d;box-shadow:0 1px 0 rgba(255,255,255,0.05) inset,0 -1px 0 rgba(0,0,0,0.6) inset,5px 10px 0 rgba(0,0,0,0.4),10px 20px 40px rgba(0,0,0,0.5);transition:transform 0.3s cubic-bezier(0.22,1,0.36,1),box-shadow 0.3s,border-color 0.2s;}
+.tool-card::before{content:'';position:absolute;top:0;left:14px;right:14px;height:1px;border-radius:999px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15) 50%,transparent);}
+.tool-card:hover{border-color:rgba(240,165,0,0.4);transform:translateY(-8px) rotateX(0deg) rotateY(0deg);box-shadow:0 1px 0 rgba(255,255,255,0.07) inset,0 -1px 0 rgba(0,0,0,0.6) inset,7px 16px 0 rgba(0,0,0,0.3),14px 32px 56px rgba(0,0,0,0.55),0 0 50px rgba(240,165,0,0.14);}
+body.light .tool-card{box-shadow:0 1px 0 rgba(255,255,255,0.95) inset,5px 10px 0 rgba(0,0,0,0.09),10px 20px 40px rgba(0,0,0,0.13);}
+body.light .tool-card:hover{box-shadow:0 1px 0 rgba(255,255,255,0.95) inset,7px 16px 0 rgba(0,0,0,0.07),14px 32px 56px rgba(0,0,0,0.15),0 0 30px rgba(240,165,0,0.12);}
+.tool-card h3{font-size:1.05rem;margin-bottom:8px;color:var(--text);}
+.tool-card>p{font-size:0.87rem;color:var(--text-muted);line-height:1.65;margin-bottom:14px;}
 
-/* Each line fades up in sequence */
-#splash-welcome {
-  font-size:clamp(0.9rem,2.8vw,1.4rem); font-weight:600; color:rgba(224,231,255,0.72);
-  letter-spacing:0.38em; text-transform:uppercase; margin-bottom:16px;
-  opacity:0; animation:splashFadeUp 0.9s ease-out 0.6s forwards;
-}
-#splash-title {
-  font-family:'Fraunces',serif; font-size:clamp(3rem,13vw,8.5rem); font-weight:900; line-height:1;
-  color:#f0a500; text-shadow:0 0 40px rgba(240,165,0,0.45),0 0 90px rgba(240,165,0,0.18);
-  margin-bottom:14px; display:flex; align-items:baseline; justify-content:center; gap:0.2em; flex-wrap:wrap;
-  opacity:0; animation:splashFadeUp 1s ease-out 1.3s forwards;
-}
-#splash-title .splash-plain { color:#ffffff; }
-#splash-byline {
-  font-size:clamp(0.82rem,2.1vw,1.1rem); font-weight:500; color:rgba(200,210,230,0.68);
-  letter-spacing:0.1em; margin-bottom:40px;
-  opacity:0; animation:splashFadeUp 0.9s ease-out 2s forwards;
-}
-#splash-byline .splash-glitch-word { color:#fbbf24; font-weight:700; }
+/* FORMS */
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:14px;}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-group label{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;}
+.form-group .ln{font-weight:400;text-transform:none;letter-spacing:0;font-size:0.72rem;color:var(--text-dim);}
+.input-wrap{position:relative;display:flex;align-items:center;}
+.input-wrap input{flex:1;padding-right:28px !important;}
+.ifi{position:absolute;right:9px;font-size:0.85rem;font-weight:700;color:var(--text-dim);pointer-events:none;line-height:1;transition:color 0.2s;}
+.input-wrap.fetching .ifi{color:var(--gold);animation:spin 0.75s linear infinite;}
+.input-wrap.fetched .ifi{color:var(--green);}
+@keyframes spin{to{transform:rotate(360deg);}}
+.form-group input,.form-group select{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--input-border);background:var(--bg-input);color:var(--text);font-size:0.85rem;outline:none;transition:border-color 0.2s,box-shadow 0.2s;}
+.form-group input:focus,.form-group select:focus{border-color:var(--gold);box-shadow:0 0 0 2px rgba(240,165,0,0.15);}
+.form-group select option{background:var(--bg-input);}
+body.light .form-group input,body.light .form-group select{color:#111827;background:var(--bg-input);border-color:var(--input-border);}
+.calc-btn{display:inline-block;padding:9px 20px;border-radius:999px;border:none;background:linear-gradient(135deg,var(--gold) 0%,#d99200 100%);color:#111827;font-size:0.84rem;font-weight:700;cursor:pointer;align-self:flex-start;transition:transform 0.18s,box-shadow 0.18s;}
+.calc-btn:hover{transform:scale(1.05);box-shadow:0 4px 18px rgba(240,165,0,0.45);}
+.calc-btn:active{transform:scale(0.97);}
+.calc-btn:disabled{opacity:0.55;cursor:not-allowed;transform:none;}
+.result-box{margin-top:14px;padding:13px 14px;border-radius:10px;background:var(--bg-input);border:1px solid var(--result-divider);font-size:0.87rem;color:var(--text);min-height:50px;line-height:1.7;}
+body.light .result-box{color:#111827;}
+.result-box em{color:var(--text-dim);}
+.result-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;gap:8px;}
+.result-label{color:var(--text-muted);font-size:0.84rem;}
+.result-value{font-weight:600;text-align:right;}
+.result-divider{border:none;border-top:1px solid var(--result-divider);margin:8px 0;}
+.clr-profit{color:var(--green);font-weight:700;}
+.clr-loss{color:var(--red);font-weight:700;}
+.result-summary{margin-top:10px;padding:10px 12px;background:rgba(240,165,0,0.06);border-radius:8px;font-size:0.82rem;color:var(--text-body);line-height:1.65;border-left:3px solid rgba(240,165,0,0.35);}
+body.light .result-summary{color:#374151;}
+.result-summary small{color:var(--text-dim);font-size:0.75rem;}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(240,165,0,0.3);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:6px;}
+.tool-meta{display:flex;justify-content:space-between;align-items:center;font-size:0.76rem;color:var(--text-dim);margin-top:14px;}
+.tool-status{padding:3px 9px;border-radius:999px;font-weight:600;text-transform:uppercase;font-size:0.7rem;}
+.live{background:var(--green-bg);color:#bbf7d0;border:1px solid #22c55e;}
+.soon{background:var(--red-bg);color:#fed7aa;border:1px solid #f97316;}
 
-/* "Tap anywhere" hint fades in last */
-#splash-hint {
-  font-size:0.8rem; letter-spacing:0.18em; text-transform:uppercase;
-  color:rgba(240,165,0,0.7); font-weight:600;
-  opacity:0; animation:splashFadeUp 0.8s ease-out 2.8s forwards, splashPulse 1.8s ease-in-out 3.2s infinite;
-}
-@keyframes splashPulse { 0%,100%{opacity:0.7;} 50%{opacity:0.25;} }
+/* HATTY'S EYE */
+#hattys-eye{margin-top:60px;}
+.eye-title{font-family:'Fraunces',serif;font-size:1.7rem;color:var(--gold);margin-bottom:6px;border-left:4px solid var(--gold);padding-left:12px;display:flex;align-items:center;gap:0.15em;flex-wrap:wrap;}
+.eye-subtitle{font-size:0.87rem;color:var(--text-muted);padding-left:16px;margin-bottom:26px;}
+.eye-glitch{position:relative;display:inline-block;color:var(--gold);}
+.eye-glitch::before,.eye-glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;overflow:hidden;pointer-events:none;}
+.eye-glitch::before{left:2px;color:#ff4ec7;animation:egt 4.5s steps(1) infinite 0.7s;}
+.eye-glitch::after{left:-2px;color:#00e5ff;animation:egb 4.5s steps(1) infinite 0.7s;}
+@keyframes egt{0%,91%{opacity:0;}92%{opacity:1;transform:translate(-3px,-2px);clip-path:inset(10% 0 60% 0);}93%{opacity:1;transform:translate(3px,1px);clip-path:inset(40% 0 30% 0);}94%,100%{opacity:0;}}
+@keyframes egb{0%,91%{opacity:0;}92%{opacity:1;transform:translate(3px,2px);clip-path:inset(60% 0 8% 0);}93%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(70% 0 5% 0);}94%,100%{opacity:0;}}
+.eye-grid{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start;}
+.eye-widget-wrap{position:relative;border-radius:12px;padding:3px;background:rgba(240,165,0,0.05);border:1px solid rgba(240,165,0,0.18);box-shadow:0 0 22px rgba(240,165,0,0.15),0 4px 20px rgba(0,0,0,0.4);transition:border-color 0.25s,box-shadow 0.25s;overflow:hidden;}
+.eye-widget-wrap:hover{border-color:rgba(240,165,0,0.45);box-shadow:0 0 36px rgba(240,165,0,0.3),0 8px 30px rgba(0,0,0,0.5);}
 
-@keyframes splashFadeUp { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
+/* ASIDE */
+.aside{margin-top:48px;display:grid;grid-template-columns:2fr 1.3fr;gap:28px;}
+.aside-block{background:var(--bg-deep);border-radius:14px;border:1px solid var(--border-soft);padding:20px;transition:background 0.25s;}
+.aside-block h3{font-size:1.05rem;color:var(--gold);margin-bottom:10px;}
+.aside-block p{font-size:0.87rem;color:var(--text-muted);line-height:1.75;}
+body.light .aside-block p{color:var(--text-muted);}
+.link-list{margin-top:12px;}
+.link-list a{display:flex;align-items:center;gap:8px;color:var(--link-color);font-size:0.85rem;padding:7px 0;border-bottom:1px solid var(--border-soft);transition:color 0.2s;}
+.link-list a:last-child{border-bottom:none;}
+.link-list a:hover{color:var(--gold);}
+.link-list a span{font-size:0.76rem;color:var(--text-dim);margin-left:auto;}
+body.light .link-list a{color:var(--link-color);}
 
-/* Glitch on splash words */
-.splash-glitch-word { position:relative; display:inline-block; }
-.splash-glitch-word::before,.splash-glitch-word::after {
-  content:attr(data-text); position:absolute; top:0; left:0; width:100%; overflow:hidden; pointer-events:none;
-}
-.splash-glitch-word::before { left:2px; color:#ff4ec7; animation:splashGlitchTop 4s steps(1) infinite 0.5s; }
-.splash-glitch-word::after  { left:-2px; color:#00e5ff; animation:splashGlitchBot 4s steps(1) infinite 0.5s; }
-@keyframes splashGlitchTop {
-  0%,90%{opacity:0;} 91%{opacity:1;transform:translate(-3px,-2px);clip-path:inset(12% 0 58% 0);}
-  92%{opacity:1;transform:translate(3px,1px);clip-path:inset(38% 0 32% 0);}
-  93%{opacity:0;}  100%{opacity:0;}
-}
-@keyframes splashGlitchBot {
-  0%,90%{opacity:0;} 91%{opacity:1;transform:translate(3px,2px);clip-path:inset(58% 0 8% 0);}
-  92%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(72% 0 4% 0);}
-  93%{opacity:0;} 100%{opacity:0;}
-}
+/* FOOTER */
+footer{border-top:1px solid var(--border-soft);background:var(--bg-deep);color:var(--text-dim);font-size:0.78rem;text-align:center;padding:18px 10px 28px;}
+footer a{color:var(--gold);}
+body.light footer{background:#232b44;color:#9ca3af;}
+body.light footer a{color:var(--gold-light);}
 
-/* ============================================================
-   HEADER & NAV
-   ============================================================ */
-header {
-  background:var(--header-bg); border-bottom:2px solid var(--gold); padding:14px 24px;
-  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
-  position:sticky; top:0; z-index:100;
-}
-.logo { font-size:1.25rem; font-weight:700; letter-spacing:0.6px; font-family:'Fraunces',serif; color:var(--gold); white-space:nowrap; }
-.logo span { color:#fff; }
-.header-right { display:flex; align-items:center; gap:10px; }
+/* PRICE BAR */
+#price-bar{position:fixed;bottom:0;left:0;right:0;z-index:500;background:rgba(4,9,20,0.97);border-top:1px solid rgba(240,165,0,0.3);backdrop-filter:blur(10px);display:flex;align-items:stretch;overflow:hidden;height:52px;}
+#ticker-label{flex-shrink:0;padding:0 14px 0 16px;font-size:0.68rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;border-right:1px solid rgba(240,165,0,0.25);display:flex;align-items:center;white-space:nowrap;gap:5px;}
+#ticker-label::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pdot 1.8s ease-in-out infinite;}
+@keyframes pdot{0%,100%{opacity:1;}50%{opacity:0.25;}}
+#lcw-ticker-wrap{flex:1;min-width:0;display:flex;align-items:center;overflow:hidden;}
 
-/* Dropdown nav */
-.nav-dropdown { position:relative; }
-
-.nav-dropdown-btn {
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:0.82rem; font-weight:700; padding:7px 16px;
-  border-radius:999px; border:1px solid rgba(240,165,0,0.45);
-  color:var(--gold-light); background:rgba(240,165,0,0.07);
-  cursor:pointer; white-space:nowrap; letter-spacing:0.3px;
-  transition:color 0.2s,border-color 0.2s,box-shadow 0.2s,background 0.2s;
-  font-family:inherit;
-}
-.nav-dropdown-btn:hover {
-  color:var(--gold); border-color:var(--gold); background:rgba(240,165,0,0.13);
-  box-shadow:0 0 18px rgba(240,165,0,0.35);
-}
-.nav-dropdown-btn .chevron {
-  font-size:0.65rem; transition:transform 0.22s; display:inline-block; line-height:1;
-}
-.nav-dropdown.open .chevron { transform:rotate(180deg); }
-
-.nav-dropdown-menu {
-  position:absolute; top:calc(100% + 8px); right:0;
-  min-width:200px;
-  background:#0b1120;
-  border:1px solid rgba(240,165,0,0.25);
-  border-radius:12px;
-  padding:6px;
-  box-shadow:0 16px 48px rgba(0,0,0,0.6), 0 0 30px rgba(240,165,0,0.08);
-  opacity:0; visibility:hidden; transform:translateY(-8px);
-  transition:opacity 0.2s, transform 0.2s, visibility 0.2s;
-  z-index:200;
-}
-.nav-dropdown.open .nav-dropdown-menu {
-  opacity:1; visibility:visible; transform:translateY(0);
-}
-body.light .nav-dropdown-menu {
-  background:#fff; border-color:rgba(240,165,0,0.3);
-  box-shadow:0 12px 40px rgba(0,0,0,0.15);
-}
-.nav-dropdown-menu a {
-  display:block; padding:9px 13px; border-radius:8px;
-  font-size:0.82rem; font-weight:600; color:#c9d1dc;
-  transition:background 0.15s, color 0.15s;
-  white-space:nowrap;
-}
-.nav-dropdown-menu a:hover { background:rgba(240,165,0,0.1); color:var(--gold); }
-body.light .nav-dropdown-menu a { color:#374151; }
-body.light .nav-dropdown-menu a:hover { background:rgba(240,165,0,0.08); color:var(--gold); }
-.nav-dropdown-menu .menu-divider {
-  height:1px; background:rgba(240,165,0,0.12); margin:4px 6px;
-}
-
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero {
-  background:var(--hero-bg); padding:56px 24px 44px; text-align:center; position:relative; overflow:hidden; transition:background 0.25s;
-}
-.hero::before {
-  content:''; position:absolute; top:-40px; left:50%; transform:translateX(-50%);
-  width:520px; height:280px; background:radial-gradient(ellipse,rgba(240,165,0,0.09) 0%,transparent 70%); pointer-events:none;
-}
-.hero h2 { font-family:'Fraunces',serif; font-size:2.15rem; margin-bottom:12px; color:var(--gold); letter-spacing:-0.4px; position:relative; }
-.hero p { max-width:620px; margin:0 auto; font-size:1rem; color:var(--text-body); line-height:1.75; position:relative; }
-.hero-tag {
-  display:inline-block; margin-top:18px; font-size:0.8rem; padding:5px 14px; border-radius:999px;
-  border:1px solid rgba(240,165,0,0.5); color:var(--gold-light); background:rgba(240,165,0,0.07); letter-spacing:0.5px; position:relative;
-}
-/* Hero sub-line with glitching FUTURE */
-.hero-sub {
-  margin-top:18px; font-size:1rem; color:var(--text-body); font-weight:500; position:relative;
-  display:flex; align-items:center; justify-content:center; gap:0.35em; flex-wrap:wrap;
-}
-.hero-glitch {
-  position:relative; display:inline-block;
-  color:var(--gold); font-weight:800; font-family:'Fraunces',serif; letter-spacing:0.04em;
-  text-shadow:0 0 16px rgba(240,165,0,0.4);
-}
-.hero-glitch::before,.hero-glitch::after {
-  content:attr(data-text); position:absolute; top:0; left:0; width:100%; overflow:hidden; pointer-events:none;
-}
-.hero-glitch::before { left:2px; color:#ff4ec7; animation:hgTop 3.8s steps(1) infinite 1.2s; }
-.hero-glitch::after  { left:-2px; color:#00e5ff; animation:hgBot 3.8s steps(1) infinite 1.2s; }
-@keyframes hgTop {
-  0%,88%{opacity:0;transform:translate(0,0);}
-  89%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(8% 0 62% 0);}
-  90%{opacity:1;transform:translate(3px,1px);clip-path:inset(42% 0 28% 0);}
-  91%{opacity:1;transform:translate(-2px,0);clip-path:inset(3% 0 74% 0);}
-  92%,100%{opacity:0;transform:translate(0,0);}
-}
-@keyframes hgBot {
-  0%,88%{opacity:0;transform:translate(0,0);}
-  89%{opacity:1;transform:translate(3px,2px);clip-path:inset(62% 0 6% 0);}
-  90%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(74% 0 3% 0);}
-  91%{opacity:1;transform:translate(2px,0);clip-path:inset(52% 0 20% 0);}
-  92%,100%{opacity:0;transform:translate(0,0);}
-}
-/* Token-Tokens hero link */
-.hero-token-link {
-  display:inline-flex; align-items:center; gap:6px;
-  margin-top:14px; padding:7px 20px; border-radius:999px;
-  font-size:0.85rem; font-weight:700; letter-spacing:0.3px;
-  color:#111; background:linear-gradient(135deg,var(--gold) 0%,#d99200 100%);
-  box-shadow:0 0 16px rgba(240,165,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
-  transition:transform 0.18s, box-shadow 0.18s;
-  position:relative;
-}
-.hero-token-link:hover {
-  transform:translateY(-2px) scale(1.04);
-  box-shadow:0 0 28px rgba(240,165,0,0.65), 0 4px 16px rgba(0,0,0,0.4);
-}
-.hero-token-link:active { transform:scale(0.97); }
-
-/* ============================================================
-   MAIN / LAYOUT
-   ============================================================ */
-main { max-width:1100px; margin:0 auto; padding:32px 20px 60px; }
-.sec-title { font-size:1.4rem; color:var(--gold); margin-bottom:22px; border-left:4px solid var(--gold); padding-left:12px; }
-
-/* ============================================================
-   TOOL GRID & 3D CARDS
-   ============================================================ */
-.tool-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:28px;
-  perspective:1400px;
-}
-.tool-card {
-  background:var(--bg-card);
-  border-radius:16px;
-  border:1px solid var(--border);
-  padding:22px;
-  display:flex;
-  flex-direction:column;
-  position:relative;
-  /* 3D pop effect */
-  transform:translateY(0) rotateX(1.5deg) rotateY(-1deg);
-  transform-style:preserve-3d;
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.05) inset,
-    0 -1px 0 rgba(0,0,0,0.6) inset,
-    5px 10px 0 rgba(0,0,0,0.4),
-    10px 20px 40px rgba(0,0,0,0.5),
-    0 0 0 1px rgba(240,165,0,0.07);
-  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s cubic-bezier(0.22,1,0.36,1), border-color 0.2s;
-}
-/* Shine strip across top edge */
-.tool-card::before {
-  content:''; position:absolute; top:0; left:14px; right:14px; height:1px; border-radius:999px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1) 40%,rgba(255,255,255,0.2) 60%,transparent);
-}
-.tool-card:hover {
-  border-color:rgba(240,165,0,0.4);
-  transform:translateY(-8px) rotateX(0deg) rotateY(0deg);
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.07) inset,
-    0 -1px 0 rgba(0,0,0,0.6) inset,
-    7px 16px 0 rgba(0,0,0,0.3),
-    14px 32px 56px rgba(0,0,0,0.55),
-    0 0 50px rgba(240,165,0,0.14),
-    0 0 0 1px rgba(240,165,0,0.2);
-}
-body.light .tool-card {
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.95) inset,
-    0 -1px 0 rgba(0,0,0,0.07) inset,
-    5px 10px 0 rgba(0,0,0,0.09),
-    10px 20px 40px rgba(0,0,0,0.13);
-}
-body.light .tool-card:hover {
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.95) inset,
-    0 -1px 0 rgba(0,0,0,0.07) inset,
-    7px 16px 0 rgba(0,0,0,0.07),
-    14px 32px 56px rgba(0,0,0,0.15),
-    0 0 30px rgba(240,165,0,0.12);
-}
-.tool-card h3 { font-size:1.05rem; margin-bottom:8px; color:var(--text); }
-.tool-card > p { font-size:0.87rem; color:var(--text-muted); line-height:1.65; margin-bottom:14px; }
-
-/* ============================================================
-   FORM ELEMENTS
-   ============================================================ */
-.form-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:14px; }
-.form-group { display:flex; flex-direction:column; gap:5px; }
-.form-group label { font-size:0.75rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; }
-.form-group .label-note { font-weight:400; text-transform:none; letter-spacing:0; font-size:0.72rem; color:var(--text-dim); }
-
-/* Input wrapper for auto-fetch icon */
-.input-wrap { position:relative; display:flex; align-items:center; }
-.input-wrap input { flex:1; padding-right:28px !important; }
-.input-fetch-icon {
-  position:absolute; right:9px;
-  font-size:0.85rem; font-weight:700; color:var(--text-dim); pointer-events:none;
-  transition:color 0.2s, transform 0.2s;
-  line-height:1;
-}
-.input-wrap.fetching .input-fetch-icon { color:var(--gold); animation:spinIcon 0.75s linear infinite; }
-.input-wrap.fetched  .input-fetch-icon { color:var(--green); }
-@keyframes spinIcon { to { transform:rotate(360deg); } }
-
-.form-group input,
-.form-group select {
-  width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--input-border);
-  background:var(--bg-input); color:var(--text); font-size:0.85rem; outline:none;
-  transition:border-color 0.2s,box-shadow 0.2s;
-}
-.form-group input:focus,
-.form-group select:focus { border-color:var(--gold); box-shadow:0 0 0 2px rgba(240,165,0,0.15); }
-.form-group select option { background:var(--bg-input); }
-
-.calc-btn {
-  display:inline-block; padding:9px 20px; border-radius:999px; border:none;
-  background:linear-gradient(135deg,var(--gold) 0%,#d99200 100%); color:#111827;
-  font-size:0.84rem; font-weight:700; cursor:pointer; align-self:flex-start;
-  transition:transform 0.18s,box-shadow 0.18s,opacity 0.18s;
-}
-.calc-btn:hover { transform:scale(1.05); box-shadow:0 4px 18px rgba(240,165,0,0.45); }
-.calc-btn:active { transform:scale(0.97); }
-.calc-btn:disabled { opacity:0.55; cursor:not-allowed; transform:none; }
-
-.result-box {
-  margin-top:14px; padding:13px 14px; border-radius:10px; background:var(--bg-input);
-  border:1px solid var(--result-divider); font-size:0.87rem; color:var(--text); min-height:50px; line-height:1.7;
-}
-.result-box em { color:var(--text-dim); }
-.result-row { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px; gap:8px; }
-.result-label { color:var(--text-muted); font-size:0.84rem; }
-.result-value { font-weight:600; text-align:right; }
-.result-divider { border:none; border-top:1px solid var(--result-divider); margin:8px 0; }
-.clr-profit { color:var(--green); font-weight:700; }
-.clr-loss   { color:var(--red);   font-weight:700; }
-.result-summary {
-  margin-top:10px; padding:10px 12px; background:rgba(240,165,0,0.06); border-radius:8px;
-  font-size:0.82rem; color:var(--text-body); line-height:1.65; border-left:3px solid rgba(240,165,0,0.35);
-}
-.result-summary small { color:var(--text-dim); font-size:0.75rem; }
-.spinner { display:inline-block; width:14px; height:14px; border:2px solid rgba(240,165,0,0.3); border-top-color:var(--gold); border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle; margin-right:6px; }
-@keyframes spin { to { transform:rotate(360deg); } }
-.tool-meta { display:flex; justify-content:space-between; align-items:center; font-size:0.76rem; color:var(--text-dim); margin-top:14px; }
-.tool-status { padding:3px 9px; border-radius:999px; font-weight:600; text-transform:uppercase; font-size:0.7rem; }
-.live { background:var(--green-bg); color:#bbf7d0; border:1px solid #22c55e; }
-.soon { background:var(--red-bg);   color:#fed7aa; border:1px solid #f97316; }
-
-/* ============================================================
-   HATTY'S EYE SECTION
-   ============================================================ */
-#hattys-eye { margin-top:60px; }
-
-.eye-title {
-  font-family:'Fraunces',serif; font-size:1.7rem; color:var(--gold); margin-bottom:6px;
-  border-left:4px solid var(--gold); padding-left:12px;
-  display:flex; align-items:center; gap:0.15em; flex-wrap:wrap;
-}
-.eye-subtitle { font-size:0.87rem; color:var(--text-muted); padding-left:16px; margin-bottom:26px; }
-
-/* Glitch word in Eye title */
-.eye-glitch { position:relative; display:inline-block; color:var(--gold); }
-.eye-glitch::before,.eye-glitch::after {
-  content:attr(data-text); position:absolute; top:0; left:0; width:100%; overflow:hidden; pointer-events:none;
-}
-.eye-glitch::before { left:2px; color:#ff4ec7; animation:eyeGlitchTop 4.5s steps(1) infinite 0.7s; }
-.eye-glitch::after  { left:-2px; color:#00e5ff; animation:eyeGlitchBot 4.5s steps(1) infinite 0.7s; }
-@keyframes eyeGlitchTop {
-  0%,91%{opacity:0;transform:translate(0,0);}
-  92%{opacity:1;transform:translate(-3px,-2px);clip-path:inset(10% 0 60% 0);}
-  93%{opacity:1;transform:translate(3px,1px);clip-path:inset(40% 0 30% 0);}
-  94%{opacity:1;transform:translate(-2px,0);clip-path:inset(5% 0 70% 0);}
-  95%,100%{opacity:0;transform:translate(0,0);}
-}
-@keyframes eyeGlitchBot {
-  0%,91%{opacity:0;transform:translate(0,0);}
-  92%{opacity:1;transform:translate(3px,2px);clip-path:inset(60% 0 8% 0);}
-  93%{opacity:1;transform:translate(-3px,-1px);clip-path:inset(70% 0 5% 0);}
-  94%{opacity:1;transform:translate(2px,0);clip-path:inset(48% 0 24% 0);}
-  95%,100%{opacity:0;transform:translate(0,0);}
-}
-
-/* Widget row */
-.eye-grid {
-  display:flex;
-  flex-wrap:wrap;
-  gap:18px;
-  align-items:flex-start;
-}
-.eye-widget-wrap {
-  position:relative;
-  border-radius:12px;
-  padding:3px;
-  background:rgba(240,165,0,0.05);
-  border:1px solid rgba(240,165,0,0.18);
-  box-shadow:
-    0 0 22px rgba(240,165,0,0.15),
-    0 4px 20px rgba(0,0,0,0.4);
-  transition:border-color 0.25s,box-shadow 0.25s;
-  overflow:hidden;
-}
-.eye-widget-wrap:hover {
-  border-color:rgba(240,165,0,0.45);
-  box-shadow:
-    0 0 36px rgba(240,165,0,0.3),
-    0 8px 30px rgba(0,0,0,0.5);
-}
-
-/* ============================================================
-   ABOUT / ASIDE
-   ============================================================ */
-.aside { margin-top:48px; display:grid; grid-template-columns:2fr 1.3fr; gap:28px; }
-.aside-block { background:var(--bg-deep); border-radius:14px; border:1px solid var(--border-soft); padding:20px; transition:background 0.25s; }
-.aside-block h3 { font-size:1.05rem; color:var(--gold); margin-bottom:10px; }
-.aside-block p  { font-size:0.87rem; color:var(--text-muted); line-height:1.75; }
-.link-list { margin-top:12px; }
-.link-list a { display:flex; align-items:center; gap:8px; color:var(--link-color); font-size:0.85rem; padding:7px 0; border-bottom:1px solid var(--border-soft); transition:color 0.2s; }
-.link-list a:last-child { border-bottom:none; }
-.link-list a:hover { color:var(--gold); }
-.link-list a span { font-size:0.76rem; color:var(--text-dim); margin-left:auto; }
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-footer { border-top:1px solid var(--border-soft); background:var(--bg-deep); color:var(--text-dim); font-size:0.78rem; text-align:center; padding:18px 10px 28px; transition:background 0.25s; }
-footer a { color:var(--gold); }
-
-/* ============================================================
-   LIVE COIN WATCH TICKER BAR (fixed bottom)
-   ============================================================ */
-#price-bar {
-  position:fixed; bottom:0; left:0; right:0; z-index:500;
-  background:rgba(4,9,20,0.97);
-  border-top:1px solid rgba(240,165,0,0.3);
-  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-  display:flex; align-items:stretch; overflow:hidden;
-  height:52px;
-}
-#ticker-label {
-  flex-shrink:0; padding:0 14px 0 16px;
-  font-size:0.68rem; font-weight:700; color:var(--gold);
-  text-transform:uppercase; letter-spacing:1.5px;
-  border-right:1px solid rgba(240,165,0,0.25);
-  display:flex; align-items:center; white-space:nowrap; gap:5px;
-}
-#ticker-label::before {
-  content:''; display:inline-block; width:6px; height:6px; border-radius:50%;
-  background:var(--gold); animation:pulse-dot 1.8s ease-in-out infinite;
-}
-@keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.25;} }
-#lcw-ticker-wrap {
-  flex:1; min-width:0; display:flex; align-items:center; overflow:hidden;
-}
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width:720px) {
-  header { flex-direction:column; align-items:flex-start; }
-  .header-right { flex-direction:column; align-items:flex-start; }
-  nav { gap:6px; }
-  nav a { font-size:0.75rem; padding:5px 11px; }
-  .hero h2 { font-size:1.65rem; }
-  .aside  { grid-template-columns:1fr; }
-  .tool-grid { grid-template-columns:1fr; }
-  .tool-card { transform:none; } /* disable 3D tilt on mobile */
-  .eye-grid { flex-direction:column; }
+/* RESPONSIVE */
+@media(max-width:720px){
+  header{flex-direction:column;align-items:flex-start;}
+  .header-right{flex-direction:row;flex-wrap:wrap;}
+  .hero h2{font-size:1.65rem;}
+  .aside{grid-template-columns:1fr;}
+  .tool-grid{grid-template-columns:1fr;}
+  .tool-card{transform:none;}
+  .eye-grid{flex-direction:column;}
 }
 </style>
 </head>
 <body>
 
-<!-- ============================================================
-     SPLASH SCREEN  — auto-dismisses after ~6 seconds, no button needed
-     ============================================================ -->
-<div id="splash" aria-label="Welcome splash screen">
+<!-- SPLASH -->
+<div id="splash">
   <div id="splash-bg"></div>
   <div id="splash-vignette"></div>
-  <div id="splash-scanlines"></div>
   <div id="splash-content">
     <div id="splash-welcome">Welcome To:</div>
     <div id="splash-title">
-      <span class="splash-glitch-word" data-text="Hatty's">Hatty's</span>
-      <span class="splash-plain">&nbsp;Tools</span>
+      <span class="sg" data-text="Hatty's">Hatty's</span>
+      <span class="sp">&nbsp;Tools</span>
     </div>
-    <div id="splash-byline">
-      Created by&nbsp;<span class="splash-glitch-word" data-text="HattyHats">HattyHats</span>
-    </div>
-    <div id="splash-hint">✦ &nbsp; Loading &nbsp; ✦</div>
+    <div id="splash-byline">Created by&nbsp;<span class="sg" data-text="HattyHats">HattyHats</span></div>
+    <div id="splash-hint">&#10022; &nbsp; Loading &nbsp; &#10022;</div>
   </div>
 </div>
 
-<!-- ============================================================
-     HEADER
-     ============================================================ -->
+<!-- HEADER -->
 <header>
-  <div class="logo">Hatty&#39;s <span>Tools</span></div>
+  <div class="logo">Hatty's <span>Tools</span></div>
   <div class="header-right">
-
-    <!-- Dropdown Links menu -->
-    <div class="nav-dropdown" id="nav-dropdown">
-      <button class="nav-dropdown-btn" id="nav-dropdown-btn" aria-expanded="false" aria-haspopup="true">
-        Links <span class="chevron">▾</span>
-      </button>
-      <div class="nav-dropdown-menu" id="nav-dropdown-menu" role="menu">
-        <a href="https://earnwithhatty.com/" target="_blank" rel="noopener" role="menuitem">Learn With Hatty</a>
-        <a href="https://hattys-media.netlify.app/" target="_blank" rel="noopener" role="menuitem">Hatty&#39;s Media</a>
-        <a href="https://privacy-gadgets-hub.netlify.app/" target="_blank" rel="noopener" role="menuitem">Privacy Gadgets</a>
-        <a href="https://hatty-universe.netlify.app/" target="_blank" rel="noopener" role="menuitem">Hatty&#39;s Universe</a>
-        <a href="https://hattys-news.netlify.app/" target="_blank" rel="noopener" role="menuitem">Hatty&#39;s News</a>
-        <div class="menu-divider"></div>
-        <a href="https://hattyhats.github.io/Open-Focus/" target="_blank" rel="noopener" role="menuitem">Open Focus</a>
-        <a href="https://orbit-node.netlify.app/" target="_blank" rel="noopener" role="menuitem">OrbitNode</a>
-        <a href="https://case-board.netlify.app/" target="_blank" rel="noopener" role="menuitem">CaseBoard</a>
-        <a href="https://hattyhats.github.io/token-tokens/" target="_blank" rel="noopener" role="menuitem">Token-Tokens</a>
+    <div class="nav-dropdown" id="navdd">
+      <button class="nav-dd-btn" id="navddbtn">Links <span class="chev">&#9660;</span></button>
+      <div class="nav-dd-menu" id="navddmenu">
+        <a href="https://earnwithhatty.com/" target="_blank" rel="noopener">Learn With Hatty</a>
+        <a href="https://hattys-media.netlify.app/" target="_blank" rel="noopener">Hatty's Media</a>
+        <a href="https://privacy-gadgets-hub.netlify.app/" target="_blank" rel="noopener">Privacy Gadgets</a>
+        <a href="https://hatty-universe.netlify.app/" target="_blank" rel="noopener">Hatty's Universe</a>
+        <a href="https://hattys-news.netlify.app/" target="_blank" rel="noopener">Hatty's News</a>
+        <div class="div"></div>
+        <a href="https://hattyhats.github.io/Open-Focus/" target="_blank" rel="noopener">Open Focus</a>
+        <a href="https://orbit-node.netlify.app/" target="_blank" rel="noopener">OrbitNode</a>
+        <a href="https://case-board.netlify.app/" target="_blank" rel="noopener">CaseBoard</a>
+        <a href="https://hattyhats.github.io/token-tokens/" target="_blank" rel="noopener">Token-Tokens</a>
       </div>
     </div>
-
-    <!-- Icon-only theme toggle -->
-    <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
-      <span id="theme-icon">☀️</span>
-    </button>
-
+    <button id="theme-toggle" title="Toggle theme"><span id="ticon">&#9728;&#65039;</span></button>
   </div>
 </header>
 
-<!-- ============================================================
-     HERO
-     ============================================================ -->
+<!-- HERO -->
 <section class="hero">
   <h2>Practical Crypto &amp; Money Tools.</h2>
   <p>Clean calculators and simulators built for everyday decisions. Plug in your numbers, see the reality, and move with clarity.</p>
   <div class="hero-tag">By HattyHats</div>
-  <p class="hero-sub">
-    Check live prices and plan for your
-    <span class="hero-glitch" data-text="FUTURE">FUTURE</span>
-  </p>
-  <a href="https://hattyhats.github.io/token-tokens/" target="_blank" rel="noopener" class="hero-token-link">
-    🪙 Token-Tokens
-  </a>
+  <p class="hero-sub">Check live prices and plan for your <span class="hero-glitch" data-text="FUTURE">FUTURE</span></p>
+  <a href="https://hattyhats.github.io/token-tokens/" target="_blank" rel="noopener" class="hero-token-link">&#127890; Token-Tokens</a>
 </section>
 
-<!-- ============================================================
-     MAIN CONTENT
-     ============================================================ -->
+<!-- MAIN -->
 <main>
   <section id="tools">
     <h2 class="sec-title">Tools</h2>
     <div class="tool-grid">
 
-      <!-- TOOL 1: PROFIT / LOSS CALCULATOR -->
+      <!-- TOOL 1 -->
       <div class="tool-card">
         <h3>Crypto Profit / Loss Calculator</h3>
-        <p>Enter your entry price, exit price, and position size to see your actual gain or loss, fees included. Results are color-coded for instant clarity.</p>
+        <p>Enter your entry price, exit price, and position size to see your actual gain or loss, fees included.</p>
         <div class="form-grid">
-          <div class="form-group">
-            <label for="pl-buy">Entry Price ($)</label>
-            <input id="pl-buy" type="number" step="any" min="0" placeholder="e.g. 0.25">
-          </div>
-          <div class="form-group">
-            <label for="pl-sell">Exit Price ($)</label>
-            <input id="pl-sell" type="number" step="any" min="0" placeholder="e.g. 0.35">
-          </div>
-          <div class="form-group">
-            <label for="pl-qty">Quantity (coins)</label>
-            <input id="pl-qty" type="number" step="any" min="0" placeholder="e.g. 1000">
-          </div>
-          <div class="form-group">
-            <label for="pl-fees">Total Fees ($) <span class="label-note">(optional)</span></label>
-            <input id="pl-fees" type="number" step="any" min="0" placeholder="e.g. 2.50">
-          </div>
+          <div class="form-group"><label for="pl-buy">Entry Price ($)</label><input id="pl-buy" type="number" step="any" min="0" placeholder="e.g. 0.25"></div>
+          <div class="form-group"><label for="pl-sell">Exit Price ($)</label><input id="pl-sell" type="number" step="any" min="0" placeholder="e.g. 0.35"></div>
+          <div class="form-group"><label for="pl-qty">Quantity (coins)</label><input id="pl-qty" type="number" step="any" min="0" placeholder="e.g. 1000"></div>
+          <div class="form-group"><label for="pl-fees">Fees ($) <span class="ln">(optional)</span></label><input id="pl-fees" type="number" step="any" min="0" placeholder="e.g. 2.50"></div>
         </div>
         <button class="calc-btn" id="pl-btn">Calculate</button>
         <div class="result-box" id="pl-result"><em>Fill in the numbers and hit Calculate.</em></div>
         <div class="tool-meta"><span>Focus: Trade outcomes</span><span class="tool-status live">Live</span></div>
       </div>
 
-      <!-- TOOL 2: DCA PLANNER (auto price) -->
+      <!-- TOOL 2 -->
       <div class="tool-card">
         <h3>DCA Planner</h3>
-        <p>Type a ticker — the current price <strong style="color:var(--gold-light);">auto-fills</strong> from CoinGecko. Model dollar-cost averaging with real historical prices and see your average cost and total stack.</p>
+        <p>Type a ticker — the current price <strong style="color:var(--gold-light);">auto-fills</strong>. Model dollar-cost averaging with real historical prices.</p>
         <div class="form-grid">
-          <div class="form-group">
-            <label for="dca-asset">Asset / Ticker</label>
-            <div class="input-wrap" id="dca-asset-wrap">
-              <input id="dca-asset" type="text" placeholder="BTC, ADA, SOL…" autocomplete="off">
-              <span class="input-fetch-icon" id="dca-fetch-icon">⟳</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="dca-price">Current Price ($) <span class="label-note">(auto-fills)</span></label>
-            <input id="dca-price" type="number" step="any" min="0" placeholder="Fetching…">
-          </div>
-          <div class="form-group">
-            <label for="dca-amount">Amount per Interval ($)</label>
-            <input id="dca-amount" type="number" step="any" min="0" placeholder="e.g. 50">
-          </div>
-          <div class="form-group">
-            <label for="dca-interval">Interval</label>
-            <select id="dca-interval">
-              <option value="7">Weekly</option>
-              <option value="14">Bi-Weekly</option>
-              <option value="30" selected>Monthly</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="dca-periods">Number of Periods</label>
-            <input id="dca-periods" type="number" step="1" min="1" placeholder="e.g. 12">
-          </div>
-          <div class="form-group">
-            <label for="dca-start">Start Date</label>
-            <input id="dca-start" type="date">
-          </div>
+          <div class="form-group"><label for="dca-asset">Asset / Ticker</label><div class="input-wrap" id="dca-wrap"><input id="dca-asset" type="text" placeholder="BTC, ADA, SOL..." autocomplete="off"><span class="ifi" id="dca-icon">&#10227;</span></div></div>
+          <div class="form-group"><label for="dca-price">Current Price ($) <span class="ln">(auto-fills)</span></label><input id="dca-price" type="number" step="any" min="0" placeholder="Fetching..."></div>
+          <div class="form-group"><label for="dca-amount">Amount / Interval ($)</label><input id="dca-amount" type="number" step="any" min="0" placeholder="e.g. 50"></div>
+          <div class="form-group"><label for="dca-interval">Interval</label><select id="dca-interval"><option value="7">Weekly</option><option value="14">Bi-Weekly</option><option value="30" selected>Monthly</option></select></div>
+          <div class="form-group"><label for="dca-periods">Periods</label><input id="dca-periods" type="number" step="1" min="1" placeholder="e.g. 12"></div>
+          <div class="form-group"><label for="dca-start">Start Date</label><input id="dca-start" type="date"></div>
         </div>
         <button class="calc-btn" id="dca-btn">Plan It</button>
-        <div class="result-box" id="dca-result"><em>Type a ticker — the price will auto-fill, then hit Plan It.</em></div>
+        <div class="result-box" id="dca-result"><em>Type a ticker to auto-fill price, then hit Plan It.</em></div>
         <div class="tool-meta"><span>Focus: Long-term stacking</span><span class="tool-status live">Live</span></div>
       </div>
 
-      <!-- TOOL 3: "CAN I MAKE IT?" (auto price) -->
+      <!-- TOOL 3 -->
       <div class="tool-card">
         <h3>"Can I Make It?" Simulator</h3>
-        <p>Type a ticker — the current price <strong style="color:var(--gold-light);">auto-fills</strong>. Pick a target price and find out exactly what your position would be worth and whether you hit your goal.</p>
+        <p>Type a ticker — the current price <strong style="color:var(--gold-light);">auto-fills</strong>. Set a target and see if you hit your goal.</p>
         <div class="form-grid">
-          <div class="form-group">
-            <label for="cim-asset">Asset / Ticker</label>
-            <div class="input-wrap" id="cim-asset-wrap">
-              <input id="cim-asset" type="text" placeholder="BTC, ADA, SOL…" autocomplete="off">
-              <span class="input-fetch-icon" id="cim-fetch-icon">⟳</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="cim-current">Current Price ($) <span class="label-note">(auto-fills)</span></label>
-            <input id="cim-current" type="number" step="any" min="0" placeholder="Fetching…">
-          </div>
-          <div class="form-group">
-            <label for="cim-target">Target Price ($)</label>
-            <input id="cim-target" type="number" step="any" min="0" placeholder="e.g. 100000">
-          </div>
-          <div class="form-group">
-            <label for="cim-invested">Amount Invested ($)</label>
-            <input id="cim-invested" type="number" step="any" min="0" placeholder="e.g. 500">
-          </div>
-          <div class="form-group">
-            <label for="cim-goal">Your $ Goal <span class="label-note">(optional)</span></label>
-            <input id="cim-goal" type="number" step="any" min="0" placeholder="e.g. 10000">
-          </div>
+          <div class="form-group"><label for="cim-asset">Asset / Ticker</label><div class="input-wrap" id="cim-wrap"><input id="cim-asset" type="text" placeholder="BTC, ADA, SOL..." autocomplete="off"><span class="ifi" id="cim-icon">&#10227;</span></div></div>
+          <div class="form-group"><label for="cim-current">Current Price ($) <span class="ln">(auto-fills)</span></label><input id="cim-current" type="number" step="any" min="0" placeholder="Fetching..."></div>
+          <div class="form-group"><label for="cim-target">Target Price ($)</label><input id="cim-target" type="number" step="any" min="0" placeholder="e.g. 100000"></div>
+          <div class="form-group"><label for="cim-invested">Amount Invested ($)</label><input id="cim-invested" type="number" step="any" min="0" placeholder="e.g. 500"></div>
+          <div class="form-group"><label for="cim-goal">Your $ Goal <span class="ln">(optional)</span></label><input id="cim-goal" type="number" step="any" min="0" placeholder="e.g. 10000"></div>
         </div>
         <button class="calc-btn" id="cim-btn">Simulate</button>
-        <div class="result-box" id="cim-result"><em>Type a ticker — price auto-fills, then hit Simulate.</em></div>
+        <div class="result-box" id="cim-result"><em>Type a ticker, then hit Simulate.</em></div>
         <div class="tool-meta"><span>Focus: Reality checks</span><span class="tool-status live">Live</span></div>
-      </div>
-
-    </div><!-- /tool-grid -->
-  </section>
-
-  <!-- ============================================================
-       HATTY'S EYE
-       ============================================================ -->
-  <section id="hattys-eye">
-    <h2 class="eye-title">
-      <span class="eye-glitch" data-text="Hatty's">Hatty's</span>&nbsp;Eye
-    </h2>
-    <p class="eye-subtitle">Tokens I'm watching — live prices at a glance. More coming soon.</p>
-    <div class="eye-grid">
-
-      <div class="eye-widget-wrap">
-        <div class="livecoinwatch-widget-6"
-          lcw-coin="ADA" lcw-base="USD" lcw-period="d"
-          lcw-color-tx="#ffffff" lcw-color-bg="#1f2434" lcw-border-w="1"></div>
-      </div>
-
-      <div class="eye-widget-wrap">
-        <div class="livecoinwatch-widget-6"
-          lcw-coin="SOL" lcw-base="USD" lcw-period="d"
-          lcw-color-tx="#ffffff" lcw-color-bg="#1f2434" lcw-border-w="1"></div>
-      </div>
-
-      <div class="eye-widget-wrap">
-        <div class="livecoinwatch-widget-6"
-          lcw-coin="ETH" lcw-base="USD" lcw-period="d"
-          lcw-color-tx="#ffffff" lcw-color-bg="#1f2434" lcw-border-w="1"></div>
-      </div>
-
-      <div class="eye-widget-wrap">
-        <div class="livecoinwatch-widget-6"
-          lcw-coin="BTC" lcw-base="USD" lcw-period="d"
-          lcw-color-tx="#ffffff" lcw-color-bg="#1f2434" lcw-border-w="1"></div>
       </div>
 
     </div>
   </section>
 
-  <!-- ============================================================
-       ABOUT / CONNECT
-       ============================================================ -->
+  <!-- HATTY'S EYE -->
+  <section id="hattys-eye">
+    <h2 class="eye-title"><span class="eye-glitch" data-text="Hatty's">Hatty's</span>&nbsp;Eye</h2>
+    <p class="eye-subtitle">Tokens I'm watching — live prices at a glance.</p>
+    <div class="eye-grid">
+      <div class="eye-widget-wrap"><div class="livecoinwatch-widget-6" lcw-coin="ADA" lcw-base="USD" lcw-period="d" lcw-color-tx="#ffffff" lcw-color-bg="#1f2434" lcw-border-w="1"></div></div>
+      <div class="eye-widget-wrap"><div class="livecoinwatch-widget-6" lcw-coin="SOL" lcw-base="USD" lcw-period="d" lcw-color-tx="#ffffff" lcw-color-bg="#1f2434" lcw-border-w="1"></div></div>
+      <div class="eye-widget-wrap"><div class="livecoinwatch-widget-6" lcw-coin="ETH" lcw-base="USD" lcw-period="d" lcw-color-tx="#ffffff" lcw-color-bg="#1f2434" lcw-border-w="1"></div></div>
+      <div class="eye-widget-wrap"><div class="livecoinwatch-widget-6" lcw-coin="BTC" lcw-base="USD" lcw-period="d" lcw-color-tx="#ffffff" lcw-color-bg="#1f2434" lcw-border-w="1"></div></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
   <section class="aside" id="about">
     <div class="aside-block">
-      <h3>About Hatty&#39;s Tools</h3>
-      <p>I'm HattyHats. I cover crypto, AI, privacy, and Web3 across YouTube and writing platforms. Hatty&#39;s Tools is where I turn common "what if?" questions into practical calculators and simulators you can use for free.</p>
+      <h3>About Hatty's Tools</h3>
+      <p>I'm HattyHats. I cover crypto, AI, privacy, and Web3 across YouTube and writing platforms. Hatty's Tools is where I turn common "what if?" questions into practical calculators and simulators you can use for free.</p>
       <p style="margin-top:10px;">As new videos and articles go live, I'll keep adding tools that help you test ideas and get a clearer picture of your own numbers.</p>
     </div>
     <div class="aside-block">
@@ -795,252 +332,173 @@ footer a { color:var(--gold); }
         <a href="https://hattyhats.github.io/voi-maze/" target="_blank" rel="noopener">Voi Maze <span>NFT maze game</span></a>
         <a href="https://hatty-universe.netlify.app/" target="_blank" rel="noopener">Hatty Universe <span>explore the universe</span></a>
         <a href="https://learn-with-hatty.printify.me/" target="_blank" rel="noopener">Merch <span>support the work in style</span></a>
-        <a href="/cdn-cgi/l/email-protection#b6ded7c2c2cfded7c2c5c5f6cfd7ded9d998d5d9db">Email <span>ideas, collabs, or feedback</span></a>
+        <a href="mailto:hattyhatss@yahoo.com">Email <span>ideas, collabs, or feedback</span></a>
       </div>
     </div>
   </section>
 </main>
 
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
 <footer>
-  <p>&copy; 2026 Hatty&#39;s Tools - by HattyHats.</p>
+  <p>&copy; 2026 Hatty's Tools - by HattyHats.</p>
   <p style="margin-top:6px;"><a href="https://earnwithhatty.com" target="_blank" rel="noopener">Back to Main Site</a></p>
 </footer>
 
-<!-- ============================================================
-     LIVE COIN WATCH TICKER BAR (fixed bottom)
-     ============================================================ -->
-<div id="price-bar" aria-label="Live crypto prices">
+<div id="price-bar">
   <div id="ticker-label">LIVE</div>
   <div id="lcw-ticker-wrap">
-    <div class="livecoinwatch-widget-5"
-      lcw-base="USD"
-      lcw-color-tx="#ffffff"
-      lcw-marquee-1="coins"
-      lcw-marquee-2="none"
-      lcw-marquee-items="30"></div>
+    <div class="livecoinwatch-widget-5" lcw-base="USD" lcw-color-tx="#ffffff" lcw-marquee-1="coins" lcw-marquee-2="none" lcw-marquee-items="30"></div>
   </div>
 </div>
 
-<!-- ============================================================
-     JAVASCRIPT
-     ============================================================ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
 
-/* ============================================================
-   SPLASH
-   ============================================================ */
-/* ============================================================
-   SPLASH — pure CSS auto-dismiss, no JS needed
-   ============================================================ */
-// Nothing to do here — splash dismisses itself via CSS animation
-
-/* ============================================================
-   UTILITY
-   ============================================================ */
-function fmtUSD(n,d){ return '$'+n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
-function parseNumber(x){ var r=String(x&&x.value!==undefined?x.value:x).replace(/,/g,'').trim(); return r===''?NaN:Number(r); }
-function parseInteger(x){ var r=String(x&&x.value!==undefined?x.value:x).replace(/,/g,'').trim(); return r===''?NaN:parseInt(r,10); }
-function bindEnter(els,btn){ els.forEach(function(el){ if(!el) return; el.addEventListener('keydown',function(e){ if(e.key==='Enter'){e.preventDefault();btn.click();} }); }); }
-
-/* ============================================================
-   COINGECKO TICKER MAP
-   ============================================================ */
-var TICKER_MAP={
-  ADA:'cardano',BTC:'bitcoin',ETH:'ethereum',ALGO:'algorand',SOL:'solana',
-  MATIC:'matic-network',POL:'matic-network',BNB:'binancecoin',DOT:'polkadot',
-  AVAX:'avalanche-2',LINK:'chainlink',XRP:'ripple',DOGE:'dogecoin',LTC:'litecoin',
-  UNI:'uniswap',ATOM:'cosmos',FIL:'filecoin',NEAR:'near',APT:'aptos',
-  ARB:'arbitrum',OP:'optimism',INJ:'injective-protocol',TRX:'tron',
-  SHIB:'shiba-inu',PEPE:'pepe',BCH:'bitcoin-cash',XMR:'monero',
-  TON:'the-open-network',SUI:'sui',SEI:'sei-network',JUP:'jupiter-exchange-solana',
-  SNEK:'snek',HOSKY:'hosky-token',VOI:'voi-network'
-};
-
-/* ============================================================
-   AUTO PRICE FETCH  (shared helper)
-   Debounces 700ms after user stops typing.
-   Sets .fetching / .fetched classes on wrapEl.
-   ============================================================ */
-function setupAutoPriceFetch(tickerEl, priceEl, wrapEl, iconEl){
-  var timer=null, last='';
-  tickerEl.addEventListener('input', function(){
-    clearTimeout(timer);
-    var val=tickerEl.value.trim().toUpperCase();
-    if(!val){ wrapEl.classList.remove('fetching','fetched'); return; }
-    var cgId=TICKER_MAP[val];
-    if(!cgId){ wrapEl.classList.remove('fetching','fetched'); iconEl.textContent='⟳'; return; }
-    if(val===last) return;
-    timer=setTimeout(function(){
-      wrapEl.classList.add('fetching'); wrapEl.classList.remove('fetched');
-      iconEl.textContent='⟳'; priceEl.placeholder='Fetching…';
-      fetch('https://api.coingecko.com/api/v3/simple/price?ids='+cgId+'&vs_currencies=usd')
-        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-        .then(function(data){
-          var entry=data[cgId];
-          if(entry&&typeof entry.usd==='number'){
-            priceEl.value=entry.usd; last=val;
-            wrapEl.classList.remove('fetching'); wrapEl.classList.add('fetched');
-            iconEl.textContent='✓'; priceEl.placeholder='Auto-filled';
-          } else throw 0;
-        })
-        .catch(function(){
-          wrapEl.classList.remove('fetching','fetched');
-          iconEl.textContent='⟳'; priceEl.placeholder='Enter manually';
-        });
-    },700);
-  });
-}
-
-/* ============================================================
-   DROPDOWN NAV
-   ============================================================ */
-(function(){
-  var wrap = document.getElementById('nav-dropdown');
-  var btn  = document.getElementById('nav-dropdown-btn');
-  var menu = document.getElementById('nav-dropdown-menu');
-  if(!wrap||!btn||!menu) return;
-  btn.addEventListener('click', function(e){
-    e.stopPropagation();
-    var open = wrap.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open);
-  });
-  // Close on outside click
-  document.addEventListener('click', function(){ wrap.classList.remove('open'); btn.setAttribute('aria-expanded','false'); });
-  // Close on Escape
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ wrap.classList.remove('open'); btn.setAttribute('aria-expanded','false'); } });
-  // Close when a menu link is clicked
-  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ wrap.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }); });
-})();
-
-/* ============================================================
-   THEME TOGGLE  (icon only — ☀️ / 🌙)
-   ============================================================ */
-(function(){
-  var body=document.body, btn=document.getElementById('theme-toggle'), icon=document.getElementById('theme-icon');
-  if(localStorage.getItem('hh-theme')==='light') applyLight();
-  function applyLight(){ body.classList.add('light'); icon.textContent='🌙'; }
-  function applyDark() { body.classList.remove('light'); icon.textContent='☀️'; }
-  btn.addEventListener('click',function(){ if(body.classList.contains('light')){ applyDark(); localStorage.setItem('hh-theme','dark'); } else { applyLight(); localStorage.setItem('hh-theme','light'); } });
-})();
-
-/* ============================================================
-   TOOL 1  PROFIT / LOSS CALCULATOR
-   ============================================================ */
-(function(){
-  var buyEl=document.getElementById('pl-buy'), sellEl=document.getElementById('pl-sell'),
-      qtyEl=document.getElementById('pl-qty'), feesEl=document.getElementById('pl-fees'),
-      btn=document.getElementById('pl-btn'), out=document.getElementById('pl-result');
-  if(!btn||!out) return;
-  bindEnter([buyEl,sellEl,qtyEl,feesEl],btn);
-  btn.addEventListener('click',function(){
-    var buy=parseNumber(buyEl),sell=parseNumber(sellEl),qty=parseNumber(qtyEl),fees=parseNumber(feesEl);
-    if(isNaN(fees)||fees<0) fees=0;
-    if(isNaN(buy)||buy<=0||isNaN(sell)||sell<=0||isNaN(qty)||qty<=0){
-      out.innerHTML='<span style="color:var(--red);">Please enter a valid entry price, exit price, and quantity.</span>'; return;
-    }
-    var cost=buy*qty,proceeds=sell*qty,netPL=proceeds-cost-fees;
-    var roi=cost>0?(netPL/cost)*100:0,isP=netPL>=0,cls=isP?'clr-profit':'clr-loss',sign=isP?'+':'-';
-    out.innerHTML=
-      '<div class="result-row"><span class="result-label">Cost basis</span><span class="result-value">'+fmtUSD(cost,2)+'</span></div>'+
-      '<div class="result-row"><span class="result-label">Proceeds</span><span class="result-value">'+fmtUSD(proceeds,2)+'</span></div>'+
-      (fees>0?'<div class="result-row"><span class="result-label">Fees deducted</span><span class="result-value" style="color:var(--text-muted);">-'+fmtUSD(fees,2)+'</span></div>':'')+
-      '<hr class="result-divider">'+
-      '<div class="result-row"><span class="result-label">'+(isP?'Profit':'Loss')+'</span><span class="result-value '+cls+'">'+sign+fmtUSD(Math.abs(netPL),2)+'</span></div>'+
-      '<div class="result-row"><span class="result-label">ROI</span><span class="result-value '+cls+'">'+sign+Math.abs(roi).toFixed(2)+'%</span></div>'+
-      '<div class="result-summary">Net result = '+(isP?'profit':'loss')+' after fees based on your entry and exit prices.</div>';
-  });
-})();
-
-/* ============================================================
-   TOOL 2  DCA PLANNER  (with auto price fetch)
-   ============================================================ */
-(function(){
-  var MAX=365;
-  var assetEl=document.getElementById('dca-asset'), priceEl=document.getElementById('dca-price'),
-      amountEl=document.getElementById('dca-amount'), intervalEl=document.getElementById('dca-interval'),
-      periodsEl=document.getElementById('dca-periods'), startEl=document.getElementById('dca-start'),
-      btn=document.getElementById('dca-btn'), out=document.getElementById('dca-result'),
-      wrapEl=document.getElementById('dca-asset-wrap'), iconEl=document.getElementById('dca-fetch-icon');
-  if(!btn||!out) return;
-  setupAutoPriceFetch(assetEl,priceEl,wrapEl,iconEl);
-  bindEnter([priceEl,amountEl,periodsEl,startEl],btn);
-  startEl.value=new Date().toISOString().split('T')[0];
-
-  function renderResult(o){
-    var ti,tc,avg,useHist,capped;
-    if(o.prices&&o.prices.length>=2){
-      useHist=true; ti=0; tc=0; capped=o.capped;
-      var pl={};
-      o.prices.forEach(function(p){ pl[new Date(p[0]).toISOString().split('T')[0]]=p[1]; });
-      var ad=Object.keys(pl).sort();
-      function cp(t){ if(pl[t]) return pl[t]; var b=null,bd=Infinity; ad.forEach(function(d){ var df=Math.abs(new Date(d)-new Date(t)); if(df<bd){bd=df;b=pl[d];} }); return b; }
-      var sd=new Date(o.startDate+'T00:00:00'), ap=Math.min(o.periods,o.capped?o.cappedPeriods:o.periods);
-      for(var i=0;i<ap;i++){ var bd2=new Date(sd); bd2.setDate(bd2.getDate()+o.days*i); var p=cp(bd2.toISOString().split('T')[0]); if(p&&p>0){ti+=o.amount;tc+=o.amount/p;} }
-      avg=tc>0?ti/tc:0;
-    } else { useHist=false; ti=o.amount*o.periods; tc=ti/o.fallbackPrice; avg=o.fallbackPrice; }
-    var cv=tc*o.fallbackPrice, unr=cv-ti, uc=unr>=0?'clr-profit':'clr-loss', us=unr>=0?'+':'-';
-    var note=useHist?'Based on real historical prices from CoinGecko.'+(capped?' (Plan capped at '+MAX+' days of history.)':''):'No historical data found for <strong>'+o.asset+'</strong> — using your entered price as a constant estimate.';
-    out.innerHTML=
-      '<div class="result-row"><span class="result-label">Total invested</span><span class="result-value clr-profit">'+fmtUSD(ti,2)+'</span></div>'+
-      '<div class="result-row"><span class="result-label">Coins accumulated</span><span class="result-value">'+tc.toFixed(4)+' '+o.asset+'</span></div>'+
-      '<div class="result-row"><span class="result-label">Avg buy price ('+(useHist?'historical':'assumed')+')</span><span class="result-value">'+fmtUSD(avg,avg<1?4:2)+'</span></div>'+
-      '<div class="result-row"><span class="result-label">Current value</span><span class="result-value">'+fmtUSD(cv,2)+'</span></div>'+
-      '<div class="result-row"><span class="result-label">Unrealized P/L</span><span class="result-value '+uc+'">'+us+fmtUSD(Math.abs(unr),2)+'</span></div>'+
-      (o.endDateStr?'<div class="result-row"><span class="result-label">Plan end date</span><span class="result-value">'+o.endDateStr+'</span></div>':'')+
-      '<div class="result-summary">Investing <strong style="color:var(--gold-light);">'+fmtUSD(o.amount,2)+'</strong> '+o.intervalLabel+' for <strong style="color:var(--gold-light);">'+o.periods+' periods</strong> = <strong style="color:var(--gold-light);">'+fmtUSD(ti,2)+'</strong> total, <strong style="color:var(--gold-light);">'+tc.toFixed(4)+' '+o.asset+'</strong> at avg '+fmtUSD(avg,avg<1?4:2)+'/coin.<br><small>'+note+'</small></div>';
+  /* DROPDOWN */
+  var navdd = document.getElementById('navdd');
+  var navbtn = document.getElementById('navddbtn');
+  var navmenu = document.getElementById('navddmenu');
+  if (navdd && navbtn && navmenu) {
+    navbtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (navdd.classList.contains('open')) {
+        navdd.classList.remove('open');
+      } else {
+        navdd.classList.add('open');
+      }
+    });
+    document.addEventListener('click', function(e) {
+      if (!navdd.contains(e.target)) {
+        navdd.classList.remove('open');
+      }
+    });
+    navmenu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { navdd.classList.remove('open'); });
+    });
   }
 
-  btn.addEventListener('click',function(){
-    var asset=assetEl.value.trim().toUpperCase()||'ASSET', price=parseNumber(priceEl),
-        amount=parseNumber(amountEl), days=parseInteger(intervalEl),
-        periods=parseInteger(periodsEl), startVal=startEl.value;
-    var iLabel={7:'weekly',14:'bi-weekly',30:'monthly'}[days]||'per interval';
-    if(isNaN(amount)||amount<=0||isNaN(periods)||periods<1){ out.innerHTML='<span style="color:var(--red);">Please enter investment amount and number of periods.</span>'; return; }
-    if(isNaN(price)||price<=0){ out.innerHTML='<span style="color:var(--red);">Please enter a current price — or type a recognized ticker to auto-fill it.</span>'; return; }
-    var eds=''; if(startVal){ var ed=new Date(startVal); ed.setDate(ed.getDate()+days*Math.max(periods-1,0)); eds=ed.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}); }
-    var tpd=days*periods, capped=tpd>MAX, eff=Math.min(tpd,MAX), cp2=Math.floor(eff/days);
-    var cgId=TICKER_MAP[asset];
-    var base={asset,amount,periods,days,intervalLabel:iLabel,endDateStr:eds,fallbackPrice:price,startDate:startVal||new Date().toISOString().split('T')[0],capped,cappedPeriods:cp2};
-    if(cgId&&startVal){
-      var db=Math.min(Math.max(eff,Math.ceil((Date.now()-new Date(startVal).getTime())/86400000)+days+5),MAX);
-      out.innerHTML='<span class="spinner"></span> Fetching historical '+asset+' prices…'; btn.disabled=true;
-      fetch('https://api.coingecko.com/api/v3/coins/'+cgId+'/market_chart?vs_currency=usd&days='+db+'&interval=daily')
-        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-        .then(function(d){ btn.disabled=false; base.prices=(d&&d.prices)?d.prices:null; renderResult(base); })
-        .catch(function(){ btn.disabled=false; base.prices=null; renderResult(base); });
-    } else { base.prices=null; renderResult(base); }
+  /* THEME TOGGLE */
+  var body = document.body;
+  var ttbtn = document.getElementById('theme-toggle');
+  var ticon = document.getElementById('ticon');
+  function setLight() { body.classList.add('light'); ticon.innerHTML = '&#127769;'; localStorage.setItem('hh-theme','light'); }
+  function setDark()  { body.classList.remove('light'); ticon.innerHTML = '&#9728;&#65039;'; localStorage.setItem('hh-theme','dark'); }
+  if (localStorage.getItem('hh-theme') === 'light') setLight();
+  if (ttbtn) ttbtn.addEventListener('click', function() {
+    if (body.classList.contains('light')) setDark(); else setLight();
   });
-})();
 
-/* ============================================================
-   TOOL 3  "CAN I MAKE IT?" SIMULATOR  (with auto price fetch)
-   ============================================================ */
-(function(){
-  var assetEl=document.getElementById('cim-asset'), currentEl=document.getElementById('cim-current'),
-      targetEl=document.getElementById('cim-target'), investedEl=document.getElementById('cim-invested'),
-      goalEl=document.getElementById('cim-goal'), btn=document.getElementById('cim-btn'), out=document.getElementById('cim-result'),
-      wrapEl=document.getElementById('cim-asset-wrap'), iconEl=document.getElementById('cim-fetch-icon');
-  if(!btn||!out) return;
-  setupAutoPriceFetch(assetEl,currentEl,wrapEl,iconEl);
-  bindEnter([currentEl,targetEl,investedEl,goalEl],btn);
-  btn.addEventListener('click',function(){
-    var asset=assetEl.value.trim().toUpperCase()||'ASSET', current=parseNumber(currentEl),
-        target=parseNumber(targetEl), invested=parseNumber(investedEl), goal=parseNumber(goalEl)||0;
-    if(isNaN(current)||current<=0||isNaN(target)||target<=0||isNaN(invested)||invested<=0){
-      out.innerHTML='<span style="color:var(--red);">Please enter current price, target price, and amount invested.</span>'; return;
+  /* UTILITIES */
+  function fmtUSD(n,d){ return '$'+n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+  function parseNum(x){ var r=String(x&&x.value!==undefined?x.value:x).replace(/,/g,'').trim(); return r===''?NaN:Number(r); }
+  function parseInt2(x){ var r=String(x&&x.value!==undefined?x.value:x).replace(/,/g,'').trim(); return r===''?NaN:parseInt(r,10); }
+  function bindEnter(els,btn){ els.forEach(function(el){ if(!el)return; el.addEventListener('keydown',function(e){ if(e.key==='Enter'){e.preventDefault();btn.click();} }); }); }
+
+  /* TICKER MAP */
+  var TM={ADA:'cardano',BTC:'bitcoin',ETH:'ethereum',ALGO:'algorand',SOL:'solana',MATIC:'matic-network',POL:'matic-network',BNB:'binancecoin',DOT:'polkadot',AVAX:'avalanche-2',LINK:'chainlink',XRP:'ripple',DOGE:'dogecoin',LTC:'litecoin',UNI:'uniswap',ATOM:'cosmos',FIL:'filecoin',NEAR:'near',APT:'aptos',ARB:'arbitrum',OP:'optimism',INJ:'injective-protocol',TRX:'tron',SHIB:'shiba-inu',PEPE:'pepe',BCH:'bitcoin-cash',XMR:'monero',TON:'the-open-network',SUI:'sui',SEI:'sei-network',JUP:'jupiter-exchange-solana',SNEK:'snek',HOSKY:'hosky-token',VOI:'voi-network'};
+
+  /* AUTO PRICE FETCH */
+  function setupFetch(tickEl, priceEl, wrapEl, iconEl) {
+    var timer=null, last='';
+    tickEl.addEventListener('input', function() {
+      clearTimeout(timer);
+      var val = tickEl.value.trim().toUpperCase();
+      if (!val) { wrapEl.classList.remove('fetching','fetched'); return; }
+      var cg = TM[val];
+      if (!cg) { wrapEl.classList.remove('fetching','fetched'); iconEl.textContent='⟳'; return; }
+      if (val===last) return;
+      timer = setTimeout(function() {
+        wrapEl.classList.add('fetching'); wrapEl.classList.remove('fetched');
+        iconEl.textContent='⟳'; priceEl.placeholder='Fetching...';
+        fetch('https://api.coingecko.com/api/v3/simple/price?ids='+cg+'&vs_currencies=usd')
+          .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+          .then(function(d){
+            var e=d[cg];
+            if(e&&typeof e.usd==='number'){
+              priceEl.value=e.usd; last=val;
+              wrapEl.classList.remove('fetching'); wrapEl.classList.add('fetched');
+              iconEl.textContent='✓'; priceEl.placeholder='Auto-filled';
+            } else throw 0;
+          })
+          .catch(function(){ wrapEl.classList.remove('fetching','fetched'); iconEl.textContent='⟳'; priceEl.placeholder='Enter manually'; });
+      }, 700);
+    });
+  }
+
+  /* TOOL 1 - P/L */
+  (function(){
+    var b=document.getElementById('pl-buy'),s=document.getElementById('pl-sell'),q=document.getElementById('pl-qty'),f=document.getElementById('pl-fees'),btn=document.getElementById('pl-btn'),out=document.getElementById('pl-result');
+    if(!btn||!out) return;
+    bindEnter([b,s,q,f],btn);
+    btn.addEventListener('click',function(){
+      var buy=parseNum(b),sell=parseNum(s),qty=parseNum(q),fees=parseNum(f);
+      if(isNaN(fees)||fees<0) fees=0;
+      if(isNaN(buy)||buy<=0||isNaN(sell)||sell<=0||isNaN(qty)||qty<=0){ out.innerHTML='<span style="color:var(--red);">Please enter a valid entry price, exit price, and quantity.</span>'; return; }
+      var cost=buy*qty,proceeds=sell*qty,net=proceeds-cost-fees,roi=cost>0?(net/cost)*100:0,isP=net>=0,cls=isP?'clr-profit':'clr-loss',sign=isP?'+':'-';
+      out.innerHTML='<div class="result-row"><span class="result-label">Cost basis</span><span class="result-value">'+fmtUSD(cost,2)+'</span></div><div class="result-row"><span class="result-label">Proceeds</span><span class="result-value">'+fmtUSD(proceeds,2)+'</span></div>'+(fees>0?'<div class="result-row"><span class="result-label">Fees deducted</span><span class="result-value" style="color:var(--text-muted);">-'+fmtUSD(fees,2)+'</span></div>':'')+'<hr class="result-divider"><div class="result-row"><span class="result-label">'+(isP?'Profit':'Loss')+'</span><span class="result-value '+cls+'">'+sign+fmtUSD(Math.abs(net),2)+'</span></div><div class="result-row"><span class="result-label">ROI</span><span class="result-value '+cls+'">'+sign+Math.abs(roi).toFixed(2)+'%</span></div><div class="result-summary">Net result = '+(isP?'profit':'loss')+' after fees.</div>';
+    });
+  })();
+
+  /* TOOL 2 - DCA */
+  (function(){
+    var MAX=365;
+    var aEl=document.getElementById('dca-asset'),pEl=document.getElementById('dca-price'),amEl=document.getElementById('dca-amount'),inEl=document.getElementById('dca-interval'),perEl=document.getElementById('dca-periods'),stEl=document.getElementById('dca-start'),btn=document.getElementById('dca-btn'),out=document.getElementById('dca-result'),wEl=document.getElementById('dca-wrap'),iEl=document.getElementById('dca-icon');
+    if(!btn||!out) return;
+    setupFetch(aEl,pEl,wEl,iEl);
+    bindEnter([pEl,amEl,perEl,stEl],btn);
+    stEl.value=new Date().toISOString().split('T')[0];
+    function render(o){
+      var ti,tc,avg,useH;
+      if(o.prices&&o.prices.length>=2){
+        useH=true;ti=0;tc=0;
+        var pl={};
+        o.prices.forEach(function(p){pl[new Date(p[0]).toISOString().split('T')[0]]=p[1];});
+        var ad=Object.keys(pl).sort();
+        function cp(t){if(pl[t])return pl[t];var b=null,bd=Infinity;ad.forEach(function(d){var df=Math.abs(new Date(d)-new Date(t));if(df<bd){bd=df;b=pl[d];}});return b;}
+        var sd=new Date(o.sd+'T00:00:00'),ap=Math.min(o.periods,o.capped?o.cp:o.periods);
+        for(var i=0;i<ap;i++){var bd2=new Date(sd);bd2.setDate(bd2.getDate()+o.days*i);var p=cp(bd2.toISOString().split('T')[0]);if(p&&p>0){ti+=o.amount;tc+=o.amount/p;}}
+        avg=tc>0?ti/tc:0;
+      }else{useH=false;ti=o.amount*o.periods;tc=ti/o.fp;avg=o.fp;}
+      var cv=tc*o.fp,unr=cv-ti,uc=unr>=0?'clr-profit':'clr-loss',us=unr>=0?'+':'-';
+      var note=useH?'Based on real historical prices from CoinGecko.':'No historical data for '+o.asset+' - using entered price as estimate.';
+      out.innerHTML='<div class="result-row"><span class="result-label">Total invested</span><span class="result-value clr-profit">'+fmtUSD(ti,2)+'</span></div><div class="result-row"><span class="result-label">Coins accumulated</span><span class="result-value">'+tc.toFixed(4)+' '+o.asset+'</span></div><div class="result-row"><span class="result-label">Avg buy price</span><span class="result-value">'+fmtUSD(avg,avg<1?4:2)+'</span></div><div class="result-row"><span class="result-label">Current value</span><span class="result-value">'+fmtUSD(cv,2)+'</span></div><div class="result-row"><span class="result-label">Unrealized P/L</span><span class="result-value '+uc+'">'+us+fmtUSD(Math.abs(unr),2)+'</span></div>'+(o.eds?'<div class="result-row"><span class="result-label">Plan end date</span><span class="result-value">'+o.eds+'</span></div>':'')+'<div class="result-summary">Investing <strong style="color:var(--gold-light);">'+fmtUSD(o.amount,2)+'</strong> '+o.il+' for <strong style="color:var(--gold-light);">'+o.periods+' periods</strong> = <strong style="color:var(--gold-light);">'+fmtUSD(ti,2)+'</strong> total.<br><small>'+note+'</small></div>';
     }
-    var coins=invested/current, vat=coins*target, prof=vat-invested;
-    var roi=(prof/invested)*100, mult=target/current, isP=prof>=0, cls=isP?'clr-profit':'clr-loss', sign=isP?'+':'-';
-    var msg='';
-    if(goal>0){ msg=vat>=goal?'Yes — you would hit your <strong style="color:var(--gold-light);">'+fmtUSD(goal,0)+'</strong> goal with <strong style="color:var(--green);">'+fmtUSD(vat-goal,2)+'</strong> to spare!':'Not quite — you would be <strong style="color:var(--red);">'+fmtUSD(goal-vat,2)+'</strong> short of your '+fmtUSD(goal,0)+' goal. DCA\'ing in more could bridge the gap.'; }
-    else{ if(mult>=10) msg='10x+ scenario — life-changing if it plays out. Position sizing matters.'; else if(mult>=5) msg='Massive move — a '+mult.toFixed(2)+'x gain. High conviction plays only.'; else if(mult>=2) msg='Strong territory — a '+mult.toFixed(2)+'x. Patience and conviction could pay off.'; else if(roi>=0) msg='Modest gain at '+sign+roi.toFixed(1)+'%. Worth it depending on timeframe and conviction.'; else msg='This scenario shows a loss at '+sign+Math.abs(roi).toFixed(1)+'%. Always size your risk carefully.'; }
-    out.innerHTML=
-      '<div class="result-row"><span class="result-label">Coins at current price</span><span class="result-value">'+coins.toFixed(6)+' '+asset+'</span></div>'+
-      '<div class="result-row"><span class="result-label">Value at target</span><span class="result-value '+cls+'">'+fmtUSD(vat,2)+'</span></div>'+
-      '<hr class="result-divider">'+
-      '<div class="result-row"><span class="result-label">Profit / Loss</span><span class="result-value '+cls+'">'+sign+fmtUSD(Math.abs(prof),2)+'</span></div>'+
-      '<div class="result-row"><span class="result-label">ROI</span><span class="result-value '+cls+'">'+sign+Math.abs(roi).toFixed(2)+'%</span></div>'+
-      '<div class="result-row"><span class="result-label">Multiplier</span><s
+    btn.addEventListener('click',function(){
+      var asset=aEl.value.trim().toUpperCase()||'ASSET',price=parseNum(pEl),amount=parseNum(amEl),days=parseInt2(inEl),periods=parseInt2(perEl),sv=stEl.value;
+      var il={7:'weekly',14:'bi-weekly',30:'monthly'}[days]||'per interval';
+      if(isNaN(amount)||amount<=0||isNaN(periods)||periods<1){out.innerHTML='<span style="color:var(--red);">Please enter investment amount and number of periods.</span>';return;}
+      if(isNaN(price)||price<=0){out.innerHTML='<span style="color:var(--red);">Please enter a current price or type a recognized ticker to auto-fill.</span>';return;}
+      var eds='';if(sv){var ed=new Date(sv);ed.setDate(ed.getDate()+days*Math.max(periods-1,0));eds=ed.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});}
+      var tpd=days*periods,capped=tpd>MAX,eff=Math.min(tpd,MAX),cp=Math.floor(eff/days);
+      var cg=TM[asset];
+      var base={asset,amount,periods,days,il,eds,fp:price,sd:sv||new Date().toISOString().split('T')[0],capped,cp};
+      if(cg&&sv){
+        var db=Math.min(Math.max(eff,Math.ceil((Date.now()-new Date(sv).getTime())/86400000)+days+5),MAX);
+        out.innerHTML='<span class="spinner"></span> Fetching historical '+asset+' prices...';btn.disabled=true;
+        fetch('https://api.coingecko.com/api/v3/coins/'+cg+'/market_chart?vs_currency=usd&days='+db+'&interval=daily')
+          .then(function(r){if(!r.ok)throw 0;return r.json();})
+          .then(function(d){btn.disabled=false;base.prices=(d&&d.prices)?d.prices:null;render(base);})
+          .catch(function(){btn.disabled=false;base.prices=null;render(base);});
+      }else{base.prices=null;render(base);}
+    });
+  })();
+
+  /* TOOL 3 - CAN I MAKE IT */
+  (function(){
+    var aEl=document.getElementById('cim-asset'),curEl=document.getElementById('cim-current'),tEl=document.getElementById('cim-target'),invEl=document.getElementById('cim-invested'),gEl=document.getElementById('cim-goal'),btn=document.getElementById('cim-btn'),out=document.getElementById('cim-result'),wEl=document.getElementById('cim-wrap'),iEl=document.getElementById('cim-icon');
+    if(!btn||!out) return;
+    setupFetch(aEl,curEl,wEl,iEl);
+    bindEnter([curEl,tEl,invEl,gEl],btn);
+    btn.addEventListener('click',function(){
+      var asset=aEl.value.trim().toUpperCase()||'ASSET',cur=parseNum(curEl),tgt=parseNum(tEl),inv=parseNum(invEl),goal=parseNum(gEl)||0;
+      if(isNaN(cur)||cur<=0||isNaN(tgt)||tgt<=0||isNaN(inv)||inv<=0){out.innerHTML='<span style="color:var(--red);">Please enter current price, target price, and amount invested.</span>';return;}
+      var coins=inv/cur,vat=coins*tgt,prof=vat-inv,roi=(prof/inv)*100,mult=tgt/cur,isP=prof>=0,cls=isP?'clr-profit':'clr-loss',sign=isP?'+':'-',msg='';
+      if(goal>0){msg=vat>=goal?'Yes - you would hit your <strong style="color:var(--gold-light);">'+fmtUSD(goal,0)+'</strong> goal with <strong style="color:var(--green);">'+fmtUSD(vat-goal,2)+'</strong> to spare!':'Not quite - you would be <strong style="color:var(--red);">'+fmtUSD(goal-vat,2)+'</strong> short of your '+fmtUSD(goal,0)+' goal.';}
+      else{if(mult>=10)msg='10x+ scenario - life-changing if it plays out.';else if(mult>=5)msg='Massive move - a '+mult.toFixed(2)+'x gain.';else if(mult>=2)msg='Strong territory - a '+mult.toFixed(2)+'x.';else if(roi>=0)msg='Modest gain at '+sign+roi.toFixed(1)+'%.';else msg='This scenario shows a loss at '+Math.abs(roi).toFixed(1)+'%.';}
+      out.innerHTML='<div class="result-row"><span class="result-label">Coins at current price</span><span class="result-value">'+coins.toFixed(6)+' '+asset+'</span></div><div class="result-row"><span class="result-label">Value at target</span><span class="result-value '+cls+'">'+fmtUSD(vat,2)+'</span></div><hr class="result-divider"><div class="result-row"><span class="result-label">Profit / Loss</span><span class="result-value '+cls+'">'+sign+fmtUSD(Math.abs(prof),2)+'</span></div><div class="result-row"><span class="result-label">ROI</span><span class="result-value '+cls+'">'+sign+Math.abs(roi).toFixed(2)+'%</span></div><div class="result-row"><span class="result-label">Multiplier</span><span class="result-value">'+mult.toFixed(2)+'x</span></div><div class="result-summary">'+msg+'</div>';
+    });
+  })();
+
+}); // end DOMContentLoaded
+</script>
+</body>
+</html>
